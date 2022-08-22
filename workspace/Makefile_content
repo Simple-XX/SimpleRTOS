@@ -1,0 +1,6 @@
+subdir-y += catOS
+subdir-y += user
+
+VERIFY_MSG = "RULE_DIR=$(RULE_DIR)"
+
+include $(RULE_DIR)/rules.mk
