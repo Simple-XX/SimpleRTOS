@@ -1,0 +1,58 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "name": "(gdb) Launch",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/src/output/stm32f103vet6/bin/stm32f103vet6.elf",
+        "args": [],
+        "stopAtEntry": true,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
+    {
+        "name": "Cortex Debug",
+        "cwd": "${workspaceRoot}",
+        "executable": "./workspace/output/demo/bin/demo.elf",
+        "request": "launch",
+        "type": "cortex-debug",
+        "servertype": "openocd",
+        "configFiles": ["/home/mio/Desktop/catos/workspace/config_ocd.cfg"],
+        "armToolchainPath": "/home/mio/Desktop/catos/workspace/gcc-arm-none-eabi-10-2020-q4-major/bin"
+    },
+    {
+        "name": "qemu debug",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/workspace/output/qemu_lm3s6965evb_demo/bin/qemu_lm3s6965evb_demo.elf",
+        "args": [],
+        "stopAtEntry": true,
+        // "targetArchitecture": "arm",
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/home/mio/Desktop/catos/workspace/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gdb",
+        "miDebuggerServerAddress": "localhost:1234",
+        "setupCommands": [
+            {
+                "description": "启用整齐打印",
+                "text": "-enable-pretty-printing"
+            }
+        ]
+    }
+    ]
+}
