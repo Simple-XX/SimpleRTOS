@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SimpleRTOS(catOS)
 
 ## 简介
@@ -114,3 +115,8 @@ cat>
 ## 版权信息
 
 此项目使用 MIT 许可证
+=======
+# SimpleRTOS
+
+目前代码暂时放在develop分支，之后应该会做相应的教程和步骤
+>>>>>>> 49f174e (Create README.md)
