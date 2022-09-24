@@ -44,6 +44,14 @@ $make p=demo
 ```
 编译完成后的生成文件位于workspace/output/demo目录下
 
+如果你想：
+
+- 调试->请看step2
+
+- 只是运行->请看step4.1
+
+--------------调试请从这里继续-------------------
+
 step2: 另外打开一个终端(终端2, openocd连接调试器)
 ```shell
 $openocd -f /usr/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr/share/openocd/scripts/target/stm32f1x.cfg
@@ -75,8 +83,17 @@ $sudo target remote localhost:3333
 $load
 $continue
 ```
-step5: 随即在终端3即可观察到串口输出
+--------------运行请从这里继续-------------------
+
+step4.1:修改workspace/flash.sh中openocd为你的openocd安装目录
+
+step4.2:使用openode下载程序到开发板并自动复位运行
 ```cmd
+$./flash.sh
+```
+
+step5: 随即在终端3即可观察到串口输出
+```
 [cat_shell_port] cat_shell init success 
 _____________________________________
      ___      _   ___ _        _ _   
