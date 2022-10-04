@@ -22,17 +22,38 @@
 #if (CATOS_ENABLE_SYS_PRINTF == 1)
 
 #if defined(__CC_ARM)
-    #define CAT_SYS_PRINTF(_fmt, ...) \
-        do{printf(_fmt, ##__VA_ARGS__);}while(0)
+    #if 0
+        #define CAT_SYS_PRINTF(_fmt, ...) \
+            do{printf(_fmt, ##__VA_ARGS__);}while(0)
 
-    #define CAT_SYS_SCANF(_fmt, ...) \
-        do{scanf(_fmt, ##__VA_ARGS__);}while(0)
+        #define CAT_SYS_SCANF(_fmt, ...) \
+            do{scanf(_fmt, ##__VA_ARGS__);}while(0)
 
-    #define CAT_SYS_PUTCHAR(_ch) \
-        do{putchar(_ch);}while(0)
+        #define CAT_SYS_PUTCHAR(_ch) \
+            do{putchar(_ch);}while(0)
 
-    #define CAT_SYS_GETCHAR() \
-        getchar()
+        #define CAT_SYS_GETCHAR() \
+            getchar()
+    #else
+        /* 系统输入输出宏 */
+        #define CAT_KPRINTF(_fmt, ...) \
+            do{ \
+                cat_printf((const uint8_t *)"[%d] ", catos_systicks); \
+                cat_printf((const uint8_t *)_fmt, ##__VA_ARGS__); \
+            }while(0)
+
+        #define CAT_SYS_PRINTF(_fmt, ...) \
+            cat_printf((const uint8_t *)_fmt, ##__VA_ARGS__)
+
+        #define CAT_SYS_SCANF(_fmt, ...) \
+            cat_scanf((const uint8_t *)_fmt, ##__VA_ARGS__)
+
+        #define CAT_SYS_PUTCHAR(_ch) \
+            cat_putchar(_ch)
+
+        #define CAT_SYS_GETCHAR() \
+            cat_getchar()
+    #endif
 #elif defined(__GNUC__) //#if defined(__CC_ARM)
     /* 系统输入输出宏 */
     #define CAT_KPRINTF(_fmt, ...) \

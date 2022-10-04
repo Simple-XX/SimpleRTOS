@@ -16,10 +16,10 @@
 #include "cat_intr.h"
 #include "port.h"
 
-#include "../drivers/uart/cat_drv_uart.h"
+#include "../../drivers/uart/cat_drv_uart.h"
 
 //#define STM32F103xE
-#include "../Libraries/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+#include "../../Libraries/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
 
 #define NVIC_INT_CTRL   0xE000ED04
 #define NVIC_PENDSVSET  0x10000000
