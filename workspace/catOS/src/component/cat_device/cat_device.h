@@ -168,3 +168,4 @@ uint8_t cat_device_ctrl(cat_device_t *dev, uint8_t cmd, void *arg);
 /* FUNCS END */
 
 #endif
+
