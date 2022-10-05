@@ -54,6 +54,7 @@
         #define CAT_SYS_GETCHAR() \
             cat_getchar()
     #endif
+
 #elif defined(__GNUC__) //#if defined(__CC_ARM)
     /* 系统输入输出宏 */
     #define CAT_KPRINTF(_fmt, ...) \
