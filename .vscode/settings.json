@@ -6,6 +6,8 @@
         "catos_types.h": "c",
         "catos_config.h": "c",
         "stm32f1xx.h": "c",
-        "port.h": "c"
+
+        "port.h": "c",
+        "stm32f1xx_hal.h": "c"
     }
 }
