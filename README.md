@@ -38,6 +38,7 @@
 step1: 安装keil后打开项目，勾选project->manage->project items->Folders/Extensions->Use GCC Compiler for ARM projects
 
 step2: 在step1的页面设置GCC路径为根目录(注意下载压缩包版本的工具链解压后外层会多一层目录，真正的工具链根目录包含了arm-none-eabi等多个目录)
+
 =======
 交叉编译调试工具 `gcc-arm-none-eabi`
 
