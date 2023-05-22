@@ -5,7 +5,6 @@
 
 //#include "key.h"
 
-
 #define TASK1_STACK_SIZE    (1024)
 #define TASK2_STACK_SIZE    (1024)
 

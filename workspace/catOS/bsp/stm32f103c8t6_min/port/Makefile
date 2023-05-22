@@ -6,5 +6,4 @@
 
 subdir-y += gnu
 
-
 include $(RULE_DIR)/rules.mk

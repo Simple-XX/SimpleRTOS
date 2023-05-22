@@ -388,4 +388,3 @@ void cat_sp_task_suspend_wakeup(struct _cat_task_t *task)
 
     cat_hw_irq_enable(status);
 }
-
