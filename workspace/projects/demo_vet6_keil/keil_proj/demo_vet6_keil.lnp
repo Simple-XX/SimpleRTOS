@@ -1,0 +1,1 @@
+-T ../../demo/demo.ld -mcpu=cortex-m3 -mthumb -mthumb-interwork -Wl,-Map="./demo_vet6_keil.map" -o "./demo_vet6_keil.elf" "./catos_start.o" "./main.o" "./stm32f1xx_it.o" "./system_stm32f1xx.o" -nostartfiles -lm -Wl,--gc-sections

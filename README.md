@@ -33,7 +33,7 @@ ver2: 第二个版本，重构大部分代码
 2.windows环境
 - 集成开发环境    `keil(MDK)`
 
-- 交叉编译工具链 `gcc-arm-none-eabi`
+- 交叉编译工具链 `gcc-arm-none-eabi(gcc-arm-none-eabi-10-2020-q4-major)`
 
 关键配置流程：
 

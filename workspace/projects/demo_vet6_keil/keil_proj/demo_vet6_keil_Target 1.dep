@@ -1,0 +1,36 @@
+Dependencies for Project 'demo_vet6_keil', Target 'Target 1': (DO NOT MODIFY !)
+F (..\..\..\catOS\bsp\arch\cortex_m3\stm32f103vet6_fire\port\gcc\catos_start.s)(0x646C53E8)(-mcpu=cortex-m3 -mthumb --gdwarf-2 -mthumb-interwork -IF:/code/SimpleRTOS/workspace/projects/demo_vet6_keil/keil_proj/RTE -IF:/software/Keil/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0 --defsym __UVISION_VERSION=514 --defsym STM32F10X_HD=1--MD ./catos_start.d -o ./catos_start.o)
+F (..\user\main.c)(0x646C3E70)(-c -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -O0 -mapcs-frame -mapcs-stack-check -mthumb-interwork -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver/Inc -I../../../catOS/bsp/Libraries/CMSIS/Device/ST/STM32F1xx/Include -I../../../catOS/bsp/Libraries/CMSIS/Core/Include -fdata-sections -ffunction-sections -IF:/code/SimpleRTOS/workspace/projects/demo_vet6_keil/keil_proj/RTE -IF:/software/Keil/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0 -D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ./main.o)
+F (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\stm32f1xx_it.c)(0x646C34C0)(-c -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -O0 -mapcs-frame -mapcs-stack-check -mthumb-interwork -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver/Inc -I../../../catOS/bsp/Libraries/CMSIS/Device/ST/STM32F1xx/Include -I../../../catOS/bsp/Libraries/CMSIS/Core/Include -fdata-sections -ffunction-sections -IF:/code/SimpleRTOS/workspace/projects/demo_vet6_keil/keil_proj/RTE -IF:/software/Keil/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0 -D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ./stm32f1xx_it.o)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\stm32f1xx_it.h)(0x646C34C0)
+F (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\system_stm32f1xx.c)(0x646C34C0)(-c -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -O0 -mapcs-frame -mapcs-stack-check -mthumb-interwork -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver -I../../../catOS/bsp/Libraries/STM32F1xx_HAL_Driver/Inc -I../../../catOS/bsp/Libraries/CMSIS/Device/ST/STM32F1xx/Include -I../../../catOS/bsp/Libraries/CMSIS/Core/Include -fdata-sections -ffunction-sections -IF:/code/SimpleRTOS/workspace/projects/demo_vet6_keil/keil_proj/RTE -IF:/software/Keil/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0 -D__UVISION_VERSION="514" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ./system_stm32f1xx.o)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xe.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Core\Include\core_cm3.h)(0x646C34C0)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\lib\gcc\arm-none-eabi\10.2.1\include\stdint.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\stdint.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\machine\_default_types.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\sys\features.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\_newlib_version.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\sys\_intsup.h)(0x00000000)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\arm-none-eabi\include\sys\_stdint.h)(0x00000000)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Core\Include\cmsis_version.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Core\Include\cmsis_compiler.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Core\Include\cmsis_gcc.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\system_stm32f1xx.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\stm32f1xx_hal_conf.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_def.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x646C34C0)
+I (f\:\code\gcc-arm-none-eabi-10-2020-q4-major\lib\gcc\arm-none-eabi\10.2.1\include\stddef.h)(0x00000000)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma_ex.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_cortex.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h)(0x646C34C0)
+I (..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x646C34C0)

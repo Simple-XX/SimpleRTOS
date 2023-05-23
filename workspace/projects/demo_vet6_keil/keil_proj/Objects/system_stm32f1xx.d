@@ -1,0 +1,9 @@
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\STM32F1xx_HAL_Driver\system_stm32f1xx.c
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xe.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Core\Include\core_cm3.h
+.\objects\system_stm32f1xx.o: F:\software\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Core\Include\cmsis_version.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Core\Include\cmsis_compiler.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Core\Include\cmsis_armcc.h
+.\objects\system_stm32f1xx.o: ..\..\..\catOS\bsp\stm32f103vet6_fire\Libraries\CMSIS\Device\ST\STM32F1xx\Include\system_stm32f1xx.h
