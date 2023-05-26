@@ -1,5 +1,5 @@
 subdir-y += catOS
-subdir-y += user
+subdir-y += projects
 
 VERIFY_MSG = "RULE_DIR=$(RULE_DIR)"
 

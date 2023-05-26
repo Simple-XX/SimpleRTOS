@@ -1,13 +1,14 @@
 {
     "files.associations": {
+        "*.md": "markdown",
         "*.s": "arm",
         "cat_list.h": "c",
         "cat_device.h": "c",
         "catos_types.h": "c",
         "catos_config.h": "c",
         "stm32f1xx.h": "c",
-
         "port.h": "c",
-        "stm32f1xx_hal.h": "c"
+        "stm32f1xx_hal.h": "c",
+        "bsp_board_led.h": "c"
     }
 }

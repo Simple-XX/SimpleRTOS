@@ -1,6 +1,6 @@
 
 CINCLUDE_FILE += catOS/bsp/interface
-CINCLUDE_FILE += catOS/bsp/$(CATOS_BOARD_BSP)/drivers
+CINCLUDE_FILE += catOS/bsp/arch/$(CATOS_BOARD_ARCH)/$(CATOS_BOARD_BSP)/drivers
 
 
 CINCLUDE_FILE += catOS/include

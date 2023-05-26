@@ -1,5 +1,4 @@
 
-
 subdir-y += core
 subdir-y += component
 

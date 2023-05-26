@@ -12,9 +12,9 @@ BUILD_DIR = $(TOP_DIR)/../Build
 #-编译链配置目录,在项目配置文件中使用
 #CONFIG_DIR = $(TOP_DIR)/../Build
 #项目配置目录
-PROJECT_DIR = $(SRC_DIR)/project_configs
+PROJECT_DIR = $(SRC_DIR)/projects
 #通用配置目录
-COMMON_CONFIG_DIR = $(SRC_DIR)/project_configs/common_configs
+COMMON_CONFIG_DIR = $(PROJECT_DIR)/common_configs
 #读取输入的参数
 export PROJECT = $(p)
 
