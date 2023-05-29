@@ -16,14 +16,14 @@ CINCLUDE_FILE_FLAG := $(addprefix -I$(RELATIVE_PATH)/,$(CINCLUDE_FILE))
 
 
 #设置为伪目标，否则检测到文件或目录存在就不会执行命令
-.PHONY: verify $(subdir-y) $(TARGET)
+.PHONY: print_cat_compile_info $(subdir-y) $(TARGET)
 
-all: verify $(OBJ_Y_DIR) $(TARGET)
+all: print_cat_compile_info $(OBJ_Y_DIR) $(TARGET)
 
 #在子makefile里声明编译前需要打印的信息，VERIFY_MSG = xxx
-verify:
-ifdef VERIFY_MSG
-	@echo "verify msg: $(VERIFY_MSG)"
+print_cat_compile_info:
+ifdef CAT_COMPILE_INFO
+	@echo "$(CAT_COMPILE_INFO)"
 endif
 #	@echo "CUR_DIR=$(CUR_DIR)"
 #	@echo "TOP_DIR=$(TOP_DIR)"
@@ -47,6 +47,7 @@ $(OBJ_Y_DIR):
 #需要增加RELATIVE_PATH的层数
 $(TARGET): $(OBJ_TARGET) $(subdir-y)
 
+ifdef obj-y
 #编译文件
 $(OBJ_OUT_DIR)/%.o: $(CUR_DIR)/%.c
 	$(CC) $(CINCLUDE_FILE_FLAG) $(CFLAGS) -o $@ -c $<
@@ -56,6 +57,7 @@ $(OBJ_OUT_DIR)/%.o: $(CUR_DIR)/%.s
 
 $(OBJ_OUT_DIR)/%.o: $(CUR_DIR)/%.S
 	$(AS) $(ASMINCLUDE_FILE_FLAG) $(ASMFLAGS) -o $@ -c $<
+endif
 
 #更改相对路径，以便目录层级创建
 #############!!note2:添加../必须放在这里，放前面的话生成的obj会再往上一个目录...

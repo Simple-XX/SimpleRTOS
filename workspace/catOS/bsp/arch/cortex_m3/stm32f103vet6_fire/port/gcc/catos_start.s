@@ -114,8 +114,8 @@ LoopFillZerobss:
 /*    bl __libc_init_array */
 /* Call the application's entry point.*/
 /* 调用catos入口函数，并在完成初始化后跳转至用户主函数 */
-  //bl catos_init
-  bl main
+  bl catos_init
+  //bl main
   bx lr
 .size Reset_Handler, .-Reset_Handler
 

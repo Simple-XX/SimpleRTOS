@@ -13,6 +13,7 @@
 #define CATOS_H
 
 #include "../bsp/interface/port.h"
+#include "../bsp/interface/drivers/cat_pin.h"
 
 #include "../src/core/init/cat_init.h"
 #include "../src/core/interrupt/cat_intr.h"

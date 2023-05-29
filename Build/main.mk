@@ -1,8 +1,8 @@
 #定义基础命令
-export RM_FILE = /bin/rm -f
-export RM_DIR  = /bin/rm -rf
-export MK_DIR  = /bin/mkdir -p
-export CP      = cp
+export RM_FILE=/bin/rm -f
+export RM_DIR=/bin/rm -rf
+export MK_DIR=/bin/mkdir -p
+export CP=cp
 
 #顶部目录，通常为src，main.mk被包含在src/Makefile中，pwd自然是src的绝对地址
 TOP_DIR = $(shell pwd)
@@ -67,13 +67,10 @@ GIT_EMAIL := $(subst <,,$(subst >,,$(GIT_EMAIL_FULL)))
 start_time := $(shell date "+%Y-%m-%d %H:%M:%S")
 
 #设定为伪目标
-.PHONY: verify clean $(SRC_DIR)
+.PHONY: clean $(SRC_DIR)
 #以Makefile_content编译src目录 不输出进出目录的信息
-all: verify $(OUT_ELF)
+all: $(OUT_ELF)
 
-verify:
-	@echo "OUT_ELF=$(OUT_ELF)"
-	
 
 $(OUT_ELF): $(BIN_DIR) $(SRC_DIR)
 	@echo "$(TEXT_COLOR_WHITE)<----------------------build done$(TEXT_COLOR_END)"
@@ -87,6 +84,7 @@ $(OUT_ELF): $(BIN_DIR) $(SRC_DIR)
 	@echo "build $(TEXT_COLOR_GREEN)$(PROJECT)$(TEXT_COLOR_END), start time: $(start_time) end time: $(shell date "+%Y-%m-%d %H:%M:%S")"
 
 $(BIN_DIR):
+	@$(MK_DIR) $(OUT_DIR)/$(PROJECT)
 	@$(MK_DIR) $(OUT_DIR)/$(PROJECT)/bin
 	@$(MK_DIR) $(OUT_DIR)/$(PROJECT)/obj
 	@$(MK_DIR) $(OUT_DIR)/$(PROJECT)/lib

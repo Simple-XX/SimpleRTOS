@@ -1,10 +1,6 @@
 
 #include "catos.h"
 
-#include "bsp_board_led.h"
-
-//#include "key.h"
-
 #define TASK1_STACK_SIZE    (1024)
 #define TASK2_STACK_SIZE    (1024)
 
@@ -18,15 +14,32 @@ cat_stack_type_t task2_env[TASK2_STACK_SIZE];
 uint32_t sched_task1_times = 0;
 uint32_t sched_task2_times = 0;
 
+#define BOARD_LED_PIN 0
+
+void board_led_init(void)
+{
+    cat_pin_init(BOARD_LED_PIN, CAT_PIN_MODE_OUTPUT);
+}
+
+void board_led_on(void)
+{
+    cat_pin_write(BOARD_LED_PIN, CAT_PIN_LOW);
+}
+
+void board_led_off(void)
+{
+    cat_pin_write(BOARD_LED_PIN, CAT_PIN_HIGH);
+}
+
 void task1_entry(void *arg)
 {
 
     for(;;)
     {
         sched_task1_times++;
-	    board_led_on();
+	    // board_led_on();
         cat_sp_task_delay(100);
-		board_led_off();
+		// board_led_off();
         cat_sp_task_delay(100);
     }
 }
