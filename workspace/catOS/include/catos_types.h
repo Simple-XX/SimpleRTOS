@@ -22,18 +22,16 @@
 
 typedef signed char     int8_t;
 typedef short int       int16_t;
-#if defined(__CC_ARM)
+#if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
     typedef int             int32_t;
 #endif
 typedef unsigned char           uint8_t;
 typedef unsigned short int      uint16_t;
-#if 1
-    #if defined(__CC_ARM)
-        typedef unsigned int            uint32_t;
-    #endif
-#else
+
+#if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
     typedef unsigned int            uint32_t;
 #endif
+
 
 typedef uint8_t cat_stack_type_t;
 

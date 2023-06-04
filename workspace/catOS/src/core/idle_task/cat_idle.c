@@ -14,6 +14,7 @@
 
 #include "cat_idle.h"
 #include "cat_task.h"
+#include "cat_stdio.h"
 
 
 /* var decl */
@@ -41,6 +42,11 @@ void cat_idle_task_create(void)
         CATOS_IDLE_STACK_SIZE
     );
     cat_idle_task = &idle_task;
+
+    if(cat_stdio_is_device_is_set())
+    {
+        CAT_KPRINTF("[cat_idle] idle task created\r\n");
+    }
 }
 
 void cat_idle_entry(void *arg)

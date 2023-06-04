@@ -1,0 +1,1065 @@
+Archive member included to satisfy reference by file (symbol)
+
+e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+                              ./port.o (memset)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00080000         xr
+RAM              0x20000000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./cat_drv_pin.o
+LOAD ./cat_drv_uart.o
+LOAD ./catos_start.o
+LOAD ./port.o
+LOAD ./contex.o
+LOAD ./cpu_port.o
+LOAD ./main.o
+LOAD ./stm32f1xx_it.o
+LOAD ./system_stm32f1xx.o
+LOAD ./stm32f1xx_hal.o
+LOAD ./stm32f1xx_hal_cortex.o
+LOAD ./stm32f1xx_hal_exti.o
+LOAD ./stm32f1xx_hal_dma.o
+LOAD ./stm32f1xx_hal_gpio.o
+LOAD ./stm32f1xx_hal_pwr.o
+LOAD ./stm32f1xx_hal_rcc.o
+LOAD ./stm32f1xx_hal_uart.o
+LOAD ./cat_device.o
+LOAD ./cat_shell.o
+LOAD ./cat_shell_cmds.o
+LOAD ./cat_shell_port.o
+LOAD ./cat_stdio.o
+LOAD ./cat_string.o
+LOAD ./mem_rw.o
+LOAD ./cat_idle.o
+LOAD ./cat_init.o
+LOAD ./cat_intr.o
+LOAD ./cat_basic_task.o
+LOAD ./cat_bitmap.o
+LOAD ./cat_sp_task.o
+LOAD ./cat_list.o
+LOAD ./test_cat_string.o
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a
+START GROUP
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp\libgcc.a
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a
+END GROUP
+                0x00000400                _Min_Heap_Size = 0x400
+                0x00000800                _Min_Stack_Size = 0x800
+
+.isr_vector     0x08000000      0x1e4
+                0x08000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000      0x1e4 ./catos_start.o
+                0x08000000                g_pfnVectors
+                0x080001e4                . = ALIGN (0x4)
+
+.text           0x080001e4     0x8164
+                0x080001e4                . = ALIGN (0x4)
+                0x080001e4                _stext = .
+ *(.text)
+ .text          0x080001e4      0x1dc ./cat_drv_pin.o
+                0x080001e4                cat_pin_device_init
+                0x0800025c                cat_pin_init
+                0x080002fc                cat_pin_set_mode
+                0x08000334                cat_pin_read
+                0x0800036c                cat_pin_write
+ .text          0x080003c0      0x1b0 ./cat_drv_uart.o
+                0x080003c0                uart_init
+                0x08000426                uart_read
+                0x08000456                uart_write
+                0x0800048a                uart_ctrl
+                0x080004a2                cat_drv_uart_register
+                0x080004dc                HAL_UART_MspInit
+ .text          0x08000570       0x14 ./catos_start.o
+ .text          0x08000584      0x19c ./port.o
+                0x080005d8                __wrap_atexit
+                0x080005ee                cat_hw_init
+                0x08000600                SysTick_Handler
+                0x08000610                catos_start_sched
+ .text          0x08000720       0x4c ./contex.o
+                0x08000720                cat_hw_irq_disable
+                0x08000728                cat_hw_irq_enable
+                0x0800072e                cat_hw_context_switch
+                0x08000738                PendSV_Handler
+ .text          0x0800076c       0x8c ./cpu_port.o
+                0x0800076c                cat_hw_stack_init
+ .text          0x080007f8       0xdc ./main.o
+                0x080007f8                board_led_init
+                0x08000808                board_led_on
+                0x08000818                board_led_off
+                0x08000828                task1_entry
+                0x08000854                task2_entry
+                0x08000864                main
+ .text          0x080008d4       0x3c ./stm32f1xx_it.o
+                0x080008d4                NMI_Handler
+                0x080008e0                HardFault_Handler
+                0x080008e6                MemManage_Handler
+                0x080008ec                BusFault_Handler
+                0x080008f2                UsageFault_Handler
+                0x080008f8                SVC_Handler
+                0x08000904                DebugMon_Handler
+ .text          0x08000910      0x14c ./system_stm32f1xx.o
+                0x08000910                SystemInit
+                0x08000978                SystemCoreClockUpdate
+ .text          0x08000a5c      0x32c ./stm32f1xx_hal.o
+                0x08000a5c                HAL_Init
+                0x08000a88                HAL_DeInit
+                0x08000ab8                HAL_MspInit
+                0x08000ac4                HAL_MspDeInit
+                0x08000ad0                HAL_InitTick
+                0x08000b30                HAL_IncTick
+                0x08000b54                HAL_GetTick
+                0x08000b68                HAL_GetTickPrio
+                0x08000b7c                HAL_SetTickFreq
+                0x08000bcc                HAL_GetTickFreq
+                0x08000be0                HAL_Delay
+                0x08000c28                HAL_SuspendTick
+                0x08000c44                HAL_ResumeTick
+                0x08000c60                HAL_GetHalVersion
+                0x08000c74                HAL_GetREVID
+                0x08000c8c                HAL_GetDEVID
+                0x08000ca4                HAL_GetUIDw0
+                0x08000cb8                HAL_GetUIDw1
+                0x08000ccc                HAL_GetUIDw2
+                0x08000ce0                HAL_DBGMCU_EnableDBGSleepMode
+                0x08000cfc                HAL_DBGMCU_DisableDBGSleepMode
+                0x08000d18                HAL_DBGMCU_EnableDBGStopMode
+                0x08000d34                HAL_DBGMCU_DisableDBGStopMode
+                0x08000d50                HAL_DBGMCU_EnableDBGStandbyMode
+                0x08000d6c                HAL_DBGMCU_DisableDBGStandbyMode
+ .text          0x08000d88      0x560 ./stm32f1xx_hal_cortex.o
+                0x08001144                HAL_NVIC_SetPriorityGrouping
+                0x0800115a                HAL_NVIC_SetPriority
+                0x08001192                HAL_NVIC_EnableIRQ
+                0x080011ae                HAL_NVIC_DisableIRQ
+                0x080011ca                HAL_NVIC_SystemReset
+                0x080011d2                HAL_SYSTICK_Config
+                0x080011ea                HAL_NVIC_GetPriorityGrouping
+                0x080011f8                HAL_NVIC_GetPriority
+                0x08001224                HAL_NVIC_SetPendingIRQ
+                0x08001240                HAL_NVIC_GetPendingIRQ
+                0x0800125e                HAL_NVIC_ClearPendingIRQ
+                0x0800127a                HAL_NVIC_GetActive
+                0x08001298                HAL_SYSTICK_CLKSourceConfig
+                0x080012d0                HAL_SYSTICK_IRQHandler
+                0x080012dc                HAL_SYSTICK_Callback
+ .text          0x080012e8      0x438 ./stm32f1xx_hal_exti.o
+                0x080012e8                HAL_EXTI_SetConfigLine
+                0x08001434                HAL_EXTI_GetConfigLine
+                0x08001524                HAL_EXTI_ClearConfigLine
+                0x080015e4                HAL_EXTI_RegisterCallback
+                0x08001616                HAL_EXTI_GetHandle
+                0x0800163c                HAL_EXTI_IRQHandler
+                0x08001684                HAL_EXTI_GetPending
+                0x080016c4                HAL_EXTI_ClearPending
+                0x080016f4                HAL_EXTI_GenerateSWI
+ .text          0x08001720     0x1354 ./stm32f1xx_hal_dma.o
+                0x08001720                HAL_DMA_Init
+                0x0800180c                HAL_DMA_DeInit
+                0x080018fc                HAL_DMA_Start
+                0x08001980                HAL_DMA_Start_IT
+                0x08001a3e                HAL_DMA_Abort
+                0x08001ab2                HAL_DMA_Abort_IT
+                0x08001cc0                HAL_DMA_PollForTransfer
+                0x0800243c                HAL_DMA_IRQHandler
+                0x080028b4                HAL_DMA_RegisterCallback
+                0x08002942                HAL_DMA_UnRegisterCallback
+                0x080029ec                HAL_DMA_GetState
+                0x08002a04                HAL_DMA_GetError
+ .text          0x08002a74      0x5e4 ./stm32f1xx_hal_gpio.o
+                0x08002a74                HAL_GPIO_Init
+                0x08002d9c                HAL_GPIO_DeInit
+                0x08002f34                HAL_GPIO_ReadPin
+                0x08002f62                HAL_GPIO_WritePin
+                0x08002f92                HAL_GPIO_TogglePin
+                0x08002fc4                HAL_GPIO_LockPin
+                0x08003012                HAL_GPIO_EXTI_IRQHandler
+                0x08003044                HAL_GPIO_EXTI_Callback
+ .text          0x08003058      0x330 ./stm32f1xx_hal_pwr.o
+                0x08003068                HAL_PWR_DeInit
+                0x08003090                HAL_PWR_EnableBkUpAccess
+                0x080030a8                HAL_PWR_DisableBkUpAccess
+                0x080030c0                HAL_PWR_ConfigPVD
+                0x0800317c                HAL_PWR_EnablePVD
+                0x08003194                HAL_PWR_DisablePVD
+                0x080031ac                HAL_PWR_EnableWakeUpPin
+                0x080031e4                HAL_PWR_DisableWakeUpPin
+                0x0800321c                HAL_PWR_EnterSLEEPMode
+                0x08003254                HAL_PWR_EnterSTOPMode
+                0x080032b8                HAL_PWR_EnterSTANDBYMode
+                0x080032e8                HAL_PWR_EnableSleepOnExit
+                0x08003304                HAL_PWR_DisableSleepOnExit
+                0x08003320                HAL_PWR_EnableSEVOnPend
+                0x0800333c                HAL_PWR_DisableSEVOnPend
+                0x08003358                HAL_PWR_PVD_IRQHandler
+                0x0800337c                HAL_PWR_PVDCallback
+ .text          0x08003388      0xba4 ./stm32f1xx_hal_rcc.o
+                0x08003388                HAL_RCC_DeInit
+                0x080034bc                HAL_RCC_OscConfig
+                0x080039c0                HAL_RCC_ClockConfig
+                0x08003b94                HAL_RCC_MCOConfig
+                0x08003c04                HAL_RCC_EnableCSS
+                0x08003c1c                HAL_RCC_DisableCSS
+                0x08003c34                HAL_RCC_GetSysClockFreq
+                0x08003cf4                HAL_RCC_GetHCLKFreq
+                0x08003d08                HAL_RCC_GetPCLK1Freq
+                0x08003d30                HAL_RCC_GetPCLK2Freq
+                0x08003d58                HAL_RCC_GetOscConfig
+                0x08003e5c                HAL_RCC_GetClockConfig
+                0x08003ebc                HAL_RCC_NMI_IRQHandler
+                0x08003f20                HAL_RCC_CSSCallback
+ .text          0x08003f2c     0x20f0 ./stm32f1xx_hal_uart.o
+                0x08003f2c                HAL_UART_Init
+                0x08003fc6                HAL_HalfDuplex_Init
+                0x08004070                HAL_LIN_Init
+                0x0800413c                HAL_MultiProcessor_Init
+                0x0800421c                HAL_UART_DeInit
+                0x0800428c                HAL_UART_MspDeInit
+                0x0800429e                HAL_UART_Transmit
+                0x080043c2                HAL_UART_Receive
+                0x08004506                HAL_UART_Transmit_IT
+                0x0800458e                HAL_UART_Receive_IT
+                0x080045ee                HAL_UART_Transmit_DMA
+                0x080046c8                HAL_UART_Receive_DMA
+                0x08004728                HAL_UART_DMAPause
+                0x080047ee                HAL_UART_DMAResume
+                0x0800488e                HAL_UART_DMAStop
+                0x08004944                HAL_UARTEx_ReceiveToIdle
+                0x08004afe                HAL_UARTEx_ReceiveToIdle_IT
+                0x08004b9c                HAL_UARTEx_ReceiveToIdle_DMA
+                0x08004c3a                HAL_UART_Abort
+                0x08004d5c                HAL_UART_AbortTransmit
+                0x08004de4                HAL_UART_AbortReceive
+                0x08004e9a                HAL_UART_Abort_IT
+                0x08005000                HAL_UART_AbortTransmit_IT
+                0x080050a0                HAL_UART_AbortReceive_IT
+                0x08005174                HAL_UART_IRQHandler
+                0x080054c8                HAL_UART_TxCpltCallback
+                0x080054da                HAL_UART_TxHalfCpltCallback
+                0x080054ec                HAL_UART_RxCpltCallback
+                0x080054fe                HAL_UART_RxHalfCpltCallback
+                0x08005510                HAL_UART_ErrorCallback
+                0x08005522                HAL_UART_AbortCpltCallback
+                0x08005534                HAL_UART_AbortTransmitCpltCallback
+                0x08005546                HAL_UART_AbortReceiveCpltCallback
+                0x08005558                HAL_UARTEx_RxEventCallback
+                0x0800556e                HAL_LIN_SendBreak
+                0x080055c0                HAL_MultiProcessor_EnterMuteMode
+                0x08005612                HAL_MultiProcessor_ExitMuteMode
+                0x08005664                HAL_HalfDuplex_EnableTransmitter
+                0x080056ca                HAL_HalfDuplex_EnableReceiver
+                0x08005730                HAL_UART_GetState
+                0x0800576a                HAL_UART_GetError
+                0x080059e2                UART_Start_Receive_IT
+                0x08005a54                UART_Start_Receive_DMA
+ .text          0x0800601c      0x58c ./cat_device.o
+                0x08006120                cat_device_module_init
+                0x08006134                cat_device_get
+                0x08006198                cat_device_register
+                0x08006210                cat_device_unregister
+                0x0800625c                cat_device_set_rx_cbk
+                0x08006288                cat_device_set_tx_cbk
+                0x080062b4                cat_device_init
+                0x08006304                cat_device_open
+                0x080063b4                cat_device_close
+                0x08006420                cat_device_read
+                0x08006464                cat_device_write
+                0x080064ac                cat_device_ctrl
+                0x080064ec                do_list_device
+ .text          0x080065a8      0x434 ./cat_shell.o
+                0x080065a8                cat_shell_init
+                0x08006660                cat_shell_task_entry
+                0x080066d4                cat_handle_input_char
+                0x08006840                cat_seek_cmd
+                0x08006898                cat_parse_args
+                0x0800696c                cat_execute_cmd
+                0x080069b8                cat_history_up
+                0x080069ca                cat_history_down
+ .text          0x080069dc      0x18c ./cat_shell_cmds.o
+                0x080069dc                backspace_action
+                0x08006a14                enter_action
+                0x08006a64                do_help
+                0x08006ab8                do_test_args
+                0x08006b4c                do_clear
+ .text          0x08006b68       0xdc ./cat_shell_port.o
+                0x08006b68                cat_shell_task_create
+                0x08006bfc                cat_shell_port_getc
+                0x08006c20                cat_shell_port_putc
+ .text          0x08006c44      0x4fc ./cat_stdio.o
+                0x08006e84                cat_stdio_set_device
+                0x08006f0c                cat_stdio_is_device_is_set
+                0x08006f34                cat_getchar
+                0x08006f5c                cat_putchar
+                0x08006f84                cat_scanf
+                0x08007030                cat_printf
+ .text          0x08007140      0x4b4 ./cat_string.o
+                0x08007140                cat_strcmp
+                0x080071ac                cat_strcpy
+                0x08007248                cat_atoi
+                0x08007328                cat_itoa
+                0x08007342                cat_htoi
+                0x0800746c                cat_itoh
+                0x08007544                cat_memset
+ .text          0x080075f4      0x1e4 ./mem_rw.o
+                0x080075f4                get_reg
+                0x08007648                set_reg
+                0x08007668                do_getreg
+                0x08007724                do_setreg
+ .text          0x080077d8       0x74 ./cat_idle.o
+                0x080077d8                cat_idle_task_create
+                0x08007840                cat_idle_entry
+ .text          0x0800784c       0x38 ./cat_init.o
+                0x0800784c                catos_init
+ .text          0x08007884       0x58 ./cat_intr.o
+                0x08007884                cat_systick_init
+                0x0800789c                cat_intr_systemtick_handler
+                0x080078cc                cat_intr_default_handler
+ .text          0x080078dc       0x98 ./cat_basic_task.o
+                0x080078e2                cat_task_init
+ .text          0x08007974       0xf8 ./cat_bitmap.o
+                0x08007974                cat_bitmap_get_wide
+                0x08007982                cat_bitmap_init
+                0x0800799a                cat_bitmap_set
+                0x080079c0                cat_bitmap_clr
+                0x080079e8                cat_bitmap_get_first_set
+ .text          0x08007a6c      0x4e4 ./cat_sp_task.o
+                0x08007a6c                assert_task
+                0x08007a8a                cat_sp_task_scheduler_init
+                0x08007b08                cat_sp_task_create
+                0x08007b40                cat_sp_task_before_start_first
+                0x08007b5c                cat_sp_task_highest_ready
+                0x08007b98                cat_sp_task_delay_deal
+                0x08007c64                cat_sp_task_sched
+                0x08007cbc                cat_sp_task_sched_enable
+                0x08007cfc                cat_sp_task_sched_enable_without_sched
+                0x08007d30                cat_sp_task_sched_disable
+                0x08007d64                cat_sp_task_rdy
+                0x08007dac                cat_sp_task_unrdy
+                0x08007e14                cat_sp_task_delay
+                0x08007e6c                cat_sp_task_delay_wakeup
+                0x08007ea0                cat_sp_task_suspend
+                0x08007f00                cat_sp_task_suspend_wakeup
+ .text          0x08007f50      0x26a ./cat_list.o
+                0x08007f50                cat_list_init
+                0x08007f74                cat_list_node_init
+                0x08007f92                cat_list_count
+                0x08007fa8                cat_list_first
+                0x08007fce                cat_list_last
+                0x08007ff4                cat_list_pre
+                0x0800801a                cat_list_next
+                0x08008040                cat_list_remove_node
+                0x08008072                cat_list_remove_all
+                0x080080c6                cat_list_add_first
+                0x08008104                cat_list_add_last
+                0x0800813e                cat_list_remove_first
+                0x0800817e                cat_list_insert_after
+ *fill*         0x080081ba        0x2 
+ .text          0x080081bc       0xa0 ./test_cat_string.o
+                0x080081bc                do_test_htoitoh
+                0x08008244                do_test_cat_string
+ .text          0x0800825c        0x0 e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+ *(.text*)
+ .text.Reset_Handler
+                0x0800825c       0x44 ./catos_start.o
+                0x0800825c                Reset_Handler
+ .text.Default_Handler
+                0x080082a0        0x4 ./catos_start.o
+                0x080082a0                RTC_Alarm_IRQHandler
+                0x080082a0                EXTI2_IRQHandler
+                0x080082a0                TIM8_TRG_COM_IRQHandler
+                0x080082a0                TIM8_CC_IRQHandler
+                0x080082a0                TIM1_CC_IRQHandler
+                0x080082a0                TIM6_IRQHandler
+                0x080082a0                PVD_IRQHandler
+                0x080082a0                SDIO_IRQHandler
+                0x080082a0                EXTI3_IRQHandler
+                0x080082a0                EXTI0_IRQHandler
+                0x080082a0                I2C2_EV_IRQHandler
+                0x080082a0                ADC1_2_IRQHandler
+                0x080082a0                SPI1_IRQHandler
+                0x080082a0                TAMPER_IRQHandler
+                0x080082a0                TIM8_UP_IRQHandler
+                0x080082a0                DMA2_Channel2_IRQHandler
+                0x080082a0                DMA1_Channel4_IRQHandler
+                0x080082a0                USART3_IRQHandler
+                0x080082a0                RTC_IRQHandler
+                0x080082a0                DMA1_Channel7_IRQHandler
+                0x080082a0                CAN1_RX1_IRQHandler
+                0x080082a0                UART5_IRQHandler
+                0x080082a0                ADC3_IRQHandler
+                0x080082a0                TIM4_IRQHandler
+                0x080082a0                DMA2_Channel1_IRQHandler
+                0x080082a0                I2C1_EV_IRQHandler
+                0x080082a0                DMA1_Channel6_IRQHandler
+                0x080082a0                UART4_IRQHandler
+                0x080082a0                TIM3_IRQHandler
+                0x080082a0                RCC_IRQHandler
+                0x080082a0                TIM1_TRG_COM_IRQHandler
+                0x080082a0                DMA1_Channel1_IRQHandler
+                0x080082a0                Default_Handler
+                0x080082a0                EXTI15_10_IRQHandler
+                0x080082a0                TIM7_IRQHandler
+                0x080082a0                TIM5_IRQHandler
+                0x080082a0                EXTI9_5_IRQHandler
+                0x080082a0                SPI2_IRQHandler
+                0x080082a0                DMA1_Channel5_IRQHandler
+                0x080082a0                EXTI4_IRQHandler
+                0x080082a0                USB_LP_CAN1_RX0_IRQHandler
+                0x080082a0                USB_HP_CAN1_TX_IRQHandler
+                0x080082a0                DMA1_Channel3_IRQHandler
+                0x080082a0                FSMC_IRQHandler
+                0x080082a0                TIM1_UP_IRQHandler
+                0x080082a0                WWDG_IRQHandler
+                0x080082a0                TIM2_IRQHandler
+                0x080082a0                TIM1_BRK_IRQHandler
+                0x080082a0                EXTI1_IRQHandler
+                0x080082a0                DMA2_Channel4_5_IRQHandler
+                0x080082a0                USART2_IRQHandler
+                0x080082a0                I2C2_ER_IRQHandler
+                0x080082a0                DMA1_Channel2_IRQHandler
+                0x080082a0                TIM8_BRK_IRQHandler
+                0x080082a0                CAN1_SCE_IRQHandler
+                0x080082a0                FLASH_IRQHandler
+                0x080082a0                USART1_IRQHandler
+                0x080082a0                SPI3_IRQHandler
+                0x080082a0                I2C1_ER_IRQHandler
+                0x080082a0                USBWakeUp_IRQHandler
+                0x080082a0                DMA2_Channel3_IRQHandler
+ .text.memset   0x080082a4       0xa4 e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+                0x080082a4                memset
+ *(.glue_7)
+ .glue_7        0x08008348        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x08008348        0x0 linker stubs
+ *(.eh_frame)
+                0x08008348                . = ALIGN (0x4)
+                0x08008348                _etext = .
+
+.vfp11_veneer   0x08008348        0x0
+ .vfp11_veneer  0x08008348        0x0 linker stubs
+
+.v4_bx          0x08008348        0x0
+ .v4_bx         0x08008348        0x0 linker stubs
+
+.iplt           0x08008348        0x0
+ .iplt          0x08008348        0x0 ./cat_drv_pin.o
+
+.rodata         0x08008348      0x9f4
+                0x08008348                . = ALIGN (0x4)
+ *(.rodata)
+ .rodata        0x08008348       0xe6 ./cat_drv_pin.o
+ *fill*         0x0800842e        0x2 
+ .rodata        0x08008430        0x6 ./cat_drv_uart.o
+ *fill*         0x08008436        0x2 
+ .rodata        0x08008438       0x17 ./main.o
+ *fill*         0x0800844f        0x1 
+ .rodata        0x08008450       0x18 ./system_stm32f1xx.o
+                0x08008450                AHBPrescTable
+                0x08008460                APBPrescTable
+ .rodata        0x08008468       0x10 ./stm32f1xx_hal_rcc.o
+ .rodata        0x08008478       0xed ./cat_device.o
+ *fill*         0x08008565        0x3 
+ .rodata        0x08008568      0x1e1 ./cat_shell.o
+ *fill*         0x08008749        0x3 
+ .rodata        0x0800874c      0x109 ./cat_shell_cmds.o
+ *fill*         0x08008855        0x3 
+ .rodata        0x08008858       0x67 ./cat_shell_port.o
+ *fill*         0x080088bf        0x1 
+ .rodata        0x080088c0       0xbf ./cat_stdio.o
+ *fill*         0x0800897f        0x1 
+ .rodata        0x08008980       0xb0 ./cat_string.o
+ .rodata        0x08008a30      0x13a ./mem_rw.o
+ *fill*         0x08008b6a        0x2 
+ .rodata        0x08008b6c       0x33 ./cat_idle.o
+ *fill*         0x08008b9f        0x1 
+ .rodata        0x08008ba0        0x6 ./cat_init.o
+ *fill*         0x08008ba6        0x2 
+ .rodata        0x08008ba8      0x100 ./cat_bitmap.o
+ .rodata        0x08008ca8       0x37 ./cat_sp_task.o
+ *fill*         0x08008cdf        0x1 
+ .rodata        0x08008ce0       0x5c ./test_cat_string.o
+ *(.rodata*)
+                0x08008d3c                . = ALIGN (0x4)
+
+.rel.dyn        0x08008d3c        0x0
+ .rel.iplt      0x08008d3c        0x0 ./cat_drv_pin.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x08008d3c        0x0
+                0x08008d3c                __exidx_start = .
+ *(.ARM.exidx*)
+                0x08008d3c                __exidx_end = .
+                0x08008d3c                _sidata = LOADADDR (.data)
+
+.data           0x20000000      0x154 load address 0x08008d3c
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+ *(.data)
+ .data          0x20000000       0x20 ./cat_drv_pin.o
+                0x20000000                pin_map
+ .data          0x20000020       0x6c ./cat_drv_uart.o
+                0x20000020                uart1_cfg_data
+                0x20000048                uart1_pri_data
+                0x20000050                uart1_dev
+ .data          0x2000008c        0x0 ./catos_start.o
+ .data          0x2000008c        0x0 ./port.o
+ .data          0x2000008c        0x0 ./contex.o
+ .data          0x2000008c        0x0 ./cpu_port.o
+ .data          0x2000008c        0x0 ./main.o
+ .data          0x2000008c        0x0 ./stm32f1xx_it.o
+ .data          0x2000008c        0x4 ./system_stm32f1xx.o
+                0x2000008c                SystemCoreClock
+ .data          0x20000090        0x5 ./stm32f1xx_hal.o
+                0x20000090                uwTickPrio
+                0x20000094                uwTickFreq
+ .data          0x20000095        0x0 ./stm32f1xx_hal_cortex.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_exti.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_dma.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_gpio.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_pwr.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_rcc.o
+ .data          0x20000095        0x0 ./stm32f1xx_hal_uart.o
+ .data          0x20000095        0x0 ./cat_device.o
+ .data          0x20000095        0x0 ./cat_shell.o
+ .data          0x20000095        0x0 ./cat_shell_cmds.o
+ .data          0x20000095        0x0 ./cat_shell_port.o
+ *fill*         0x20000095        0x3 
+ .data          0x20000098        0x8 ./cat_stdio.o
+ .data          0x200000a0        0x0 ./cat_string.o
+ .data          0x200000a0        0x0 ./mem_rw.o
+ .data          0x200000a0        0x0 ./cat_idle.o
+ .data          0x200000a0        0x0 ./cat_init.o
+ .data          0x200000a0        0x0 ./cat_intr.o
+ .data          0x200000a0        0x0 ./cat_basic_task.o
+ .data          0x200000a0        0x0 ./cat_bitmap.o
+ .data          0x200000a0        0x0 ./cat_sp_task.o
+ .data          0x200000a0        0x0 ./cat_list.o
+ .data          0x200000a0        0x0 ./test_cat_string.o
+ .data          0x200000a0        0x0 e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+ *(.data*)
+                0x200000a0                . = ALIGN (0x4)
+                0x200000a0                PROVIDE (cat_shell_cmd_start = .)
+ *(cat_shell_cmd)
+ cat_shell_cmd  0x200000a0       0x14 ./cat_device.o
+                0x200000a0                cat_cmd_list_device
+ cat_shell_cmd  0x200000b4       0x64 ./cat_shell_cmds.o
+                0x200000b4                cat_cmd_backspace
+                0x200000c8                cat_cmd_enter
+                0x200000dc                cat_cmd_help
+                0x200000f0                cat_cmd_test_args
+                0x20000104                cat_cmd_clear
+ cat_shell_cmd  0x20000118       0x28 ./mem_rw.o
+                0x20000118                cat_cmd_getreg
+                0x2000012c                cat_cmd_setreg
+ cat_shell_cmd  0x20000140       0x14 ./test_cat_string.o
+                0x20000140                cat_cmd_test_string
+                0x20000154                PROVIDE (cat_shell_cmd_end = .)
+                0x20000154                . = ALIGN (0x4)
+                0x20000154                _edata = .
+
+.igot.plt       0x20000154        0x0 load address 0x08008e90
+ .igot.plt      0x20000154        0x0 ./cat_drv_pin.o
+                0x20000154                . = ALIGN (0x4)
+
+.bss            0x20000154     0x2164 load address 0x08008e90
+                0x20000154                _sbss = .
+                0x20000154                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x20000154        0x0 ./cat_drv_pin.o
+ .bss           0x20000154       0x44 ./cat_drv_uart.o
+                0x20000154                UartHandle
+ .bss           0x20000198        0x0 ./catos_start.o
+ .bss           0x20000198        0x0 ./port.o
+ .bss           0x20000198        0x0 ./contex.o
+ .bss           0x20000198        0x0 ./cpu_port.o
+ .bss           0x20000198      0x880 ./main.o
+                0x20000198                task1
+                0x200001d4                task2
+                0x20000210                task1_env
+                0x20000610                task2_env
+                0x20000a10                sched_task1_times
+                0x20000a14                sched_task2_times
+ .bss           0x20000a18        0x0 ./stm32f1xx_it.o
+ .bss           0x20000a18        0x0 ./system_stm32f1xx.o
+ .bss           0x20000a18        0x4 ./stm32f1xx_hal.o
+                0x20000a18                uwTick
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_cortex.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_exti.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_dma.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_gpio.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_pwr.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_rcc.o
+ .bss           0x20000a1c        0x0 ./stm32f1xx_hal_uart.o
+ .bss           0x20000a1c       0x2c ./cat_device.o
+                0x20000a1c                cat_device_list
+ .bss           0x20000a48        0x0 ./cat_shell.o
+ .bss           0x20000a48        0x0 ./cat_shell_cmds.o
+ .bss           0x20000a48     0x1284 ./cat_shell_port.o
+                0x20000a48                shell_task
+                0x20000a84                shell_task_env
+                0x20001a84                port_shell_inst_1
+                0x20001ac4                shell_cfg
+                0x20001acc                shell_space
+ .bss           0x20001ccc        0x4 ./cat_stdio.o
+ .bss           0x20001cd0        0x0 ./cat_string.o
+ .bss           0x20001cd0        0x0 ./mem_rw.o
+ .bss           0x20001cd0      0x448 ./cat_idle.o
+                0x20001cd0                cat_idle_task
+                0x20001d10                idle_task_env
+                0x20002110                idle_cnt
+                0x20002114                idle_max_cnt
+ .bss           0x20002118        0x0 ./cat_init.o
+ .bss           0x20002118        0x4 ./cat_intr.o
+                0x20002118                catos_systicks
+ .bss           0x2000211c        0x0 ./cat_basic_task.o
+ .bss           0x2000211c        0x0 ./cat_bitmap.o
+ .bss           0x2000211c      0x19c ./cat_sp_task.o
+                0x2000211c                cat_sp_cur_task
+                0x20002120                cat_sp_next_task
+                0x20002124                cat_task_prio_bitmap
+ .bss           0x200022b8        0x0 ./cat_list.o
+ .bss           0x200022b8        0x0 ./test_cat_string.o
+ .bss           0x200022b8        0x0 e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+ *(.bss*)
+ *(COMMON)
+                0x200022b8                . = ALIGN (0x4)
+                0x200022b8                _ebss = .
+                0x200022b8                __bss_end__ = _ebss
+
+._user_heap_stack
+                0x200022b8      0xc00 load address 0x08008e90
+                0x200022b8                . = ALIGN (0x4)
+                [!provide]                PROVIDE (end = .)
+                [!provide]                PROVIDE (_end = .)
+                0x200026b8                . = (. + _Min_Heap_Size)
+ *fill*         0x200022b8      0x400 
+                0x200026b8                _sstack = .
+                0x20002eb8                . = (. + _Min_Stack_Size)
+ *fill*         0x200026b8      0x800 
+                0x20002eb8                _estack = .
+                0x20002eb8                . = ALIGN (0x4)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.ARM.attributes
+                0x00000000       0x2b
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x2d ./cat_drv_pin.o
+ .ARM.attributes
+                0x0000002d       0x2d ./cat_drv_uart.o
+ .ARM.attributes
+                0x0000005a       0x21 ./catos_start.o
+ .ARM.attributes
+                0x0000007b       0x2d ./port.o
+ .ARM.attributes
+                0x000000a8       0x21 ./contex.o
+ .ARM.attributes
+                0x000000c9       0x2d ./cpu_port.o
+ .ARM.attributes
+                0x000000f6       0x2d ./main.o
+ .ARM.attributes
+                0x00000123       0x2d ./stm32f1xx_it.o
+ .ARM.attributes
+                0x00000150       0x2d ./system_stm32f1xx.o
+ .ARM.attributes
+                0x0000017d       0x2d ./stm32f1xx_hal.o
+ .ARM.attributes
+                0x000001aa       0x2d ./stm32f1xx_hal_cortex.o
+ .ARM.attributes
+                0x000001d7       0x2d ./stm32f1xx_hal_exti.o
+ .ARM.attributes
+                0x00000204       0x2d ./stm32f1xx_hal_dma.o
+ .ARM.attributes
+                0x00000231       0x2d ./stm32f1xx_hal_gpio.o
+ .ARM.attributes
+                0x0000025e       0x2d ./stm32f1xx_hal_pwr.o
+ .ARM.attributes
+                0x0000028b       0x2d ./stm32f1xx_hal_rcc.o
+ .ARM.attributes
+                0x000002b8       0x2d ./stm32f1xx_hal_uart.o
+ .ARM.attributes
+                0x000002e5       0x2d ./cat_device.o
+ .ARM.attributes
+                0x00000312       0x2d ./cat_shell.o
+ .ARM.attributes
+                0x0000033f       0x2d ./cat_shell_cmds.o
+ .ARM.attributes
+                0x0000036c       0x2d ./cat_shell_port.o
+ .ARM.attributes
+                0x00000399       0x2d ./cat_stdio.o
+ .ARM.attributes
+                0x000003c6       0x2d ./cat_string.o
+ .ARM.attributes
+                0x000003f3       0x2d ./mem_rw.o
+ .ARM.attributes
+                0x00000420       0x2d ./cat_idle.o
+ .ARM.attributes
+                0x0000044d       0x2d ./cat_init.o
+ .ARM.attributes
+                0x0000047a       0x2d ./cat_intr.o
+ .ARM.attributes
+                0x000004a7       0x2d ./cat_basic_task.o
+ .ARM.attributes
+                0x000004d4       0x2d ./cat_bitmap.o
+ .ARM.attributes
+                0x00000501       0x2d ./cat_sp_task.o
+ .ARM.attributes
+                0x0000052e       0x2d ./cat_list.o
+ .ARM.attributes
+                0x0000055b       0x2d ./test_cat_string.o
+ .ARM.attributes
+                0x00000588       0x2d e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)
+OUTPUT(./demo_vet6_keil_gnu.elf elf32-littlearm)
+LOAD linker stubs
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a
+LOAD e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp\libgcc.a
+
+.debug_info     0x00000000     0xb922
+ .debug_info    0x00000000      0x4d2 ./cat_drv_pin.o
+ .debug_info    0x000004d2      0xd2d ./cat_drv_uart.o
+ .debug_info    0x000011ff       0x22 ./catos_start.o
+ .debug_info    0x00001221      0x8c7 ./port.o
+ .debug_info    0x00001ae8       0x26 ./contex.o
+ .debug_info    0x00001b0e      0x24e ./cpu_port.o
+ .debug_info    0x00001d5c      0x308 ./main.o
+ .debug_info    0x00002064       0xc7 ./stm32f1xx_it.o
+ .debug_info    0x0000212b      0x447 ./system_stm32f1xx.o
+ .debug_info    0x00002572      0x7fa ./stm32f1xx_hal.o
+ .debug_info    0x00002d6c      0xc57 ./stm32f1xx_hal_cortex.o
+ .debug_info    0x000039c3      0x58f ./stm32f1xx_hal_exti.o
+ .debug_info    0x00003f52      0x7a2 ./stm32f1xx_hal_dma.o
+ .debug_info    0x000046f4      0x679 ./stm32f1xx_hal_gpio.o
+ .debug_info    0x00004d6d      0x705 ./stm32f1xx_hal_pwr.o
+ .debug_info    0x00005472      0x8c7 ./stm32f1xx_hal_rcc.o
+ .debug_info    0x00005d39     0x16cf ./stm32f1xx_hal_uart.o
+ .debug_info    0x00007408      0xbbf ./cat_device.o
+ .debug_info    0x00007fc7      0x624 ./cat_shell.o
+ .debug_info    0x000085eb      0x519 ./cat_shell_cmds.o
+ .debug_info    0x00008b04      0x62b ./cat_shell_port.o
+ .debug_info    0x0000912f      0x764 ./cat_stdio.o
+ .debug_info    0x00009893      0x3a1 ./cat_string.o
+ .debug_info    0x00009c34      0x556 ./mem_rw.o
+ .debug_info    0x0000a18a      0x294 ./cat_idle.o
+ .debug_info    0x0000a41e       0xa9 ./cat_init.o
+ .debug_info    0x0000a4c7      0x12a ./cat_intr.o
+ .debug_info    0x0000a5f1      0x290 ./cat_basic_task.o
+ .debug_info    0x0000a881      0x1ee ./cat_bitmap.o
+ .debug_info    0x0000aa6f      0x661 ./cat_sp_task.o
+ .debug_info    0x0000b0d0      0x406 ./cat_list.o
+ .debug_info    0x0000b4d6      0x44c ./test_cat_string.o
+
+.debug_abbrev   0x00000000     0x2f0b
+ .debug_abbrev  0x00000000      0x1b6 ./cat_drv_pin.o
+ .debug_abbrev  0x000001b6      0x21a ./cat_drv_uart.o
+ .debug_abbrev  0x000003d0       0x12 ./catos_start.o
+ .debug_abbrev  0x000003e2      0x21f ./port.o
+ .debug_abbrev  0x00000601       0x14 ./contex.o
+ .debug_abbrev  0x00000615       0xde ./cpu_port.o
+ .debug_abbrev  0x000006f3      0x104 ./main.o
+ .debug_abbrev  0x000007f7       0x2e ./stm32f1xx_it.o
+ .debug_abbrev  0x00000825      0x138 ./system_stm32f1xx.o
+ .debug_abbrev  0x0000095d      0x1c5 ./stm32f1xx_hal.o
+ .debug_abbrev  0x00000b22      0x2c8 ./stm32f1xx_hal_cortex.o
+ .debug_abbrev  0x00000dea      0x1b2 ./stm32f1xx_hal_exti.o
+ .debug_abbrev  0x00000f9c      0x1e6 ./stm32f1xx_hal_dma.o
+ .debug_abbrev  0x00001182      0x1b8 ./stm32f1xx_hal_gpio.o
+ .debug_abbrev  0x0000133a      0x1ea ./stm32f1xx_hal_pwr.o
+ .debug_abbrev  0x00001524      0x25d ./stm32f1xx_hal_rcc.o
+ .debug_abbrev  0x00001781      0x249 ./stm32f1xx_hal_uart.o
+ .debug_abbrev  0x000019ca      0x2aa ./cat_device.o
+ .debug_abbrev  0x00001c74      0x1de ./cat_shell.o
+ .debug_abbrev  0x00001e52      0x1c0 ./cat_shell_cmds.o
+ .debug_abbrev  0x00002012      0x18b ./cat_shell_port.o
+ .debug_abbrev  0x0000219d      0x207 ./cat_stdio.o
+ .debug_abbrev  0x000023a4      0x13f ./cat_string.o
+ .debug_abbrev  0x000024e3      0x1c4 ./mem_rw.o
+ .debug_abbrev  0x000026a7      0x10c ./cat_idle.o
+ .debug_abbrev  0x000027b3       0x53 ./cat_init.o
+ .debug_abbrev  0x00002806       0xcf ./cat_intr.o
+ .debug_abbrev  0x000028d5       0xe9 ./cat_basic_task.o
+ .debug_abbrev  0x000029be      0x106 ./cat_bitmap.o
+ .debug_abbrev  0x00002ac4      0x1d3 ./cat_sp_task.o
+ .debug_abbrev  0x00002c97       0xe3 ./cat_list.o
+ .debug_abbrev  0x00002d7a      0x191 ./test_cat_string.o
+
+.debug_loc      0x00000000     0x5fbb
+ .debug_loc     0x00000000      0x190 ./cat_drv_pin.o
+ .debug_loc     0x00000190      0x1ec ./cat_drv_uart.o
+ .debug_loc     0x0000037c      0x202 ./port.o
+ .debug_loc     0x0000057e       0x5c ./cpu_port.o
+ .debug_loc     0x000005da      0x138 ./main.o
+ .debug_loc     0x00000712      0x17c ./stm32f1xx_it.o
+ .debug_loc     0x0000088e       0xa0 ./system_stm32f1xx.o
+ .debug_loc     0x0000092e      0x698 ./stm32f1xx_hal.o
+ .debug_loc     0x00000fc6      0x8f8 ./stm32f1xx_hal_cortex.o
+ .debug_loc     0x000018be      0x330 ./stm32f1xx_hal_exti.o
+ .debug_loc     0x00001bee      0x470 ./stm32f1xx_hal_dma.o
+ .debug_loc     0x0000205e      0x2d4 ./stm32f1xx_hal_gpio.o
+ .debug_loc     0x00002332      0x51c ./stm32f1xx_hal_pwr.o
+ .debug_loc     0x0000284e      0x444 ./stm32f1xx_hal_rcc.o
+ .debug_loc     0x00002c92     0x143c ./stm32f1xx_hal_uart.o
+ .debug_loc     0x000040ce      0x4bd ./cat_device.o
+ .debug_loc     0x0000458b      0x28c ./cat_shell.o
+ .debug_loc     0x00004817      0x190 ./cat_shell_cmds.o
+ .debug_loc     0x000049a7       0xf0 ./cat_shell_port.o
+ .debug_loc     0x00004a97      0x3c4 ./cat_stdio.o
+ .debug_loc     0x00004e5b      0x248 ./cat_string.o
+ .debug_loc     0x000050a3      0x14c ./mem_rw.o
+ .debug_loc     0x000051ef       0x7c ./cat_idle.o
+ .debug_loc     0x0000526b       0x2c ./cat_init.o
+ .debug_loc     0x00005297       0xcc ./cat_intr.o
+ .debug_loc     0x00005363       0x7c ./cat_basic_task.o
+ .debug_loc     0x000053df      0x1a8 ./cat_bitmap.o
+ .debug_loc     0x00005587      0x4e8 ./cat_sp_task.o
+ .debug_loc     0x00005a6f      0x4ac ./cat_list.o
+ .debug_loc     0x00005f1b       0xa0 ./test_cat_string.o
+
+.debug_aranges  0x00000000      0x408
+ .debug_aranges
+                0x00000000       0x20 ./cat_drv_pin.o
+ .debug_aranges
+                0x00000020       0x20 ./cat_drv_uart.o
+ .debug_aranges
+                0x00000040       0x28 ./catos_start.o
+ .debug_aranges
+                0x00000068       0x20 ./port.o
+ .debug_aranges
+                0x00000088       0x20 ./contex.o
+ .debug_aranges
+                0x000000a8       0x20 ./cpu_port.o
+ .debug_aranges
+                0x000000c8       0x20 ./main.o
+ .debug_aranges
+                0x000000e8       0x20 ./stm32f1xx_it.o
+ .debug_aranges
+                0x00000108       0x20 ./system_stm32f1xx.o
+ .debug_aranges
+                0x00000128       0x20 ./stm32f1xx_hal.o
+ .debug_aranges
+                0x00000148       0x20 ./stm32f1xx_hal_cortex.o
+ .debug_aranges
+                0x00000168       0x20 ./stm32f1xx_hal_exti.o
+ .debug_aranges
+                0x00000188       0x20 ./stm32f1xx_hal_dma.o
+ .debug_aranges
+                0x000001a8       0x20 ./stm32f1xx_hal_gpio.o
+ .debug_aranges
+                0x000001c8       0x20 ./stm32f1xx_hal_pwr.o
+ .debug_aranges
+                0x000001e8       0x20 ./stm32f1xx_hal_rcc.o
+ .debug_aranges
+                0x00000208       0x20 ./stm32f1xx_hal_uart.o
+ .debug_aranges
+                0x00000228       0x20 ./cat_device.o
+ .debug_aranges
+                0x00000248       0x20 ./cat_shell.o
+ .debug_aranges
+                0x00000268       0x20 ./cat_shell_cmds.o
+ .debug_aranges
+                0x00000288       0x20 ./cat_shell_port.o
+ .debug_aranges
+                0x000002a8       0x20 ./cat_stdio.o
+ .debug_aranges
+                0x000002c8       0x20 ./cat_string.o
+ .debug_aranges
+                0x000002e8       0x20 ./mem_rw.o
+ .debug_aranges
+                0x00000308       0x20 ./cat_idle.o
+ .debug_aranges
+                0x00000328       0x20 ./cat_init.o
+ .debug_aranges
+                0x00000348       0x20 ./cat_intr.o
+ .debug_aranges
+                0x00000368       0x20 ./cat_basic_task.o
+ .debug_aranges
+                0x00000388       0x20 ./cat_bitmap.o
+ .debug_aranges
+                0x000003a8       0x20 ./cat_sp_task.o
+ .debug_aranges
+                0x000003c8       0x20 ./cat_list.o
+ .debug_aranges
+                0x000003e8       0x20 ./test_cat_string.o
+
+.debug_ranges   0x00000000       0x68
+ .debug_ranges  0x00000000       0x18 ./cat_drv_pin.o
+ .debug_ranges  0x00000018       0x20 ./catos_start.o
+ .debug_ranges  0x00000038       0x30 ./stm32f1xx_hal_uart.o
+
+.debug_line     0x00000000     0x73ba
+ .debug_line    0x00000000      0x2ce ./cat_drv_pin.o
+ .debug_line    0x000002ce      0x35b ./cat_drv_uart.o
+ .debug_line    0x00000629       0xad ./catos_start.o
+ .debug_line    0x000006d6      0x32d ./port.o
+ .debug_line    0x00000a03       0x83 ./contex.o
+ .debug_line    0x00000a86      0x163 ./cpu_port.o
+ .debug_line    0x00000be9      0x206 ./main.o
+ .debug_line    0x00000def       0xaa ./stm32f1xx_it.o
+ .debug_line    0x00000e99      0x272 ./system_stm32f1xx.o
+ .debug_line    0x0000110b      0x352 ./stm32f1xx_hal.o
+ .debug_line    0x0000145d      0x48f ./stm32f1xx_hal_cortex.o
+ .debug_line    0x000018ec      0x430 ./stm32f1xx_hal_exti.o
+ .debug_line    0x00001d1c      0xd0f ./stm32f1xx_hal_dma.o
+ .debug_line    0x00002a2b      0x4d7 ./stm32f1xx_hal_gpio.o
+ .debug_line    0x00002f02      0x341 ./stm32f1xx_hal_pwr.o
+ .debug_line    0x00003243      0x821 ./stm32f1xx_hal_rcc.o
+ .debug_line    0x00003a64     0x11f8 ./stm32f1xx_hal_uart.o
+ .debug_line    0x00004c5c      0x460 ./cat_device.o
+ .debug_line    0x000050bc      0x3aa ./cat_shell.o
+ .debug_line    0x00005466      0x22f ./cat_shell_cmds.o
+ .debug_line    0x00005695      0x269 ./cat_shell_port.o
+ .debug_line    0x000058fe      0x499 ./cat_stdio.o
+ .debug_line    0x00005d97      0x3fa ./cat_string.o
+ .debug_line    0x00006191      0x21b ./mem_rw.o
+ .debug_line    0x000063ac      0x22c ./cat_idle.o
+ .debug_line    0x000065d8      0x119 ./cat_init.o
+ .debug_line    0x000066f1      0x175 ./cat_intr.o
+ .debug_line    0x00006866      0x1b1 ./cat_basic_task.o
+ .debug_line    0x00006a17      0x1ba ./cat_bitmap.o
+ .debug_line    0x00006bd1      0x3e6 ./cat_sp_task.o
+ .debug_line    0x00006fb7      0x269 ./cat_list.o
+ .debug_line    0x00007220      0x19a ./test_cat_string.o
+
+.debug_str      0x00000000     0x3852
+ .debug_str     0x00000000      0x2f5 ./cat_drv_pin.o
+                                0x372 (size before relaxing)
+ .debug_str     0x000002f5      0x62d ./cat_drv_uart.o
+                                0x8f8 (size before relaxing)
+ .debug_str     0x00000922       0x60 ./catos_start.o
+                                 0xa3 (size before relaxing)
+ .debug_str     0x00000982      0x6c4 ./port.o
+                                0x860 (size before relaxing)
+ .debug_str     0x00001046       0x32 ./contex.o
+                                 0x83 (size before relaxing)
+ .debug_str     0x00001078       0x8d ./cpu_port.o
+                                0x236 (size before relaxing)
+ .debug_str     0x00001105      0x10a ./main.o
+                                0x2cf (size before relaxing)
+ .debug_str     0x0000120f       0xb2 ./stm32f1xx_it.o
+                                0x17c (size before relaxing)
+ .debug_str     0x000012c1       0x94 ./system_stm32f1xx.o
+                                0x2c7 (size before relaxing)
+ .debug_str     0x00001355      0x2f4 ./stm32f1xx_hal.o
+                                0x8c4 (size before relaxing)
+ .debug_str     0x00001649      0x339 ./stm32f1xx_hal_cortex.o
+                                0x9b8 (size before relaxing)
+ .debug_str     0x00001982      0x216 ./stm32f1xx_hal_exti.o
+                                0x3d7 (size before relaxing)
+ .debug_str     0x00001b98      0x24b ./stm32f1xx_hal_dma.o
+                                0x5f2 (size before relaxing)
+ .debug_str     0x00001de3      0x12c ./stm32f1xx_hal_gpio.o
+                                0x401 (size before relaxing)
+ .debug_str     0x00001f0f      0x251 ./stm32f1xx_hal_pwr.o
+                                0x49c (size before relaxing)
+ .debug_str     0x00002160      0x235 ./stm32f1xx_hal_rcc.o
+                                0x605 (size before relaxing)
+ .debug_str     0x00002395      0x61e ./stm32f1xx_hal_uart.o
+                                0xc18 (size before relaxing)
+ .debug_str     0x000029b3      0x290 ./cat_device.o
+                                0x629 (size before relaxing)
+ .debug_str     0x00002c43      0x13f ./cat_shell.o
+                                0x466 (size before relaxing)
+ .debug_str     0x00002d82       0xc1 ./cat_shell_cmds.o
+                                0x3f4 (size before relaxing)
+ .debug_str     0x00002e43       0xb0 ./cat_shell_port.o
+                                0x4b0 (size before relaxing)
+ .debug_str     0x00002ef3      0x1c2 ./cat_stdio.o
+                                0x4f6 (size before relaxing)
+ .debug_str     0x000030b5       0xc3 ./cat_string.o
+                                0x289 (size before relaxing)
+ .debug_str     0x00003178       0x9d ./mem_rw.o
+                                0x3b1 (size before relaxing)
+ .debug_str     0x00003215       0x83 ./cat_idle.o
+                                0x2d1 (size before relaxing)
+ .debug_str     0x00003298       0x33 ./cat_init.o
+                                0x1a4 (size before relaxing)
+ .debug_str     0x000032cb       0x83 ./cat_intr.o
+                                0x20c (size before relaxing)
+ .debug_str     0x0000334e       0x5e ./cat_basic_task.o
+                                0x287 (size before relaxing)
+ .debug_str     0x000033ac       0xb8 ./cat_bitmap.o
+                                0x24f (size before relaxing)
+ .debug_str     0x00003464      0x232 ./cat_sp_task.o
+                                0x4b9 (size before relaxing)
+ .debug_str     0x00003696      0x134 ./cat_list.o
+                                0x2f5 (size before relaxing)
+ .debug_str     0x000037ca       0x88 ./test_cat_string.o
+                                0x385 (size before relaxing)
+
+.comment        0x00000000       0x4d
+ .comment       0x00000000       0x4d ./cat_drv_pin.o
+                                 0x4e (size before relaxing)
+ .comment       0x0000004d       0x4e ./cat_drv_uart.o
+ .comment       0x0000004d       0x4e ./port.o
+ .comment       0x0000004d       0x4e ./cpu_port.o
+ .comment       0x0000004d       0x4e ./main.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_it.o
+ .comment       0x0000004d       0x4e ./system_stm32f1xx.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_cortex.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_exti.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_dma.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_gpio.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_pwr.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_rcc.o
+ .comment       0x0000004d       0x4e ./stm32f1xx_hal_uart.o
+ .comment       0x0000004d       0x4e ./cat_device.o
+ .comment       0x0000004d       0x4e ./cat_shell.o
+ .comment       0x0000004d       0x4e ./cat_shell_cmds.o
+ .comment       0x0000004d       0x4e ./cat_shell_port.o
+ .comment       0x0000004d       0x4e ./cat_stdio.o
+ .comment       0x0000004d       0x4e ./cat_string.o
+ .comment       0x0000004d       0x4e ./mem_rw.o
+ .comment       0x0000004d       0x4e ./cat_idle.o
+ .comment       0x0000004d       0x4e ./cat_init.o
+ .comment       0x0000004d       0x4e ./cat_intr.o
+ .comment       0x0000004d       0x4e ./cat_basic_task.o
+ .comment       0x0000004d       0x4e ./cat_bitmap.o
+ .comment       0x0000004d       0x4e ./cat_sp_task.o
+ .comment       0x0000004d       0x4e ./cat_list.o
+ .comment       0x0000004d       0x4e ./test_cat_string.o
+
+.debug_frame    0x00000000     0x2ddc
+ .debug_frame   0x00000000       0xc4 ./cat_drv_pin.o
+ .debug_frame   0x000000c4       0xec ./cat_drv_uart.o
+ .debug_frame   0x000001b0      0x104 ./port.o
+ .debug_frame   0x000002b4       0x38 ./cpu_port.o
+ .debug_frame   0x000002ec       0xc8 ./main.o
+ .debug_frame   0x000003b4       0xd0 ./stm32f1xx_it.o
+ .debug_frame   0x00000484       0x58 ./system_stm32f1xx.o
+ .debug_frame   0x000004dc      0x334 ./stm32f1xx_hal.o
+ .debug_frame   0x00000810      0x428 ./stm32f1xx_hal_cortex.o
+ .debug_frame   0x00000c38      0x174 ./stm32f1xx_hal_exti.o
+ .debug_frame   0x00000dac      0x20c ./stm32f1xx_hal_dma.o
+ .debug_frame   0x00000fb8      0x14c ./stm32f1xx_hal_gpio.o
+ .debug_frame   0x00001104      0x270 ./stm32f1xx_hal_pwr.o
+ .debug_frame   0x00001374      0x21c ./stm32f1xx_hal_rcc.o
+ .debug_frame   0x00001590      0x914 ./stm32f1xx_hal_uart.o
+ .debug_frame   0x00001ea4      0x244 ./cat_device.o
+ .debug_frame   0x000020e8      0x13c ./cat_shell.o
+ .debug_frame   0x00002224       0xc4 ./cat_shell_cmds.o
+ .debug_frame   0x000022e8       0x7c ./cat_shell_port.o
+ .debug_frame   0x00002364      0x1d4 ./cat_stdio.o
+ .debug_frame   0x00002538      0x114 ./cat_string.o
+ .debug_frame   0x0000264c       0xa4 ./mem_rw.o
+ .debug_frame   0x000026f0       0x50 ./cat_idle.o
+ .debug_frame   0x00002740       0x2c ./cat_init.o
+ .debug_frame   0x0000276c       0x70 ./cat_intr.o
+ .debug_frame   0x000027dc       0x4c ./cat_basic_task.o
+ .debug_frame   0x00002828       0xcc ./cat_bitmap.o
+ .debug_frame   0x000028f4      0x24c ./cat_sp_task.o
+ .debug_frame   0x00002b40      0x218 ./cat_list.o
+ .debug_frame   0x00002d58       0x58 ./test_cat_string.o
+ .debug_frame   0x00002db0       0x2c e:/code/gcc-arm-none-eabi-10-2020-q4-major/bin/../lib/gcc/arm-none-eabi/10.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a(lib_a-memset.o)

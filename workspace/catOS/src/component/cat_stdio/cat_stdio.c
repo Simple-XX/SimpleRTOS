@@ -200,6 +200,18 @@ uint8_t cat_stdio_set_device(const uint8_t *name)
     return ret;
 }
 
+uint8_t cat_stdio_is_device_is_set(void)
+{
+    uint8_t ret = 0;
+
+    if(NULL != _stdio_dev)
+    {
+        ret = 1;
+    }
+
+    return ret;
+}
+
 uint8_t cat_getchar(void)
 {
     uint8_t ret = 0;

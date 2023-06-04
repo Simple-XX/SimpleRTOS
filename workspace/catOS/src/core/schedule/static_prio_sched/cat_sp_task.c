@@ -14,6 +14,8 @@
 
 #include "cat_sp_task.h"
 
+#include "cat_stdio.h"
+
 void assert_task(struct _cat_task_t *task)
 {
     if(task->stack_size != 4096)
@@ -63,6 +65,11 @@ void cat_sp_task_scheduler_init(void)
     for(i=0; i < CATOS_MAX_TASK_PRIO; i++)
     {
         cat_list_init(&(task_rdy_tbl[i]));
+    }
+
+    if(cat_stdio_is_device_is_set())
+    {
+        CAT_KPRINTF("[cat_sp_task] static priority scheduler init\r\n");
     }
 }
 

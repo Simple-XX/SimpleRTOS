@@ -85,7 +85,21 @@
 #endif //#if defined(__CC_ARM)
 
 /* PUBLIC FUNC DECL START */
+/**
+ * @brief 设置stdio输入输出设备
+ * 
+ * @param  name             设备名称
+ * @return uint8_t          成功失败
+ */
 uint8_t cat_stdio_set_device(const uint8_t *name);
+
+/**
+ * @brief 检查stdio设备是否设置
+ * 
+ * @return uint8_t 0：未设置
+ *                 1：已设置
+ */
+uint8_t cat_stdio_is_device_is_set(void);
 
 uint8_t cat_getchar(void);
 uint8_t cat_putchar(uint8_t ch);

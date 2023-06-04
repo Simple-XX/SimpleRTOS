@@ -24,8 +24,6 @@
 
 #include "cat_init.h"
 
-extern void main(void);
-
 /**
  * @brief 系统初始化
  */
@@ -63,6 +61,9 @@ void catos_init(void)
     /* 禁止调度，若用户调用catos_hw_start_sched()，则在其中打开调度锁 */
     cat_sp_task_sched_disable();
 
+#if 0 /* 为了兼容armcc的流程，由main主动调用catos_init()函数 
+       * note: armcc的标准启动函数中先调用_main，在_main中处理一部分内容再跳转到main函数
+       **/
     /* 跳转到用户主函数 */
     main();
 
@@ -72,5 +73,6 @@ void catos_init(void)
     {
 
     }
+#endif /* #if 0 */
     
 }

@@ -199,7 +199,7 @@ type \"help\" to get more info\r\n\r\n"
 #define CAT_SHELL_CLR_SCREEN        "\033[2J\033[0;0H"
 
 #if (CAT_USE_SECTION == 1) /*< 如果使用特定段来存放命令 */
-#if defined(__CC_ARM)
+#if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
     #define IMPORT_SECTION(x) \
         extern uint32_t x##$$Base; \
         extern uint32_t x##$$Limit;

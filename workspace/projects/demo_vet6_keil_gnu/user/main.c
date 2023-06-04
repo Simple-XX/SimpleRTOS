@@ -49,17 +49,20 @@ void task2_entry(void *arg)
     for(;;)
     {
         cat_sp_task_delay(100);
-        // CAT_DEBUG_PRINTF("[task2] %d\r\n", catos_systicks);
+        //CAT_DEBUG_PRINTF("[task2] %d\r\n", catos_systicks);
     }
 }
 
 
 int main(void)
 {
+    /* 初始化操作系统 */
+    catos_init();
+
+    /* 利用pin驱动初始化板载led */
     board_led_init();
     // EXTI_Key_Config();
 
-#if 1
     /* 测试创建任务运行 */
     cat_sp_task_create(
       (const uint8_t *)"task1_task",
@@ -81,17 +84,8 @@ int main(void)
       sizeof(task2_env)
     );
 
+    /* 开始调度 */
     catos_start_sched();
-#else
-    /* 测试不创建任务下运行 */
-    uint32_t i = 0;
-
-    while(i++ < 0xffff);
-    board_led_on();
-
-    while(i-- > 0xd);
-    board_led_off();
-#endif
 
     return 0;
 }
