@@ -15,7 +15,17 @@
 #ifndef CATOS_CONFIG_H
 #define CATOS_CONFIG_H
 
+/** 版本和构建信息 **/
+/* catos版本 */
 #define CATOS_VERSION               "v1.0.2"
+/* 构建工具信息 */
+#if defined(__CC_ARM)
+    #define CATOS_BUILD_COMPILER    "armcc under 6"
+#elif (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
+    #define CATOS_BUILD_COMPILER    "armcc6(AC6)"
+#elif defined(__GNUC__)
+    #define CATOS_BUILD_COMPILER    "gcc(GNU)"
+#endif
 
 /** 系统相关 **/
 #define CATOS_SYSTICK_FRQ           (100)   /**< 系统时钟频率，每秒的tick数(周期的倒数)*/

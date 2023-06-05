@@ -25,7 +25,7 @@
 #include "cat_init.h"
 
 /**** 三方应用头文件 ****/
-#include "cm_backtrace.h"
+// #include "cm_backtrace.h"
 
 /**
  * @brief 系统初始化
