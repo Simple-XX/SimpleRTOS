@@ -75,6 +75,9 @@
     #define CAT_SYS_GETCHAR() \
         cat_getchar()
 
+    #define sprintf(_buf, _fmt, ...) \
+        cat_sprintf((uint8_t *)_buf, (const uint8_t *)_fmt, ##__VA_ARGS__)
+
     /* 调试输出宏 */    
     #if( CATOS_ENABLE_DEBUG_PRINTF == 1)
         #define CAT_DEBUG_PRINTF(_fmt, ...) \
@@ -105,6 +108,8 @@ uint8_t cat_getchar(void);
 uint8_t cat_putchar(uint8_t ch);
 int32_t cat_scanf(const uint8_t *format, ...);
 int32_t cat_printf(const uint8_t *format, ...);
+int32_t cat_sprintf(uint8_t *buf, const uint8_t *format, ...);
+
 /* PUBLIC FUNC DECL END */
 
 

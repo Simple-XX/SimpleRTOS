@@ -16,6 +16,12 @@
 
 #include "catos_types.h"
 
+#include "cat_task.h"
+#include "cat_stdio.h"
+
+uint32_t cat_context_from_task_sp_ptr;
+uint32_t cat_context_to_task_sp_ptr;
+
 /* 栈初始化 */
 /**< 异常触发时自动保存的寄存器 */
 struct _exception_stack_frame
@@ -85,4 +91,30 @@ uint8_t *cat_hw_stack_init(void *task_entry, void *arg, uint8_t *stack_addr, voi
 
   /* 返回当前栈指针 */
   return stack;
+}
+
+/**
+ * fault exception handling
+ */
+void catos_hard_fault_deal(struct _stack_frame *stack)
+{
+    CAT_KPRINTF("psr: %8x\r\n", stack->exeption_stack_frame.psr);
+    CAT_KPRINTF(" pc: %8x\r\n", stack->exeption_stack_frame.pc);
+    CAT_KPRINTF(" lr: %8x\r\n", stack->exeption_stack_frame.lr);
+    CAT_KPRINTF("r12: %8x\r\n", stack->exeption_stack_frame.r12);
+    CAT_KPRINTF("r03: %8x\r\n", stack->exeption_stack_frame.r3);
+    CAT_KPRINTF("r02: %8x\r\n", stack->exeption_stack_frame.r2);
+    CAT_KPRINTF("r01: %8x\r\n", stack->exeption_stack_frame.r1);
+    CAT_KPRINTF("r00: %8x\r\n", stack->exeption_stack_frame.r0);
+
+    if(NULL != cat_sp_cur_task)
+    {
+        CAT_KPRINTF("hard fault on thread: %s\r\n", cat_sp_cur_task->task_name);
+    }
+    else
+    {
+        CAT_KPRINTF("hard fault before first task start\r\n");
+    }
+    
+    while (1);
 }

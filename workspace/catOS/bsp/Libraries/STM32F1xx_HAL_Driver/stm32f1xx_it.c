@@ -75,6 +75,7 @@ void NMI_Handler(void)
   * @retval None
   */
 #ifndef USER_USE_CM_BACKTRACE
+#if 0 /* 定义在context.s中了 */
 void HardFault_Handler(void)
 {
   /* Go to infinite loop when Hard Fault exception occurs */
@@ -82,6 +83,7 @@ void HardFault_Handler(void)
   {
   }
 }
+#endif /* #if 0 */
 #endif //#ifndef USER_USE_CM_BACKTRACE
 
 /**

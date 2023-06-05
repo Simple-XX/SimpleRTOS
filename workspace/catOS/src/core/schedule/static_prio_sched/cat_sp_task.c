@@ -35,10 +35,10 @@ void assert_task(struct _cat_task_t *task)
 
 /** 变量声明 */
 /* PUBLIC */
-struct _cat_task_t *cat_sp_cur_task;                /**< 当前任务的指针 */
-struct _cat_task_t *cat_sp_next_task;                  /**< 要切换到的任务的指针 */
 
-cat_bitmap cat_task_prio_bitmap;                    /**< 就绪位图 */
+struct _cat_task_t *cat_sp_cur_task; /**< 当前固定优先级任务的指针 */
+
+cat_bitmap cat_task_prio_bitmap;     /**< 就绪位图 */
 
 /* PRIVATE */
 static uint8_t sched_lock_cnt;                                  /**< 调度锁 0:未加锁；else：加锁(可多次加锁)*/
@@ -51,6 +51,9 @@ static struct _cat_list_t cat_task_delayed_list;                /**< 延时链�
  */
 void cat_sp_task_scheduler_init(void)
 {
+    /* 初始化全局任务指针 */
+    cat_sp_cur_task  = NULL;
+
     /* 调度锁初始为不禁止调度 */
 	sched_lock_cnt = 0;
 
@@ -108,19 +111,6 @@ void cat_sp_task_create(
 
     /* 放入就绪表 */
     cat_sp_task_rdy(task);
-}
-
-/**
- * @brief 在开始第一个任务之前要调用该函数处理
- * 
- */
-void cat_sp_task_before_start_first(void)
-{
-    /* 获取最高优先级任务 */
-    cat_sp_next_task = cat_sp_task_highest_ready();
-
-    /* 允许调度(打开调度锁，并且不在该处进行调度) */
-    cat_sp_task_sched_enable_without_sched();
 }
 
 /**
@@ -199,7 +189,8 @@ void cat_sp_task_delay_deal(void)
  */
 void cat_sp_task_sched(void)
 {
-    struct _cat_task_t *temp_task;
+    //struct _cat_task_t *temp_task;
+    struct _cat_task_t *from_task, *to_task;
     uint32_t status = cat_hw_irq_disable();
 
     /* 如果调度被上锁就直接返回，不调度 */
@@ -209,15 +200,20 @@ void cat_sp_task_sched(void)
         return;
     }
 
-    temp_task = cat_sp_task_highest_ready();
-    if(temp_task != cat_sp_cur_task)
+    to_task = cat_sp_task_highest_ready();
+    if(to_task != cat_sp_cur_task)
     {
-        cat_sp_next_task = temp_task;
+        from_task = cat_sp_cur_task;
+        cat_sp_cur_task = to_task;
 
         /* 增加调度次数信息 */
-        cat_sp_next_task->sched_times++;
+        to_task->sched_times++;
 
-        cat_hw_context_switch();
+        /* 切换上下文 */
+        cat_hw_context_switch(
+            (uint32_t)&(from_task->sp),
+            (uint32_t)&(to_task->sp)
+        );
     }
 
     cat_hw_irq_enable(status);

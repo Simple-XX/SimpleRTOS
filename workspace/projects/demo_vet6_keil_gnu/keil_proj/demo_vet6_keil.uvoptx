@@ -154,7 +154,7 @@
           <Type>0</Type>
           <LineNumber>98</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134244016</Address>
+          <Address>134244412</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -164,6 +164,38 @@
           <Filename>E:\code\SimpleRTOS\workspace\catOS\src\component\cat_shell\cat_shell.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\demo_vet6_keil_gnu\../../../catOS/src/component/cat_shell/cat_shell.c\98</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>87</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134219306</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>E:\code\SimpleRTOS\workspace\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\port\gcc\port.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\demo_vet6_keil_gnu\../../../catOS/bsp/arch/cortex_m3/board/stm32f103vet6_fire/port/gcc/port.c\87</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>631</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>E:\code\SimpleRTOS\workspace\third_party\cm_backtrace\cm_backtrace.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -177,7 +209,25 @@
           <WinNumber>1</WinNumber>
           <ItemText>uart1_cfg_data</ItemText>
         </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>*(cat_context_to_task_sp_ptr)</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>cat_sp_next_task</ItemText>
+        </Ww>
       </WatchWindow1>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>\\demo_vet6_keil_gnu\../../../catOS/src/core/schedule/static_prio_sched/cat_sp_task.c\cat_sp_next_task-&gt;sp</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>

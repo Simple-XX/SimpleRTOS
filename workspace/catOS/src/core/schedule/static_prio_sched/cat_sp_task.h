@@ -18,7 +18,6 @@
 #include "catos_config.h"
 
 extern struct _cat_task_t *cat_sp_cur_task;                /**< 当前任务的指针 */
-extern struct _cat_task_t *cat_sp_next_task;                  /**< 要切换到的任务的指针 */
 
 /**
  * @brief 初始化固定优先级任务调度

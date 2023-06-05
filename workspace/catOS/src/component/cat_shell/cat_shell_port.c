@@ -62,7 +62,7 @@ void cat_shell_task_create(void)
         shell_task_env, 
         CATOS_SHELL_STACK_SIZE
     );
-    CAT_SYS_PRINTF("[cat_shell_port] shell task created \r\n");
+    CAT_KPRINTF("[cat_shell_port] shell task created \r\n");
 }
 
 

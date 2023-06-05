@@ -91,6 +91,8 @@ void cat_shell_task_entry(void *arg)
 #endif
 
     //CAT_SYS_PRINTF(CAT_SHELL_CLR_SCREEN);
+
+    CAT_SYS_PRINTF("\r\nCATOS version %s\r\n", CATOS_VERSION);
     CAT_SYS_PRINTF(GREET_MSG_SMALL);
 	CAT_SYS_PRINTF("cat>");
     while(1)

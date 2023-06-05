@@ -15,7 +15,7 @@
 #ifndef CATOS_CONFIG_H
 #define CATOS_CONFIG_H
 
-
+#define CATOS_VERSION               "v1.0.2"
 
 /** 系统相关 **/
 #define CATOS_SYSTICK_FRQ           (100)   /**< 系统时钟频率，每秒的tick数(周期的倒数)*/

@@ -64,16 +64,26 @@ void SysTick_Handler(void)
 /* 开始调度 */
 void catos_start_sched(void)
 {
+    struct _cat_task_t *first_task = NULL;
 
-    cat_sp_task_before_start_first();
+    //cat_sp_task_before_start_first();
+    /* 获取最高优先级任务 */
+    first_task = cat_sp_task_highest_ready();
 
-    /* 开启定时器中断 */
+    /* 因为是第一个任务，不用像调度时判断是否和上一个任务一样，直接赋值给当前任务就行 */
+    cat_sp_cur_task = first_task;
+
+    /* 允许调度(打开调度锁，并且不在该处进行调度) */
+    cat_sp_task_sched_enable_without_sched();
+
+    /* 开启时钟中断 */
     SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 
-    __set_PSP(0);
-
+    /* 设置pendsv中断优先级 */
     MEM8(NVIC_SYSPRI2)      = NVIC_PENDSV_PRI;
-    MEM32(NVIC_INT_CTRL)    = NVIC_PENDSVSET;
+
+    /* 切换到第一个任务 */
+    cat_hw_context_switch_to_first((uint32_t)&(first_task->sp));
 }
 
 
@@ -134,6 +144,7 @@ static void SystemClock_Config(void)
 static void cat_set_systick_period(uint32_t ms)
 {
     SysTick->LOAD = ms * SystemCoreClock / 1000;                    /* 重载计数器值 */
+    /* 设置时钟中断优先级 */
     NVIC_SetPriority(SysTick_IRQn, (1 << __NVIC_PRIO_BITS) - 1);
     SysTick->VAL = 0;
 

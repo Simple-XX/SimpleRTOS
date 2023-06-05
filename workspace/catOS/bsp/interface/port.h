@@ -39,7 +39,21 @@ void catos_start_sched(void);
  * @brief 上下文切换
  * 
  */
-void cat_hw_context_switch(void);
+//void cat_hw_context_switch(void);
+/**
+ * @brief 上下文切换
+ * 
+ * @param  from_task_sp_addr 上一个任务tcb中堆栈指针变量的 *地址*
+ * @param  to_task_sp_addr   下一个任务tcb中堆栈指针变量的 *地址*
+ */
+void cat_hw_context_switch(uint32_t from_task_sp_addr, uint32_t to_task_sp_addr);
+
+/**
+ * @brief 切换到第一个任务的上下文
+ * 
+ * @param  first_task_sp_addr  要切换的任务tcb中堆栈指针变量的 *地址*
+ */
+void cat_hw_context_switch_to_first(uint32_t first_task_sp_addr);
 
 /**
  * @brief 关中断进临界区

@@ -1,7 +1,7 @@
 {
     "files.associations": {
-        "*.s": "arm",
         "*.md": "markdown",
+        "*.s": "arm",
         "cat_list.h": "c",
         "cat_device.h": "c",
         "catos_types.h": "c",
@@ -10,6 +10,8 @@
         "port.h": "c",
         "stm32f1xx_hal.h": "c",
         "bsp_board_led.h": "c",
-        "catos.h": "c"
+        "catos.h": "c",
+        "cat_task.h": "c",
+        "cat_basic_task.h": "c"
     }
 }

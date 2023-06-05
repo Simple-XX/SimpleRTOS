@@ -1,12 +1,18 @@
 /**
  * @file cat_stdio.c
- * @author mio_wen (648137125@qq.com)
+ * @author 文佳源 (648137125@qq.com)
  * @brief 标准输入输出
  * @version 0.1
  * @date 2022-07-16
  * 
- * @copyright Copyright (c) 2022
+ * Copyright (c) 2023
  * 
+ * @par 修订历史
+ * <table>
+ * <tr><th>版本 <th>作者 <th>日期 <th>修改内容
+ * <tr><td>v1.0 <td>文佳源 <td>2022-07-16 <td>支持十进制和字符串输入输出
+ * <tr><td>v1.0 <td>文佳源 <td>2023-6-4 <td>支持16进制输出
+ * </table>
  */
 
 #include "cat_stdio.h"
@@ -34,6 +40,9 @@ static const uint8_t *_cat_error_msg[] =
 static int32_t _cat_print_string(const uint8_t *str);
 static int32_t _cat_print_error(cat_error_type_t type);
 static int32_t _cat_print_int(int32_t num, int32_t width);
+
+static int32_t _cat_sprint_string(uint8_t *buf, uint32_t *buf_idx_ptr, const uint8_t *str);
+static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num, int32_t width);
 
 static int32_t _cat_scan_string(uint8_t *str_dest, uint32_t buf_len);
 static int32_t _cat_scan_int(int32_t *dest);
@@ -111,6 +120,64 @@ static int32_t _cat_print_int(int32_t num, int32_t width)
     while(i > 0)
     {
         cat_putchar(buf[--i] + '0');
+    }
+
+    return ret;
+}
+
+static int32_t _cat_sprint_string(uint8_t *buf, uint32_t *buf_idx_ptr, const uint8_t *str)
+{
+    int32_t ret = CAT_EOK;
+
+    if(NULL == str)
+    {
+        ret = CAT_ERROR;
+    }
+    else
+    {
+        while('\0' != *str)
+        {
+            //cat_putchar(*str);
+            buf[(*buf_idx_ptr)++] = *str;
+            str++;
+        }
+    }
+
+    return ret;
+}
+static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num, int32_t width)
+{
+    int32_t ret = CAT_EOK;
+    /* uint32_t max val = 4294967295 */
+    uint8_t int_buf[CAT_INT_LONG] = {0};
+    uint8_t i = 0;
+
+    if(num < 0)
+    {
+        //cat_putchar('-');
+        buf[(*buf_idx_ptr)++] = '-';
+        num = -num;
+    }
+
+    do
+    {
+        int_buf[i++] = num % 10;
+        num = num / 10;
+
+    }while((0 != num) && (i < CAT_INT_LONG));
+
+    /* 如果有对齐要求则先输出空格 */
+    width = width - i - 1;
+    while(width > 0)
+    {
+        //cat_putchar(' ');
+        buf[(*buf_idx_ptr)++] = ' ';
+    }
+
+    while(i > 0)
+    {
+        //cat_putchar(int_buf[--i] + '0');
+        buf[(*buf_idx_ptr)++] = int_buf[--i] + '0';
     }
 
     return ret;
@@ -307,7 +374,9 @@ int32_t cat_printf(const uint8_t *format, ...)
     va_list ap;
     uint8_t *p = NULL;          /**< 用来遍历format字符串 */
     uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
-    int32_t width = 0;         /**< 输出宽度(目前仅用于整型输出) */
+    int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
+
+    uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串*/
 
     if(NULL == format)
     {
@@ -361,7 +430,131 @@ int32_t cat_printf(const uint8_t *format, ...)
             p++;
             _cat_print_string(va_arg(ap, uint8_t *));
             break;
-        
+
+        case 'x':
+            p++;
+            cat_itoh(hex_str, va_arg(ap, uint32_t));
+            if('\0' != hex_str[2])
+            {
+                _cat_print_string(hex_str);
+            }
+            else
+            {
+                _cat_print_string(hex_str);
+                cat_putchar('0');
+            }
+            
+            break;
+
+        default:
+            /* 可以考虑单独定义一个输出纯字符串的函数，可以打印错误信息 */
+            _cat_print_error(CAT_ERROR_TYPE_ARG_TYPE_NOT_SUPPORT);
+            ret = CAT_ERROR;
+            break;
+        }
+
+        if(CAT_ERROR == ret)
+        {
+            break;
+        }
+    }
+
+    va_end(ap);
+
+    return ret;
+}
+
+/**
+ * @brief 和printf差不多，只不过将数据放进buf中
+ * 
+ * @param  buf              要输出到的缓冲区
+ * @param  format           格式化字符串
+ * @param  ...              输出的参数列表
+ * @return int32_t          成功失败
+ */
+int32_t cat_sprintf(uint8_t *buf, const uint8_t *format, ...)
+{
+    int32_t ret = CAT_EOK;
+    va_list ap;
+    uint8_t *p = NULL;          /**< 用来遍历format字符串 */
+    uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
+    int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
+
+    uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串 */
+
+    uint32_t buf_idx = 0;       /**< 访问缓冲区 */
+
+    if(NULL == format)
+    {
+        ret = CAT_ERROR;
+        return ret;
+    }
+
+    /* 获取参数 */
+    va_start(ap, format);
+
+    /* 挨个处理 */
+    p = (uint8_t *)format;
+    while('\0' != *p)
+    {
+        if('%' != *p)
+        {
+            /* 发现'%'就开始处理格式化输出内容 */
+            //cat_putchar(*p);
+            buf[buf_idx++] = *p;
+            p++;
+            continue;
+        }
+        else
+        {
+            p++;
+        }
+
+        /* 获得宽度数据(如果有) */
+        if(
+            ((*p) >= '0') &&
+            ((*p) <= '9')
+        )
+        {
+            wid_buf[width++] = *p;
+            p++;
+        }
+        if(width > 0)
+        {
+            wid_buf[width] = '\0';
+            cat_atoi(&width, wid_buf);
+        }
+
+        switch (*p)
+        {
+        case 'd':
+            p++;
+            _cat_sprint_int(buf, &buf_idx, va_arg(ap, int32_t), width);
+            width = 0;
+            break;
+
+        case 's':
+            p++;
+            _cat_sprint_string(buf, &buf_idx, va_arg(ap, uint8_t *));
+            break;
+
+        case 'x':
+            p++;
+            cat_itoh(hex_str, va_arg(ap, uint32_t));
+            if('\0' != hex_str[2])
+            {
+                _cat_sprint_string(buf, &buf_idx, hex_str);
+            }
+            else
+            {
+                _cat_sprint_string(buf, &buf_idx, hex_str);
+                //cat_putchar('0');
+                buf[buf_idx++] = '0';
+
+            }
+            
+            break;
+
         default:
             /* 可以考虑单独定义一个输出纯字符串的函数，可以打印错误信息 */
             _cat_print_error(CAT_ERROR_TYPE_ARG_TYPE_NOT_SUPPORT);

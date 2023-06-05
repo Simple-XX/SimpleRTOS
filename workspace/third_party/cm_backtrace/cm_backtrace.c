@@ -35,7 +35,7 @@
     #error "must be C99 or higher. try to add '-std=c99' to compile parameters"
 #endif
 
-#if defined(__CC_ARM) || defined(__CLANG_ARM)
+#if defined(__ARMCC_VERSION)
     #define SECTION_START(_name_)                _name_##$$Base
     #define SECTION_END(_name_)                  _name_##$$Limit
     #define IMAGE_SECTION_START(_name_)          Image$$##_name_##$$Base
@@ -145,7 +145,7 @@ void cm_backtrace_init(const char *firmware_name, const char *hardware_ver, cons
     strncpy(hw_ver, hardware_ver, CMB_NAME_MAX);
     strncpy(sw_ver, software_ver, CMB_NAME_MAX);
 
-#if defined(__CC_ARM) || defined(__CLANG_ARM)
+#if defined(__ARMCC_VERSION)
     main_stack_start_addr = (uint32_t)&CSTACK_BLOCK_START(CMB_CSTACK_BLOCK_NAME);
     main_stack_size = (uint32_t)&CSTACK_BLOCK_END(CMB_CSTACK_BLOCK_NAME) - main_stack_start_addr;
     code_start_addr = (uint32_t)&CODE_SECTION_START(CMB_CODE_SECTION_NAME);
@@ -207,6 +207,10 @@ static void get_cur_thread_stack_info(uint32_t sp, uint32_t *start_addr, size_t 
 #elif (CMB_OS_PLATFORM_TYPE == CMB_OS_PLATFORM_FREERTOS)   
     *start_addr = (uint32_t)vTaskStackAddr();
     *size = vTaskStackSize() * sizeof( StackType_t );
+#elif (CMB_OS_PLATFORM_TYPE == CMB_OS_PLATFORM_RTX5)
+    osRtxThread_t *thread = osRtxInfo.thread.run.curr;
+    *start_addr = (uint32_t)thread->stack_mem;
+    *size = thread->stack_size;
 #endif
 }
 
@@ -231,6 +235,9 @@ static const char *get_cur_thread_name(void) {
     return (const char *)OSTCBCurPtr->NamePtr;
 #elif (CMB_OS_PLATFORM_TYPE == CMB_OS_PLATFORM_FREERTOS)
     return vTaskName();
+#elif (CMB_OS_PLATFORM_TYPE == CMB_OS_PLATFORM_RTX5)
+    osThreadId_t id = osThreadGetId();
+    return osThreadGetName(id);
 #endif
 }
 
@@ -255,7 +262,7 @@ static void dump_stack(uint32_t stack_start_addr, size_t stack_size, uint32_t *s
     }
     cmb_println(print_info[PRINT_THREAD_STACK_INFO]);
     for (; (uint32_t) stack_pointer < stack_start_addr + stack_size; stack_pointer++) {
-        cmb_println("  addr: %08x    data: %08x", stack_pointer, *stack_pointer);
+        cmb_println("  addr: %8x    data: %8x", stack_pointer, *stack_pointer);
     }
     cmb_println("====================================");
 }
@@ -366,13 +373,13 @@ static void print_call_stack(uint32_t sp) {
     cur_depth = cm_backtrace_call_stack(call_stack_buf, CMB_CALL_STACK_MAX_DEPTH, sp);
 
     for (i = 0; i < cur_depth; i++) {
-        sprintf(call_stack_info + i * (8 + 1), "%08lx", (unsigned long)call_stack_buf[i]);
+        sprintf(call_stack_info + i * (8 + 1), "%8x", (unsigned long)call_stack_buf[i]);
         call_stack_info[i * (8 + 1) + 8] = ' ';
     }
 
     if (cur_depth) {
-        cmb_println(print_info[PRINT_CALL_STACK_INFO], fw_name, CMB_ELF_FILE_EXTENSION_NAME, cur_depth * (8 + 1),
-                call_stack_info);
+        call_stack_info[cur_depth * (8 + 1) - 1] = '\0';
+        cmb_println(print_info[PRINT_CALL_STACK_INFO], fw_name, CMB_ELF_FILE_EXTENSION_NAME, call_stack_info);
     } else {
         cmb_println(print_info[PRINT_CALL_STACK_ERR]);
     }
@@ -630,11 +637,11 @@ void cm_backtrace_fault(uint32_t fault_handler_lr, uint32_t fault_handler_sp) {
         regs.saved.pc        = ((uint32_t *)saved_regs_addr)[6];  // Program counter PC
         regs.saved.psr.value = ((uint32_t *)saved_regs_addr)[7];  // Program status word PSR
 
-        cmb_println("  %s: %08x  %s: %08x  %s: %08x  %s: %08x", regs_name[0], regs.saved.r0,
+        cmb_println("  %s: %8x  %s: %8x  %s: %8x  %s: %8x", regs_name[0], regs.saved.r0,
                                                                 regs_name[1], regs.saved.r1,
                                                                 regs_name[2], regs.saved.r2,
                                                                 regs_name[3], regs.saved.r3);
-        cmb_println("  %s: %08x  %s: %08x  %s: %08x  %s: %08x", regs_name[4], regs.saved.r12,
+        cmb_println("  %s: %8x  %s: %8x  %s: %8x  %s: %8x", regs_name[4], regs.saved.r12,
                                                                 regs_name[5], regs.saved.lr,
                                                                 regs_name[6], regs.saved.pc,
                                                                 regs_name[7], regs.saved.psr.value);

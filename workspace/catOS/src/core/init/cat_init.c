@@ -24,6 +24,9 @@
 
 #include "cat_init.h"
 
+/**** 三方应用头文件 ****/
+#include "cm_backtrace.h"
+
 /**
  * @brief 系统初始化
  */
@@ -57,6 +60,9 @@ void catos_init(void)
 
     /* 创建shell任务 */
     cat_shell_task_create();
+
+    /********三方应用相关初始化 */
+    // cm_backtrace_init("catos", "0.0", "0.1");
 
     /* 禁止调度，若用户调用catos_hw_start_sched()，则在其中打开调度锁 */
     cat_sp_task_sched_disable();
