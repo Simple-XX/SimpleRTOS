@@ -35,7 +35,7 @@ int __wrap_atexit(void __attribute__((unused)) (*function)(void)) {
 
 /* PRIVATE FUNCS DECL START */
 static void SystemClock_Config(void);
-static void cat_set_systick_period(uint32_t ms);
+static void cat_set_systick_period(cat_uint32_t ms);
 /* PRIVATE FUNCS DECL END */
 
 /**
@@ -131,7 +131,7 @@ static void SystemClock_Config(void)
  * 
  * @param ms 周期(ms)
  */
-static void cat_set_systick_period(uint32_t ms)
+static void cat_set_systick_period(cat_uint32_t ms)
 {
     SysTick->LOAD = ms * SystemCoreClock / 1000;                    /* 重载计数器值 */
     NVIC_SetPriority(SysTick_IRQn, (1 << __NVIC_PRIO_BITS) - 1);

@@ -21,17 +21,17 @@ static void _default_task_exit(void)
 }
 
 void cat_task_init(
-    const uint8_t *task_name,
+    const cat_uint8_t *task_name,
     struct _cat_task_t *task, 
     void (*entry)(void *), 
     void *arg, 
-    uint8_t prio, 
+    cat_uint8_t prio, 
     void *stack_start_addr,
-    uint32_t stack_size,
-    uint32_t sched_strategy
+    cat_uint32_t stack_size,
+    cat_uint8_t sched_strategy
 )
 {
-    task->task_name = (uint8_t *)task_name;
+    task->task_name = (cat_uint8_t *)task_name;
     task->sched_strategy = sched_strategy;
 
     cat_memset(stack_start_addr, 0, stack_size);
@@ -39,7 +39,7 @@ void cat_task_init(
     task->sp = (void *)cat_hw_stack_init(
         (void*)entry,
         (void*)arg,
-        (uint8_t *)(stack_start_addr + stack_size - sizeof(uint32_t)),
+        (cat_uint8_t *)((cat_uint32_t)stack_start_addr + stack_size - sizeof(cat_uint32_t)),
         (void *)_default_task_exit
     );
 
@@ -51,26 +51,26 @@ void cat_task_init(
     task->stack_size = stack_size;    
 
 #if 0
-    sp = stack_start_addr + (stack_size / sizeof(uint32_t));
+    sp = stack_start_addr + (stack_size / sizeof(cat_uint32_t));
 
     //pensv自动保存的部分
-    *(--sp) = (uint32_t)(1 << 24);//spsr
-    *(--sp) = (uint32_t)entry;//pc
-    *(--sp) = (uint32_t)0x14;//lr(r14)
-    *(--sp) = (uint32_t)0x12;//r12
-    *(--sp) = (uint32_t)0x3;//r3
-    *(--sp) = (uint32_t)0x2;//r2
-    *(--sp) = (uint32_t)0x1;//r1
-    *(--sp) = (uint32_t)arg;//r0
+    *(--sp) = (cat_uint32_t)(1 << 24);//spsr
+    *(--sp) = (cat_uint32_t)entry;//pc
+    *(--sp) = (cat_uint32_t)0x14;//lr(r14)
+    *(--sp) = (cat_uint32_t)0x12;//r12
+    *(--sp) = (cat_uint32_t)0x3;//r3
+    *(--sp) = (cat_uint32_t)0x2;//r2
+    *(--sp) = (cat_uint32_t)0x1;//r1
+    *(--sp) = (cat_uint32_t)arg;//r0
 
-    *(--sp) = (uint32_t)0x11;
-    *(--sp) = (uint32_t)0x10;
-    *(--sp) = (uint32_t)0x9;
-    *(--sp) = (uint32_t)0x8;
-    *(--sp) = (uint32_t)0x7;
-    *(--sp) = (uint32_t)0x6;
-    *(--sp) = (uint32_t)0x5;
-    *(--sp) = (uint32_t)0x4;
+    *(--sp) = (cat_uint32_t)0x11;
+    *(--sp) = (cat_uint32_t)0x10;
+    *(--sp) = (cat_uint32_t)0x9;
+    *(--sp) = (cat_uint32_t)0x8;
+    *(--sp) = (cat_uint32_t)0x7;
+    *(--sp) = (cat_uint32_t)0x6;
+    *(--sp) = (cat_uint32_t)0x5;
+    *(--sp) = (cat_uint32_t)0x4;
 
     task->sp = sp;
 #endif

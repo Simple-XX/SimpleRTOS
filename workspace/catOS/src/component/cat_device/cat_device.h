@@ -69,29 +69,29 @@ enum _cat_device_type_t
 
 struct _cat_device_t
 {
-    uint8_t                   *device_name;           /**< 设备名称 */
+    cat_uint8_t                   *device_name;           /**< 设备名称 */
 
     struct _cat_node_t        link_node;              /**< 链表节点 */
 
     cat_device_type_t         type;                   /**< 设备类型 */
-    uint16_t                  state;                  /**< 设备状态 */
-    uint16_t                  aval_mode;              /**< 允许的运行模式 */
-    uint16_t                  open_mode;              /**< 本次被打开时使用的运行模式 */
+    cat_uint16_t                  state;                  /**< 设备状态 */
+    cat_uint16_t                  aval_mode;              /**< 允许的运行模式 */
+    cat_uint16_t                  open_mode;              /**< 本次被打开时使用的运行模式 */
 
-    uint8_t                   ref_count;              /**< 设备被引用的次数 */
-    uint8_t                   device_id;              /**< 设备号 */
+    cat_uint8_t                   ref_count;              /**< 设备被引用的次数 */
+    cat_uint8_t                   device_id;              /**< 设备号 */
 
     /* 中断回调函数 */
-    uint8_t (*rx_callback)(cat_device_t*dev, uint32_t size); /**< 中断接收通知 */
-    uint8_t (*tx_callback)(cat_device_t*dev, void *buffer);  /**< 中断发送完成 */
+    cat_uint8_t (*rx_callback)(cat_device_t*dev, cat_uint32_t size); /**< 中断接收通知 */
+    cat_uint8_t (*tx_callback)(cat_device_t*dev, void *buffer);  /**< 中断发送完成 */
 
     /* 通用设备接口，也可包含device结构后自定义操作接口 */
-    uint8_t (*init)   (cat_device_t*dev);
-    uint8_t (*open)   (cat_device_t*dev, uint16_t oflag);
-    uint8_t (*close)  (cat_device_t*dev);
-    uint32_t (*read)   (cat_device_t*dev, int32_t pos, void *buffer, uint32_t size);
-    uint32_t (*write)  (cat_device_t*dev, int32_t pos, const void *buffer, uint32_t size);
-    uint8_t (*ctrl)(cat_device_t*dev, int cmd, void *args);
+    cat_uint8_t (*init)   (cat_device_t*dev);
+    cat_uint8_t (*open)   (cat_device_t*dev, cat_uint16_t oflag);
+    cat_uint8_t (*close)  (cat_device_t*dev);
+    cat_uint32_t (*read)   (cat_device_t*dev, cat_int32_t pos, void *buffer, cat_uint32_t size);
+    cat_uint32_t (*write)  (cat_device_t*dev, cat_int32_t pos, const void *buffer, cat_uint32_t size);
+    cat_uint8_t (*ctrl)(cat_device_t*dev, int cmd, void *args);
 
     void                     *pri_data;            /**< 设备独有的数据 */
 };
@@ -111,7 +111,7 @@ void cat_device_module_init(void);
  * @param name                    : 设备名称
  * @return cat_device_t* : 设备指针(句柄)
  */
-cat_device_t *cat_device_get(const uint8_t *name);
+cat_device_t *cat_device_get(const cat_uint8_t *name);
 
 /**
  * @brief 根据设备号获取设备结构体指针
@@ -119,7 +119,7 @@ cat_device_t *cat_device_get(const uint8_t *name);
  * @param id                      : 设备号
  * @return cat_device_t* : 设备指针(句柄)
  */
-cat_device_t *cat_device_get_by_id(uint8_t id);
+cat_device_t *cat_device_get_by_id(cat_uint8_t id);
 
 /**
  * @brief 注册设备(只会初始化链表节点和参数中的成员，其余由用户自行初始化和赋值)
@@ -127,43 +127,43 @@ cat_device_t *cat_device_get_by_id(uint8_t id);
  * @param dev                      : 设备指针
  * @param name                     : 设备名
  * @param aval_mode                : 允许的运行模式
- * @return uint8_t                 : 0->成功
+ * @return cat_uint8_t                 : 0->成功
  */
-uint8_t cat_device_register(cat_device_t *dev, const uint8_t *name, uint16_t aval_mode);
+cat_uint8_t cat_device_register(cat_device_t *dev, const cat_uint8_t *name, cat_uint16_t aval_mode);
 
 /**
  * @brief 移除设备(从注册移除)
  * 
  * @param dev                      : 设备指针
- * @return uint8_t                 : 0->成功
+ * @return cat_uint8_t                 : 0->成功
  */
-uint8_t cat_device_unregister(cat_device_t *dev);
+cat_uint8_t cat_device_unregister(cat_device_t *dev);
 
 /**
  * @brief 设置接收中断回调函数
  * 
  * @param dev 
  * @param rx_cbk 
- * @return uint8_t 
+ * @return cat_uint8_t 
  */
-uint8_t cat_device_set_rx_cbk(cat_device_t *dev, uint8_t (*rx_cbk)(cat_device_t *dev, uint32_t size));
+cat_uint8_t cat_device_set_rx_cbk(cat_device_t *dev, cat_uint8_t (*rx_cbk)(cat_device_t *dev, cat_uint32_t size));
 
 /**
  * @brief 设置发送中断回调函数
  * 
  * @param dev 
  * @param tx_cbk 
- * @return uint8_t 
+ * @return cat_uint8_t 
  */
-uint8_t cat_device_set_tx_cbk(cat_device_t *dev, uint8_t (*tx_cbk)(cat_device_t *dev, void *buffer));
+cat_uint8_t cat_device_set_tx_cbk(cat_device_t *dev, cat_uint8_t (*tx_cbk)(cat_device_t *dev, void *buffer));
 
 /* 设备控制接口，通过调用相应设备自身的操作函数 */
-uint8_t cat_device_init(cat_device_t *dev);
-uint8_t cat_device_open(cat_device_t *dev, uint16_t open_mode);
-uint8_t cat_device_close(cat_device_t *dev);
-uint32_t cat_device_read(cat_device_t *dev, int32_t pos, void *buffer, uint32_t size);
-uint32_t cat_device_write(cat_device_t *dev, int32_t pos, const void *buffer, uint32_t size);
-uint8_t cat_device_ctrl(cat_device_t *dev, uint8_t cmd, void *arg);
+cat_uint8_t cat_device_init(cat_device_t *dev);
+cat_uint8_t cat_device_open(cat_device_t *dev, cat_uint16_t open_mode);
+cat_uint8_t cat_device_close(cat_device_t *dev);
+cat_uint32_t cat_device_read(cat_device_t *dev, cat_int32_t pos, void *buffer, cat_uint32_t size);
+cat_uint32_t cat_device_write(cat_device_t *dev, cat_int32_t pos, const void *buffer, cat_uint32_t size);
+cat_uint8_t cat_device_ctrl(cat_device_t *dev, cat_uint8_t cmd, void *arg);
 
 /* FUNCS END */
 

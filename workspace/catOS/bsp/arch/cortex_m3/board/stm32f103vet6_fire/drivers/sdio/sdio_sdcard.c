@@ -450,7 +450,7 @@ SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize)
 	if(errorstatus!=SD_OK)return errorstatus;   		//响应错误	 
  	if(DeviceMode==SD_POLLING_MODE)						//查询模式,轮询数据	 
 	{
- 		uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
+ 		cat_uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
 		while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<10)|(1<<9))))//无上溢/CRC/超时/完成(标志)/起始位错误
 		{
 			if(SDIO->STA&(1<<15))						//接收区半满,表示至少存了8个字
@@ -544,7 +544,7 @@ SD_Error SD_ReadMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 		if(errorstatus!=SD_OK)return errorstatus;   	//响应错误	  
  		if(DeviceMode==SD_POLLING_MODE)
 		{
-			uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
+			cat_uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
 			while(!(SDIO->STA&((1<<5)|(1<<1)|(1<<3)|(1<<8)|(1<<9))))//无上溢/CRC/超时/完成(标志)/起始位错误
 			{
 				if(SDIO->STA&(1<<15))						//接收区半满,表示至少存了8个字
@@ -661,7 +661,7 @@ SD_Error SD_WriteBlock(u8 *buf,long long addr,  u16 blksize)
 	timeout=SDIO_DATATIMEOUT;
 	if (DeviceMode == SD_POLLING_MODE)
 	{
-		uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
+		cat_uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
 		while(!(SDIO->STA&((1<<10)|(1<<4)|(1<<1)|(1<<3)|(1<<9))))//数据块发送成功/下溢/CRC/超时/起始位错误
 		{
 			if(SDIO->STA&(1<<14))							//发送区半空,表示至少存了8个字
@@ -786,7 +786,7 @@ SD_Error SD_WriteMultiBlocks(u8 *buf,long long addr,u16 blksize,u32 nblks)
 		if(DeviceMode==SD_POLLING_MODE)
 	    {
 			timeout=SDIO_DATATIMEOUT;
-			uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
+			cat_uint32_t status = cat_hw_irq_disable();//关闭总中断(POLLING模式,严禁中断打断SDIO读写操作!!!)
 			while(!(SDIO->STA&((1<<4)|(1<<1)|(1<<8)|(1<<3)|(1<<9))))//下溢/CRC/数据结束/超时/起始位错误
 			{
 				if(SDIO->STA&(1<<14))							//发送区半空,表示至少存了8字(32字节)
@@ -1131,7 +1131,7 @@ SD_Error IsCardProgramming(u8 *pstatus)
 //读取当前卡状态
 //pcardstatus:卡状态
 //返回值:错误代码
-SD_Error SD_SendStatus(uint32_t *pcardstatus)
+SD_Error SD_SendStatus(cat_uint32_t *pcardstatus)
 {
 	SD_Error errorstatus = SD_OK;
 	if(pcardstatus==NULL)

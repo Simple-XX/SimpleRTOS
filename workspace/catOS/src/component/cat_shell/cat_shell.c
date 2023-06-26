@@ -32,16 +32,16 @@ extern cat_shell_instance_t port_shell_inst_1; /**< from cat_shell_port.c*/
 
 #if (CAT_USE_SECTION == 0)
     cat_shell_cmd_t *cat_cmds[CAT_MAX_CMD_NUM] = {0};
-    int32_t cmd_num = 0;
+    cat_int32_t cmd_num = 0;
 #endif //(CAT_USE_SECTION ==0)
 
-//uint32_t sched_task_shell_times = 0;
+//cat_uint32_t sched_task_shell_times = 0;
 
 
-int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
+cat_int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
 {
-    int32_t ret = 0;
-    uint16_t i = 0;
+    cat_int32_t ret = 0;
+    cat_uint16_t i = 0;
 
     /* 检查参数 */
     if(cfg->buffer == NULL)
@@ -65,7 +65,7 @@ int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
         
 
         inst->cmd_list.cmd_base = (cat_shell_cmd_t *)(SECTION_START(cat_shell_cmd));
-        inst->cmd_list.cmd_num = (SECTION_END(cat_shell_cmd) - SECTION_START(cat_shell_cmd)) / sizeof(cat_shell_cmd_t);
+        inst->cmd_list.cmd_num = (cat_uint16_t)(((cat_uint32_t)SECTION_END(cat_shell_cmd) - (cat_uint32_t)SECTION_START(cat_shell_cmd)) / sizeof(cat_shell_cmd_t));
 
         inst->status.is_inited = 1;
     }
@@ -75,7 +75,7 @@ int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
 
 void cat_shell_task_entry(void *arg)
 {
-    uint8_t ch;
+    cat_uint8_t ch;
     cat_shell_instance_t *shell_inst = &port_shell_inst_1;
 
 #if 0 /* task 还不能传参数 */
@@ -87,6 +87,7 @@ void cat_shell_task_entry(void *arg)
         CAT_FALTAL_ERROR("must give a shell instance to start shell task");
     }
 #else
+		(void)arg;
     CAT_ASSERT(shell_inst);
 #endif
 
@@ -107,12 +108,12 @@ void cat_shell_task_entry(void *arg)
     }
 }
 
-void cat_handle_input_char(cat_shell_instance_t *inst, uint8_t data)
+void cat_handle_input_char(cat_shell_instance_t *inst, cat_uint8_t data)
 {
     CAT_ASSERT(data);
 
-    uint8_t wanted_offset = 0;//向左的偏移，从左到右即是从先到后，用来匹配新输入的键值
-    uint32_t current_mask = 0x00000000;//当前已经累计的键值掩码,用来匹配命令表中键值
+    cat_uint8_t wanted_offset = 0;//向左的偏移，从左到右即是从先到后，用来匹配新输入的键值
+    cat_uint32_t current_mask = 0x00000000;//当前已经累计的键值掩码,用来匹配命令表中键值
     if(CAT_HAS_AREADY_NONE(inst->buffer.current_combine_key_val))
     {
         /* 当前未累计键值 */
@@ -202,7 +203,7 @@ cat_shell_cmd_t *cat_seek_cmd(cat_shell_instance_t *inst)
 void cat_parse_args(cat_shell_instance_t *inst)
 {
 
-    uint16_t i = 0;
+    cat_uint16_t i = 0;
 
     /* 初始化，清空上一次的记录 */
     inst->buffer.arg_num = 0;

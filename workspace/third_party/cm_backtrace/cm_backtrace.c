@@ -42,9 +42,14 @@
     #define IMAGE_SECTION_END(_name_)            Image$$##_name_##$$Limit
     #define CSTACK_BLOCK_START(_name_)           SECTION_START(_name_)
     #define CSTACK_BLOCK_END(_name_)             SECTION_END(_name_)
-    #define CODE_SECTION_START(_name_)           IMAGE_SECTION_START(_name_)
-    #define CODE_SECTION_END(_name_)             IMAGE_SECTION_END(_name_)
 
+    #if CMB_BOARD_IS_RA
+        //#error "is ra"
+        // #define CODE_SECTION_START(_name_)           IMAGE_SECTION_START(_name_)
+        // #define CODE_SECTION_END(_name_)             IMAGE_SECTION_END(_name_)
+        #define CODE_SECTION_START(_name_)           SECTION_START(_name_)
+        #define CODE_SECTION_END(_name_)             SECTION_END(_name_)
+    #endif
     extern const int CSTACK_BLOCK_START(CMB_CSTACK_BLOCK_NAME);
     extern const int CSTACK_BLOCK_END(CMB_CSTACK_BLOCK_NAME);
     extern const int CODE_SECTION_START(CMB_CODE_SECTION_NAME);

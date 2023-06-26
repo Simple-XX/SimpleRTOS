@@ -26,7 +26,7 @@
  * ...
  * catOS/src/component/cat_shell/cat_shell.h: In function 'cat_shell_task_create':
  * catOS/src/component/cat_shell/cat_shell.h:50:19: error: storage class specified for parameter 'shell_io_callback_t'
- * 50 | typedef int16_t (*shell_io_callback_t)(uint8_t *, uint16_t );
+ * 50 | typedef cat_int16_t (*shell_io_callback_t)(cat_uint8_t *, cat_uint16_t );
  * ...
  */
 void cat_shell_task_create(void);

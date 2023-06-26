@@ -24,13 +24,13 @@ cat_stack_type_t shell_task_env[CATOS_SHELL_STACK_SIZE];
 
 cat_shell_instance_t port_shell_inst_1 = {0};
 cat_shell_config_t shell_cfg = {0};
-uint8_t shell_space[512];
+cat_uint8_t shell_space[512];
 
 
 
 void cat_shell_task_create(void)
 {
-    int32_t ret = 0;
+    cat_int32_t ret = 0;
 
     /* 将shellspace分配到各个成员 */
     shell_cfg.buffer = shell_space;
@@ -54,7 +54,7 @@ void cat_shell_task_create(void)
     }
 
     cat_sp_task_create(
-        (const uint8_t *)"shell_task", 
+        (const cat_uint8_t *)"shell_task", 
         &shell_task, 
         cat_shell_task_entry, 
         NULL, 
@@ -66,16 +66,16 @@ void cat_shell_task_create(void)
 }
 
 
-int16_t cat_shell_port_getc(uint8_t *data)
+cat_int16_t cat_shell_port_getc(cat_uint8_t *data)
 {
-    int16_t ret = 0;
+    cat_int16_t ret = 0;
     *data = CAT_SYS_GETCHAR();
     return ret;
 }
 
-int16_t cat_shell_port_putc(uint8_t data)
+cat_int16_t cat_shell_port_putc(cat_uint8_t data)
 {
-    int16_t ret = 0;
+    cat_int16_t ret = 0;
 
     CAT_SYS_PUTCHAR(data);
 

@@ -23,8 +23,8 @@ static struct _cat_task_t idle_task;                    /**< 空闲任务变量 
 
 cat_stack_type_t idle_task_env[CATOS_IDLE_STACK_SIZE];  /**< 空闲任务堆栈 */
 
-uint32_t idle_cnt;                                      /**< 空闲任务时钟节拍计数*/
-uint32_t idle_max_cnt;                                  /**< 最大节拍输(现在是一秒内的)*/
+cat_uint32_t idle_cnt;                                      /**< 空闲任务时钟节拍计数*/
+cat_uint32_t idle_max_cnt;                                  /**< 最大节拍输(现在是一秒内的)*/
 
 /* funcs decl */
 void cat_idle_entry(void *arg);
@@ -33,7 +33,7 @@ void cat_idle_entry(void *arg);
 void cat_idle_task_create(void)
 {
     cat_sp_task_create(
-        (const uint8_t *)"idle_task",
+        (const cat_uint8_t *)"idle_task",
         &idle_task,
         cat_idle_entry,
         NULL,
@@ -51,7 +51,8 @@ void cat_idle_task_create(void)
 
 void cat_idle_entry(void *arg)
 {
-
+    (void)arg;
+	
     for(;;)
     {
 

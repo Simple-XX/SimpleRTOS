@@ -17,10 +17,10 @@
 
 typedef struct _stm32f103vet6_fire_pin_t
 {
-    uint32_t      pin_num;
+    cat_uint32_t      pin_num;
     char         *port_name;
     GPIO_TypeDef *port;
-    uint16_t      gpio_pin;
+    cat_uint16_t      gpio_pin;
 }stm32f103vet6_fire_pin_t;
 
 #endif

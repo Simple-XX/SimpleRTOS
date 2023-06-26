@@ -5,9 +5,9 @@
 #if (CATOS_ENABLE_DEVICE_MODEL == 1)
 
 #ifdef TEST_CAT_DEVICE_ALLOC_FREE_ID
-extern uint32_t id_table[8];
-uint8_t _cat_device_alloc_id(void);
-uint8_t _cat_device_free_id(uint8_t id);
+extern cat_uint32_t id_table[8];
+cat_uint8_t _cat_device_alloc_id(void);
+cat_uint8_t _cat_device_free_id(cat_uint8_t id);
 #endif
 
 /* STATIC FUNCS DECL START */
@@ -123,12 +123,12 @@ void test_list(void)
 }
 
 /* TEST_REGISTER */
-uint8_t test_init   (cat_device_t *dev)
+cat_uint8_t test_init   (cat_device_t *dev)
 {
     CAT_KPRINTF("[%s]:dev=%s\r\n", __func__, dev->device_name);
     return CAT_EOK;
 }
-uint8_t test_open   (cat_device_t *dev, uint16_t open_mode)
+cat_uint8_t test_open   (cat_device_t *dev, cat_uint16_t open_mode)
 {
     CAT_KPRINTF("[%s]:dev=%s\r\n", __func__, dev->device_name);
 
@@ -137,22 +137,22 @@ uint8_t test_open   (cat_device_t *dev, uint16_t open_mode)
 
     return CAT_EOK;
 }
-uint8_t test_close  (cat_device_t *dev)
+cat_uint8_t test_close  (cat_device_t *dev)
 {
     CAT_KPRINTF("[%s]:dev=%s\r\n", __func__, dev->device_name);
     return CAT_EOK;
 }
-uint8_t test_read   (cat_device_t *dev, int32_t pos, void *buffer, uint32_t size)
+cat_uint8_t test_read   (cat_device_t *dev, cat_int32_t pos, void *buffer, cat_uint32_t size)
 {
     CAT_KPRINTF("[%s]:dev=%s\r\n", __func__, dev->device_name);
     return CAT_EOK;
 }
-uint8_t test_write  (cat_device_t *dev, int32_t pos, const void *buffer, uint32_t size)
+cat_uint8_t test_write  (cat_device_t *dev, cat_int32_t pos, const void *buffer, cat_uint32_t size)
 {
     CAT_KPRINTF("[%s]:dev=%s\r\n", __func__, dev->device_name);
     return CAT_EOK;
 }
-uint8_t test_ctrl(cat_device_t *dev, int cmd, void *args)
+cat_uint8_t test_ctrl(cat_device_t *dev, int cmd, void *args)
 {
     CAT_KPRINTF("[%s]:dev=%s, cmd=%d, arg(int)=%d\r\n", __func__, dev->device_name, cmd, *((int*)args));
     return CAT_EOK;
@@ -195,10 +195,10 @@ void test_device_register(void)
 {
     CAT_KPRINTF("\n*** 1 test device_register ***\r\n");
     int err = 0;
-    err += cat_device_register(&test_uart0_dev,   (const uint8_t *)"uart0",   CAT_DEVICE_MODE_RDWR   | CAT_DEVICE_MODE_INT_RX);
-    err += cat_device_register(&test_uart1_dev,   (const uint8_t *)"uart1",   CAT_DEVICE_MODE_RDWR   | CAT_DEVICE_MODE_INT_RX);
-    err += cat_device_register(&test_iic0_dev,    (const uint8_t *)"iic0",    CAT_DEVICE_MODE_RDWR);
-    err += cat_device_register(&test_screen0_dev, (const uint8_t *)"screen0", CAT_DEVICE_MODE_WRONLY | CAT_DEVICE_MODE_DMA_TX);
+    err += cat_device_register(&test_uart0_dev,   (const cat_uint8_t *)"uart0",   CAT_DEVICE_MODE_RDWR   | CAT_DEVICE_MODE_INT_RX);
+    err += cat_device_register(&test_uart1_dev,   (const cat_uint8_t *)"uart1",   CAT_DEVICE_MODE_RDWR   | CAT_DEVICE_MODE_INT_RX);
+    err += cat_device_register(&test_iic0_dev,    (const cat_uint8_t *)"iic0",    CAT_DEVICE_MODE_RDWR);
+    err += cat_device_register(&test_screen0_dev, (const cat_uint8_t *)"screen0", CAT_DEVICE_MODE_WRONLY | CAT_DEVICE_MODE_DMA_TX);
     CAT_KPRINTF("err = %d\r\n", err);
 
     list_device();

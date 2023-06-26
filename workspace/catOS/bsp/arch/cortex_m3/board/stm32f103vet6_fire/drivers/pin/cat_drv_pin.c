@@ -32,9 +32,9 @@ void cat_pin_device_init(void)
 #endif
 }
 
-uint8_t cat_pin_init(uint32_t pin_num, uint8_t mode)
+cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
 {
-    uint8_t ret = CAT_ERROR;
+    cat_uint8_t ret = CAT_ERROR;
     stm32f103vet6_fire_pin_t *p = &(pin_map[0]);
     
     /* 遍历pin_map数组 */
@@ -82,25 +82,25 @@ uint8_t cat_pin_init(uint32_t pin_num, uint8_t mode)
     return ret;
 }
 
-uint8_t cat_pin_set_mode(uint32_t pin_num, uint8_t mode)
+cat_uint8_t cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
 {
-    uint8_t ret = CAT_ERROR;
+    cat_uint8_t ret = CAT_ERROR;
     CAT_KPRINTF("[pin] set mode now not support, abort!\r\n");
     return ret;
 }
 
 
-int8_t  cat_pin_read(uint32_t pin_num)
+cat_int8_t  cat_pin_read(cat_uint32_t pin_num)
 {
-    int8_t ret = CAT_ERROR;
+    cat_int8_t ret = CAT_ERROR;
     CAT_KPRINTF("[pin] read func now not support, abort!\r\n");
     return ret;
 }
 
 
-uint8_t cat_pin_write(uint32_t pin_num, uint8_t val)
+cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val)
 {
-    uint8_t ret = CAT_ERROR;
+    cat_uint8_t ret = CAT_ERROR;
     stm32f103vet6_fire_pin_t *p = &(pin_map[0]);
     
     /* 遍历pin_map数组 */

@@ -82,7 +82,7 @@ void *do_help(void *arg)
 {
     (void)arg;
 	
-	uint8_t i = 0;
+	cat_uint8_t i = 0;
     cat_shell_cmd_t *temp;
 
 	CAT_FOREACH_CMD(temp)
@@ -124,7 +124,7 @@ void *do_test_args(void *arg)
 {
     CAT_ASSERT(arg);
 
-    uint8_t i = 0;
+    cat_uint8_t i = 0;
     cat_shell_instance_t *inst = (cat_shell_instance_t *)arg;
     
     if(inst->buffer.arg_num == 0)
@@ -148,8 +148,8 @@ void *do_test_atoi(void *arg)
 {
     CAT_ASSERT(arg);
 
-    uint8_t i = 0;
-    int32_t result = 0;
+    cat_uint8_t i = 0;
+    cat_int32_t result = 0;
     cat_shell_instance_t *inst = (cat_shell_instance_t *)arg;
     
     if(inst->buffer.arg_num != 1)
@@ -182,7 +182,7 @@ CAT_DECLARE_CMD(clear, clear screen, do_clear);
 void *do_cpu_usage(void *arg)
 {
     (void)arg;
-    uint32_t usage_integer, usage_decimal;
+    cat_uint32_t usage_integer, usage_decimal;
 
     cat_cpu_usage_get(&usage_integer, &usage_decimal);
 

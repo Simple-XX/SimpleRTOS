@@ -30,27 +30,27 @@ typedef enum
 } cat_error_type_t;
 
 /************* local vars **************/
-static const uint8_t *_cat_error_msg[] = 
+static const cat_uint8_t *_cat_error_msg[] = 
 {
-    (const uint8_t *)"[cat_stdio] no match error type !!\r\n",
-    (const uint8_t *)"[cat_stdio:cat_print]type not support !!\r\n",
+    (const cat_uint8_t *)"[cat_stdio] no match error type !!\r\n",
+    (const cat_uint8_t *)"[cat_stdio:cat_print]type not support !!\r\n",
 };
 
 /************* static **************/
-static int32_t _cat_print_string(const uint8_t *str);
-static int32_t _cat_print_error(cat_error_type_t type);
-static int32_t _cat_print_int(int32_t num, int32_t width);
+static cat_int32_t _cat_print_string(const cat_uint8_t *str);
+static cat_int32_t _cat_print_error(cat_error_type_t type);
+static cat_int32_t _cat_print_int(cat_int32_t num, cat_int32_t width);
 
-static int32_t _cat_sprint_string(uint8_t *buf, uint32_t *buf_idx_ptr, const uint8_t *str);
-static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num, int32_t width);
+static cat_int32_t _cat_sprint_string(cat_uint8_t *buf, cat_uint32_t *buf_idx_ptr, const cat_uint8_t *str);
+static cat_int32_t _cat_sprint_int(cat_uint8_t *buf, cat_uint32_t *buf_idx_ptr, cat_int32_t num, cat_int32_t width);
 
-static int32_t _cat_scan_string(uint8_t *str_dest, uint32_t buf_len);
-static int32_t _cat_scan_int(int32_t *dest);
+static cat_int32_t _cat_scan_string(cat_uint8_t *str_dest, cat_uint32_t buf_len);
+static cat_int32_t _cat_scan_int(cat_int32_t *dest);
 
 
-static int32_t _cat_print_string(const uint8_t *str)
+static cat_int32_t _cat_print_string(const cat_uint8_t *str)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
 
     if(NULL == str)
     {
@@ -68,9 +68,9 @@ static int32_t _cat_print_string(const uint8_t *str)
     return ret;
 }
 
-static int32_t _cat_print_error(cat_error_type_t type)
+static cat_int32_t _cat_print_error(cat_error_type_t type)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
     cat_putchar('\r');
     cat_putchar('\n');
 
@@ -90,12 +90,12 @@ static int32_t _cat_print_error(cat_error_type_t type)
     return ret;
 }
 
-static int32_t _cat_print_int(int32_t num, int32_t width)
+static cat_int32_t _cat_print_int(cat_int32_t num, cat_int32_t width)
 {
-    int32_t ret = CAT_EOK;
-    /* uint32_t max val = 4294967295 */
-    uint8_t buf[CAT_INT_LONG] = {0};
-    uint8_t i = 0;
+    cat_int32_t ret = CAT_EOK;
+    /* cat_uint32_t max val = 4294967295 */
+    cat_uint8_t buf[CAT_INT_LONG] = {0};
+    cat_uint8_t i = 0;
 
     if(num < 0)
     {
@@ -105,7 +105,7 @@ static int32_t _cat_print_int(int32_t num, int32_t width)
 
     do
     {
-        buf[i++] = num % 10;
+        buf[i++] = (cat_uint8_t)(num % 10);
         num = num / 10;
 
     }while((0 != num) && (i < CAT_INT_LONG));
@@ -125,9 +125,9 @@ static int32_t _cat_print_int(int32_t num, int32_t width)
     return ret;
 }
 
-static int32_t _cat_sprint_string(uint8_t *buf, uint32_t *buf_idx_ptr, const uint8_t *str)
+static cat_int32_t _cat_sprint_string(cat_uint8_t *buf, cat_uint32_t *buf_idx_ptr, const cat_uint8_t *str)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
 
     if(NULL == str)
     {
@@ -145,12 +145,12 @@ static int32_t _cat_sprint_string(uint8_t *buf, uint32_t *buf_idx_ptr, const uin
 
     return ret;
 }
-static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num, int32_t width)
+static cat_int32_t _cat_sprint_int(cat_uint8_t *buf, cat_uint32_t *buf_idx_ptr, cat_int32_t num, cat_int32_t width)
 {
-    int32_t ret = CAT_EOK;
-    /* uint32_t max val = 4294967295 */
-    uint8_t int_buf[CAT_INT_LONG] = {0};
-    uint8_t i = 0;
+    cat_int32_t ret = CAT_EOK;
+    /* cat_uint32_t max val = 4294967295 */
+    cat_uint8_t int_buf[CAT_INT_LONG] = {0};
+    cat_uint8_t i = 0;
 
     if(num < 0)
     {
@@ -161,7 +161,7 @@ static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num,
 
     do
     {
-        int_buf[i++] = num % 10;
+        int_buf[i++] = (cat_uint8_t)(num % 10);
         num = num / 10;
 
     }while((0 != num) && (i < CAT_INT_LONG));
@@ -183,10 +183,10 @@ static int32_t _cat_sprint_int(uint8_t *buf, uint32_t *buf_idx_ptr, int32_t num,
     return ret;
 }
 
-static int32_t _cat_scan_string(uint8_t *str_dest, uint32_t buf_len)
+static cat_int32_t _cat_scan_string(cat_uint8_t *str_dest, cat_uint32_t buf_len)
 {
-    int32_t ret = CAT_EOK;
-    uint32_t i = 0;
+    cat_int32_t ret = CAT_EOK;
+    cat_uint32_t i = 0;
 
     do
     {
@@ -203,12 +203,12 @@ static int32_t _cat_scan_string(uint8_t *str_dest, uint32_t buf_len)
     return ret;
 }
 
-static int32_t _cat_scan_int(int32_t *dest)
+static cat_int32_t _cat_scan_int(cat_int32_t *dest)
 {
-    int32_t ret = CAT_EOK;
-    uint8_t is_negative = 0;
-    uint8_t tmp_char = 0;
-    int32_t tmp_int = 0;
+    cat_int32_t ret = CAT_EOK;
+    cat_uint8_t is_negative = 0;
+    cat_uint8_t tmp_char = 0;
+    cat_int32_t tmp_int = 0;
 
     tmp_char = cat_getchar();
     if('-' == tmp_char)
@@ -248,9 +248,9 @@ static int32_t _cat_scan_int(int32_t *dest)
 
 static cat_device_t *_stdio_dev = NULL;
 
-uint8_t cat_stdio_set_device(const uint8_t *name)
+cat_uint8_t cat_stdio_set_device(const cat_uint8_t *name)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     _stdio_dev = cat_device_get(name);
     CAT_ASSERT(NULL != _stdio_dev);
@@ -267,9 +267,9 @@ uint8_t cat_stdio_set_device(const uint8_t *name)
     return ret;
 }
 
-uint8_t cat_stdio_is_device_is_set(void)
+cat_uint8_t cat_stdio_is_device_is_set(void)
 {
-    uint8_t ret = 0;
+    cat_uint8_t ret = 0;
 
     if(NULL != _stdio_dev)
     {
@@ -279,12 +279,12 @@ uint8_t cat_stdio_is_device_is_set(void)
     return ret;
 }
 
-uint8_t cat_getchar(void)
+cat_uint8_t cat_getchar(void)
 {
-    uint8_t ret = 0;
+    cat_uint8_t ret = 0;
     
 #if 0
-    cat_bsp_uart_receive_byte((uint8_t *)&ret);
+    cat_bsp_uart_receive_byte((cat_uint8_t *)&ret);
 #else
     cat_device_read(_stdio_dev, 0, &ret, 1);
 #endif
@@ -292,10 +292,10 @@ uint8_t cat_getchar(void)
     return ret;
 }
 
-uint8_t cat_putchar(uint8_t ch)
+cat_uint8_t cat_putchar(cat_uint8_t ch)
 {
 #if 0
-    cat_bsp_uart_transmit_byte((uint8_t *)&ch);
+    cat_bsp_uart_transmit_byte((cat_uint8_t *)&ch);
 #else
     cat_device_write(_stdio_dev, 0, &ch, 1);
 #endif
@@ -303,11 +303,11 @@ uint8_t cat_putchar(uint8_t ch)
     return ch;
 }
 
-int32_t cat_scanf(const uint8_t *format, ...)
+cat_int32_t cat_scanf(const cat_uint8_t *format, ...)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
     va_list ap;
-    uint8_t *p = NULL;
+    cat_uint8_t *p = NULL;
 
     if(NULL == format)
     {
@@ -319,7 +319,7 @@ int32_t cat_scanf(const uint8_t *format, ...)
     va_start(ap, format);
 
     /* 挨个处理 */
-    p = (uint8_t *)format;
+    p = (cat_uint8_t *)format;
     while('\0' != *p)
     {
         if('%' != *p)
@@ -337,14 +337,14 @@ int32_t cat_scanf(const uint8_t *format, ...)
         {
         case 'd':
             p++;
-            //_cat_print_int(va_arg(ap, int32_t));
-            _cat_scan_int(va_arg(ap, int32_t *));
+            //_cat_print_int(va_arg(ap, cat_int32_t));
+            _cat_scan_int(va_arg(ap, cat_int32_t *));
             break;
 
         case 's':
             p++;
-            //_cat_print_string(va_arg(ap, uint8_t *));
-            _cat_scan_string(va_arg(ap, uint8_t *), MAX_STRNG_LEN);
+            //_cat_print_string(va_arg(ap, cat_uint8_t *));
+            _cat_scan_string(va_arg(ap, cat_uint8_t *), MAX_STRNG_LEN);
             break;
         
         default:
@@ -368,15 +368,15 @@ int32_t cat_scanf(const uint8_t *format, ...)
     return ret;
 }
 
-int32_t cat_printf(const uint8_t *format, ...)
+cat_int32_t cat_printf(const cat_uint8_t *format, ...)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
     va_list ap;
-    uint8_t *p = NULL;          /**< 用来遍历format字符串 */
-    uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
-    int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
+    cat_uint8_t *p = NULL;          /**< 用来遍历format字符串 */
+    cat_uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
+    cat_int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
 
-    uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串*/
+    cat_uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串*/
 
     if(NULL == format)
     {
@@ -388,7 +388,7 @@ int32_t cat_printf(const uint8_t *format, ...)
     va_start(ap, format);
 
     /* 挨个处理 */
-    p = (uint8_t *)format;
+    p = (cat_uint8_t *)format;
     while('\0' != *p)
     {
         if('%' != *p)
@@ -422,18 +422,18 @@ int32_t cat_printf(const uint8_t *format, ...)
         {
         case 'd':
             p++;
-            _cat_print_int(va_arg(ap, int32_t), width);
+            _cat_print_int(va_arg(ap, cat_int32_t), width);
             width = 0;
             break;
 
         case 's':
             p++;
-            _cat_print_string(va_arg(ap, uint8_t *));
+            _cat_print_string(va_arg(ap, cat_uint8_t *));
             break;
 
         case 'x':
             p++;
-            cat_itoh(hex_str, va_arg(ap, uint32_t));
+            cat_itoh(hex_str, va_arg(ap, cat_uint32_t));
             if('\0' != hex_str[2])
             {
                 _cat_print_string(hex_str);
@@ -470,19 +470,19 @@ int32_t cat_printf(const uint8_t *format, ...)
  * @param  buf              要输出到的缓冲区
  * @param  format           格式化字符串
  * @param  ...              输出的参数列表
- * @return int32_t          成功失败
+ * @return cat_int32_t          成功失败
  */
-int32_t cat_sprintf(uint8_t *buf, const uint8_t *format, ...)
+cat_int32_t cat_sprintf(cat_uint8_t *buf, const cat_uint8_t *format, ...)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
     va_list ap;
-    uint8_t *p = NULL;          /**< 用来遍历format字符串 */
-    uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
-    int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
+    cat_uint8_t *p = NULL;          /**< 用来遍历format字符串 */
+    cat_uint8_t wid_buf[5] = {0};   /**< 用于保存宽度的字符串 */
+    cat_int32_t width = 0;          /**< 输出宽度(目前仅用于整型输出) */
 
-    uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串 */
+    cat_uint8_t hex_str[11] = {0};  /**< 用于保存转为十六进制的字符串 */
 
-    uint32_t buf_idx = 0;       /**< 访问缓冲区 */
+    cat_uint32_t buf_idx = 0;       /**< 访问缓冲区 */
 
     if(NULL == format)
     {
@@ -494,7 +494,7 @@ int32_t cat_sprintf(uint8_t *buf, const uint8_t *format, ...)
     va_start(ap, format);
 
     /* 挨个处理 */
-    p = (uint8_t *)format;
+    p = (cat_uint8_t *)format;
     while('\0' != *p)
     {
         if('%' != *p)
@@ -529,18 +529,18 @@ int32_t cat_sprintf(uint8_t *buf, const uint8_t *format, ...)
         {
         case 'd':
             p++;
-            _cat_sprint_int(buf, &buf_idx, va_arg(ap, int32_t), width);
+            _cat_sprint_int(buf, &buf_idx, va_arg(ap, cat_int32_t), width);
             width = 0;
             break;
 
         case 's':
             p++;
-            _cat_sprint_string(buf, &buf_idx, va_arg(ap, uint8_t *));
+            _cat_sprint_string(buf, &buf_idx, va_arg(ap, cat_uint8_t *));
             break;
 
         case 'x':
             p++;
-            cat_itoh(hex_str, va_arg(ap, uint32_t));
+            cat_itoh(hex_str, va_arg(ap, cat_uint32_t));
             if('\0' != hex_str[2])
             {
                 _cat_sprint_string(buf, &buf_idx, hex_str);

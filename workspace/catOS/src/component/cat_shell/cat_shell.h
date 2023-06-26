@@ -47,7 +47,7 @@
 #define CATOS_SHELL_STACK_SIZE (4096)                     /**< 任务栈空间大小*/
 
 /*************** typedefs ****************/
-typedef int16_t (*shell_io_callback_t)(uint8_t *, uint16_t );
+typedef cat_int16_t (*shell_io_callback_t)(cat_uint8_t *, cat_uint16_t );
 typedef struct _cat_shell_cmd_t cat_shell_cmd_t;
 typedef struct _cat_shell_instance_t cat_shell_instance_t;
 typedef struct _cat_shell_config_t cat_shell_config_t;
@@ -65,15 +65,15 @@ struct _cat_shell_cmd_t
     {
         struct
         {
-            const uint8_t *name;
-            const uint8_t *desc;
+            const cat_uint8_t *name;
+            const cat_uint8_t *desc;
             void *(*do_cmd)(void *cmd_arg);
             void *(*reserved)(void);
         } cmd;
         struct
         {
-            const uint8_t *name;
-            uint32_t value;
+            const cat_uint8_t *name;
+            cat_uint32_t value;
             void (*action)(cat_shell_instance_t *);
         } key;
         
@@ -84,29 +84,29 @@ struct _cat_shell_instance_t
 {
     struct
     {
-        uint8_t *buf;                         /**< 缓冲区(4*/
-        uint8_t *args[CAT_MAX_CMD_ARGS];         /**< 根据输入解析的参数(4*/
-        uint16_t length;                      /**< 当前输入数据的长度(2*/
-        uint16_t arg_num;                     /**< 参数的个数(2*/
-        uint16_t buf_size;                    /**< 缓冲区总大小(2*/
-        uint32_t current_combine_key_val;     /**< 当前累计的键值*/
-        uint8_t  current_combine_key_offset;  /**< 当前组合键偏移*/
+        cat_uint8_t *buf;                         /**< 缓冲区(4*/
+        cat_uint8_t *args[CAT_MAX_CMD_ARGS];         /**< 根据输入解析的参数(4*/
+        cat_uint16_t length;                      /**< 当前输入数据的长度(2*/
+        cat_uint16_t arg_num;                     /**< 参数的个数(2*/
+        cat_uint16_t buf_size;                    /**< 缓冲区总大小(2*/
+        cat_uint32_t current_combine_key_val;     /**< 当前累计的键值*/
+        cat_uint8_t  current_combine_key_offset;  /**< 当前组合键偏移*/
     } buffer;
     struct
     {
         /* 历史记录：用上下键循环显示 */
-        uint8_t *historys[CAT_MAX_HISTORY];   /**< 历史记录*/
-        uint16_t his_num;                        /**< 历史记录条数*/
-        uint16_t current;                        /**< 当前显示的是第几条*/
+        cat_uint8_t *historys[CAT_MAX_HISTORY];   /**< 历史记录*/
+        cat_uint16_t his_num;                        /**< 历史记录条数*/
+        cat_uint16_t current;                        /**< 当前显示的是第几条*/
     } history;
     struct
     {
         cat_shell_cmd_t *cmd_base;               /**< 命令列表起始地址*/
-        uint16_t cmd_num;                        /**< 命令数量*/
+        cat_uint16_t cmd_num;                        /**< 命令数量*/
     } cmd_list;
     struct
     {
-        uint8_t is_inited;
+        cat_uint8_t is_inited;
     } status;
     // shell_io_callback_t read;           /**< 读，参数：0：将要存放的起始地址， 1：长度*/
     // shell_io_callback_t write;          /**< 写，参数：0：要写的数据的起始地址， 1：长度*/
@@ -114,10 +114,10 @@ struct _cat_shell_instance_t
 
 struct _cat_shell_config_t
 {
-    uint8_t *buffer;
-    uint16_t buf_size;
-    //uint8_t **args;
-    //uint8_t **historys;
+    cat_uint8_t *buffer;
+    cat_uint16_t buf_size;
+    //cat_uint8_t **args;
+    //cat_uint8_t **historys;
     // shell_io_callback_t read;
     // shell_io_callback_t write;
 };
@@ -201,12 +201,12 @@ type \"help\" to get more info\r\n\r\n"
 #if (CAT_USE_SECTION == 1) /*< 如果使用特定段来存放命令 */
 #if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
     #define IMPORT_SECTION(x) \
-        extern uint32_t x##$$Base; \
-        extern uint32_t x##$$Limit;
+        extern cat_uint32_t x##$$Base; \
+        extern cat_uint32_t x##$$Limit;
 
     #define SECTION_START(x)  (&x##$$Base)
     #define SECTION_END(x)    (&x##$$Limit)
-    #define SECTION_SIZE(x)   ((uint32_t)&x##$$Limit - (uint32_t)&x##$$Base)
+    #define SECTION_SIZE(x)   ((cat_uint32_t)&x##$$Limit - (cat_uint32_t)&x##$$Base)
 
     #define SECTION(x)  __attribute__((used, section(x)))
 #elif defined(__GNUC__)
@@ -232,8 +232,8 @@ type \"help\" to get more info\r\n\r\n"
     cat_cmd_##_name SECTION("cat_shell_cmd") =  \
     { \
         .type = CAT_CMD_TYPE_CMD, \
-        .content.cmd.name = (const uint8_t *)#_name, \
-        .content.cmd.desc = (const uint8_t *)#_desc, \
+        .content.cmd.name = (const cat_uint8_t *)#_name, \
+        .content.cmd.desc = (const cat_uint8_t *)#_desc, \
         .content.cmd.do_cmd = _do_cmd \
     }
 
@@ -243,7 +243,7 @@ type \"help\" to get more info\r\n\r\n"
     cat_cmd_##_name SECTION("cat_shell_cmd") =  \
     { \
         .type = CAT_CMD_TYPE_KEY, \
-        .content.key.name = (const uint8_t *)#_name, \
+        .content.key.name = (const cat_uint8_t *)#_name, \
         .content.key.value = _value, \
         .content.key.action = _action \
     }
@@ -281,14 +281,14 @@ type \"help\" to get more info\r\n\r\n"
 
 /*************** functions *****************/
 
-int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg);
+cat_int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg);
 void cat_shell_task_entry(void *arg);
 
 /**
  * @brief 处理输入的字符
  * @param data 
  */
-void cat_handle_input_char(cat_shell_instance_t *inst, uint8_t data);
+void cat_handle_input_char(cat_shell_instance_t *inst, cat_uint8_t data);
 
 cat_shell_cmd_t *cat_seek_cmd(cat_shell_instance_t *inst);
 

@@ -37,13 +37,13 @@ void cat_sp_task_scheduler_init(void);
  * @param stack_size            堆栈大小
  */
 void cat_sp_task_create(
-    const uint8_t *task_name,
+    const cat_uint8_t *task_name,
     struct _cat_task_t *task, 
     void (*entry)(void *), 
     void *arg, 
-    uint8_t prio, 
+    cat_uint8_t prio, 
     void *stack_start_addr,
-    uint32_t stack_size
+    cat_uint32_t stack_size
 );
 
 /**
@@ -108,7 +108,7 @@ void cat_sp_task_unrdy(struct _cat_task_t *task);
  * 
  * @param time 需要等待的tick数
  */
-void cat_sp_task_delay(uint32_t time);
+void cat_sp_task_delay(cat_uint32_t time);
 
 /**
  * @brief 将等待的任务从延时队列取出并挂入就绪表

@@ -28,7 +28,7 @@ void cat_list_node_init(struct _cat_node_t *node)
     node->pre_node = node;
 }
 
-uint32_t cat_list_count(struct _cat_list_t *list)
+cat_uint32_t cat_list_count(struct _cat_list_t *list)
 {
     return list->node_cnt;
 }
@@ -90,7 +90,7 @@ void cat_list_remove_node(struct _cat_list_t *list, struct _cat_node_t *node)
 
 void cat_list_remove_all(struct _cat_list_t *list)
 {
-    uint32_t count;
+    cat_uint32_t count;
     struct _cat_node_t *next_node;
 
     next_node = list->FIRST_NODE;

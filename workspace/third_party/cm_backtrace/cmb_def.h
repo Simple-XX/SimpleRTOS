@@ -66,11 +66,13 @@
 #if defined(__ARMCC_VERSION)
     /* C stack block name, default is STACK */
     #ifndef CMB_CSTACK_BLOCK_NAME
-    #define CMB_CSTACK_BLOCK_NAME          STACK
+    #define CMB_CSTACK_BLOCK_NAME          Image$$STACK$$ZI
+    // #define CMB_CSTACK_BLOCK_NAME g_main_stack
     #endif
     /* code section name, default is ER_IROM1 */
     #ifndef CMB_CODE_SECTION_NAME
-    #define CMB_CODE_SECTION_NAME          ER_IROM1
+    // #define CMB_CODE_SECTION_NAME          ER_IROM1
+    #define CMB_CODE_SECTION_NAME Image$$RO_CODE_DATA
     #endif
 #elif defined(__ICCARM__)
     /* C stack block name, default is 'CSTACK' */

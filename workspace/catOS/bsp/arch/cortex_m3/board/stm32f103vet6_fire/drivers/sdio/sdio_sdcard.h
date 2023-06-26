@@ -20,35 +20,35 @@
 //去掉了SD_WriteDisk和SD_ReadDisk函数if(CardType!=SDIO_STD_CAPACITY_SD_CARD_V1_1)的判断.
 ////////////////////////////////////////////////////////////////////////////////////////////////////  				
 
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
+typedef cat_uint8_t u8;
+typedef cat_uint16_t u16;
+typedef cat_uint32_t u32;
 
 //SDIO相关标志位
-#define SDIO_FLAG_CCRCFAIL                  ((uint32_t)0x00000001)
-#define SDIO_FLAG_DCRCFAIL                  ((uint32_t)0x00000002)
-#define SDIO_FLAG_CTIMEOUT                  ((uint32_t)0x00000004)
-#define SDIO_FLAG_DTIMEOUT                  ((uint32_t)0x00000008)
-#define SDIO_FLAG_TXUNDERR                  ((uint32_t)0x00000010)
-#define SDIO_FLAG_RXOVERR                   ((uint32_t)0x00000020)
-#define SDIO_FLAG_CMDREND                   ((uint32_t)0x00000040)
-#define SDIO_FLAG_CMDSENT                   ((uint32_t)0x00000080)
-#define SDIO_FLAG_DATAEND                   ((uint32_t)0x00000100)
-#define SDIO_FLAG_STBITERR                  ((uint32_t)0x00000200)
-#define SDIO_FLAG_DBCKEND                   ((uint32_t)0x00000400)
-#define SDIO_FLAG_CMDACT                    ((uint32_t)0x00000800)
-#define SDIO_FLAG_TXACT                     ((uint32_t)0x00001000)
-#define SDIO_FLAG_RXACT                     ((uint32_t)0x00002000)
-#define SDIO_FLAG_TXFIFOHE                  ((uint32_t)0x00004000)
-#define SDIO_FLAG_RXFIFOHF                  ((uint32_t)0x00008000)
-#define SDIO_FLAG_TXFIFOF                   ((uint32_t)0x00010000)
-#define SDIO_FLAG_RXFIFOF                   ((uint32_t)0x00020000)
-#define SDIO_FLAG_TXFIFOE                   ((uint32_t)0x00040000)
-#define SDIO_FLAG_RXFIFOE                   ((uint32_t)0x00080000)
-#define SDIO_FLAG_TXDAVL                    ((uint32_t)0x00100000)
-#define SDIO_FLAG_RXDAVL                    ((uint32_t)0x00200000)
-#define SDIO_FLAG_SDIOIT                    ((uint32_t)0x00400000)
-#define SDIO_FLAG_CEATAEND                  ((uint32_t)0x00800000)
+#define SDIO_FLAG_CCRCFAIL                  ((cat_uint32_t)0x00000001)
+#define SDIO_FLAG_DCRCFAIL                  ((cat_uint32_t)0x00000002)
+#define SDIO_FLAG_CTIMEOUT                  ((cat_uint32_t)0x00000004)
+#define SDIO_FLAG_DTIMEOUT                  ((cat_uint32_t)0x00000008)
+#define SDIO_FLAG_TXUNDERR                  ((cat_uint32_t)0x00000010)
+#define SDIO_FLAG_RXOVERR                   ((cat_uint32_t)0x00000020)
+#define SDIO_FLAG_CMDREND                   ((cat_uint32_t)0x00000040)
+#define SDIO_FLAG_CMDSENT                   ((cat_uint32_t)0x00000080)
+#define SDIO_FLAG_DATAEND                   ((cat_uint32_t)0x00000100)
+#define SDIO_FLAG_STBITERR                  ((cat_uint32_t)0x00000200)
+#define SDIO_FLAG_DBCKEND                   ((cat_uint32_t)0x00000400)
+#define SDIO_FLAG_CMDACT                    ((cat_uint32_t)0x00000800)
+#define SDIO_FLAG_TXACT                     ((cat_uint32_t)0x00001000)
+#define SDIO_FLAG_RXACT                     ((cat_uint32_t)0x00002000)
+#define SDIO_FLAG_TXFIFOHE                  ((cat_uint32_t)0x00004000)
+#define SDIO_FLAG_RXFIFOHF                  ((cat_uint32_t)0x00008000)
+#define SDIO_FLAG_TXFIFOF                   ((cat_uint32_t)0x00010000)
+#define SDIO_FLAG_RXFIFOF                   ((cat_uint32_t)0x00020000)
+#define SDIO_FLAG_TXFIFOE                   ((cat_uint32_t)0x00040000)
+#define SDIO_FLAG_RXFIFOE                   ((cat_uint32_t)0x00080000)
+#define SDIO_FLAG_TXDAVL                    ((cat_uint32_t)0x00100000)
+#define SDIO_FLAG_RXDAVL                    ((cat_uint32_t)0x00200000)
+#define SDIO_FLAG_SDIOIT                    ((cat_uint32_t)0x00400000)
+#define SDIO_FLAG_CEATAEND                  ((cat_uint32_t)0x00800000)
 
 
 //用户配置区			  
@@ -172,15 +172,15 @@ typedef struct
 //SD卡状态
 typedef enum
 {
-	SD_CARD_READY                  = ((uint32_t)0x00000001),
-	SD_CARD_IDENTIFICATION         = ((uint32_t)0x00000002),
-	SD_CARD_STANDBY                = ((uint32_t)0x00000003),
-	SD_CARD_TRANSFER               = ((uint32_t)0x00000004),
-	SD_CARD_SENDING                = ((uint32_t)0x00000005),
-	SD_CARD_RECEIVING              = ((uint32_t)0x00000006),
-	SD_CARD_PROGRAMMING            = ((uint32_t)0x00000007),
-	SD_CARD_DISCONNECTED           = ((uint32_t)0x00000008),
-	SD_CARD_ERROR                  = ((uint32_t)0x000000FF)
+	SD_CARD_READY                  = ((cat_uint32_t)0x00000001),
+	SD_CARD_IDENTIFICATION         = ((cat_uint32_t)0x00000002),
+	SD_CARD_STANDBY                = ((cat_uint32_t)0x00000003),
+	SD_CARD_TRANSFER               = ((cat_uint32_t)0x00000004),
+	SD_CARD_SENDING                = ((cat_uint32_t)0x00000005),
+	SD_CARD_RECEIVING              = ((cat_uint32_t)0x00000006),
+	SD_CARD_PROGRAMMING            = ((cat_uint32_t)0x00000007),
+	SD_CARD_DISCONNECTED           = ((cat_uint32_t)0x00000008),
+	SD_CARD_ERROR                  = ((cat_uint32_t)0x000000FF)
 }SDCardState;
 
 //SD卡信息,包括CSD,CID等数据
@@ -360,7 +360,7 @@ SD_Error SD_GetCardInfo(SD_CardInfo *cardinfo);
 SD_Error SD_EnableWideBusOperation(u32 wmode);
 SD_Error SD_SetDeviceMode(u32 mode);
 SD_Error SD_SelectDeselect(u32 addr); 
-SD_Error SD_SendStatus(uint32_t *pcardstatus);
+SD_Error SD_SendStatus(cat_uint32_t *pcardstatus);
 SDCardState SD_GetState(void);
 SD_Error SD_ReadBlock(u8 *buf,long long addr,u16 blksize);  
 SD_Error SD_ReadMultiBlocks(u8 *buf,long long  addr,u16 blksize,u32 nblks);  

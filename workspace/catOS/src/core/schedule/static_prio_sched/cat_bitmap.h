@@ -21,14 +21,14 @@
 /* 位图数据结构 */
 struct _cat_bitmap
 {
-    uint32_t bitmap;
+    cat_uint32_t bitmap;
 };
 typedef struct _cat_bitmap cat_bitmap;
 
 /**
  * @brief 获取位图位数
  */
-uint32_t cat_bitmap_get_wide(void);
+cat_uint32_t cat_bitmap_get_wide(void);
 
 /**
  * @brief 初始化位图
@@ -43,7 +43,7 @@ void cat_bitmap_init(cat_bitmap *bitmap);
  * @param bitmap    位图指针
  * @param pos       位置
  */
-void cat_bitmap_set(cat_bitmap *bitmap, uint32_t pos);
+void cat_bitmap_set(cat_bitmap *bitmap, cat_uint32_t pos);
 
 /**
  * @brief 复位
@@ -51,14 +51,14 @@ void cat_bitmap_set(cat_bitmap *bitmap, uint32_t pos);
  * @param bitmap    位图指针
  * @param pos       位置
  */
-void cat_bitmap_clr(cat_bitmap *bitmap, uint32_t pos);
+void cat_bitmap_clr(cat_bitmap *bitmap, cat_uint32_t pos);
 
 /**
  * @brief 获取最低非零位
  * 
  * @param bitmap        位图指针
- * @return uint32_t     最低非零位
+ * @return cat_uint32_t     最低非零位
  */
-uint32_t cat_bitmap_get_first_set(cat_bitmap *bitmap);
+cat_uint32_t cat_bitmap_get_first_set(cat_bitmap *bitmap);
 
 #endif

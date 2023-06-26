@@ -32,19 +32,19 @@ void cat_pin_device_init(void);
  * 
  * @param pin_num  catos引脚号
  * @param mode     模式
- * @return uint8_t  CAT_EOK: 成功
+ * @return cat_uint8_t  CAT_EOK: 成功
  *                  CAT_ERROR: 失败
  */
-uint8_t cat_pin_init(uint32_t pin_num, uint8_t mode);
+cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode);
 
 /**
  * @brief 设置引脚模式
  * 
  * @param pin_num  catos引脚号
  * @param mode     模式
- * @return uint8_t 成功失败
+ * @return cat_uint8_t 成功失败
  */
-uint8_t cat_pin_set_mode(uint32_t pin_num, uint8_t mode);
+cat_uint8_t cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode);
 
 /**
  * @brief 读取引脚状态
@@ -52,16 +52,16 @@ uint8_t cat_pin_set_mode(uint32_t pin_num, uint8_t mode);
  * @param pin_num catos引脚号
  * @return int8_t 引脚当前值
  */
-int8_t  cat_pin_read(uint32_t pin_num);
+cat_int8_t  cat_pin_read(cat_uint32_t pin_num);
 
 /**
  * @brief 修改输出引脚值
  * 
  * @param pin_num   catos引脚号
  * @param val       要输出的状态
- * @return uint8_t  成功失败
+ * @return cat_uint8_t  成功失败
  */
-uint8_t cat_pin_write(uint32_t pin_num, uint8_t val);
+cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val);
 
 
 #endif

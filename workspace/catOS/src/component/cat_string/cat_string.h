@@ -21,34 +21,34 @@
  * @brief 比较字符串是否相同
  * @param str1 
  * @param str2 
- * @return uint32_t 0:equal, -1:not equal, -2:NULL args
+ * @return cat_uint32_t 0:equal, -1:not equal, -2:NULL args
  */
-int32_t cat_strcmp(const uint8_t *str1, const uint8_t *str2);
+cat_int32_t cat_strcmp(const cat_uint8_t *str1, const cat_uint8_t *str2);
 
 /**
  * @brief 字符串拷贝
  * @param dest 
  * @param src 
- * @return int32_t 0:成功，else:失败
+ * @return cat_int32_t 0:成功，else:失败
  */
-int32_t cat_strcpy(uint8_t *dest, const uint8_t *src, uint32_t dest_len);
+cat_int32_t cat_strcpy(cat_uint8_t *dest, const cat_uint8_t *src, cat_uint32_t dest_len);
 
 
 /**
  * @brief 字符串转有符号32
  * @param dest 
  * @param src 
- * @return int32_t 0:成功，else:失败
+ * @return cat_int32_t 0:成功，else:失败
  */
-int32_t cat_atoi(int32_t *dest, const uint8_t *src);
+cat_int32_t cat_atoi(cat_int32_t *dest, const cat_uint8_t *src);
 
 /**
  * @brief 有符号32转字符串
  * @param dest 
  * @param src 
- * @return int32_t 0:成功，else:失败
+ * @return cat_int32_t 0:成功，else:失败
  */
-int32_t cat_itoa(uint8_t *dest, int32_t src);
+cat_int32_t cat_itoa(cat_uint8_t *dest, cat_int32_t src);
 
 
 /**
@@ -56,18 +56,18 @@ int32_t cat_itoa(uint8_t *dest, int32_t src);
  * 
  * @param dest 
  * @param src 
- * @return int32_t 
+ * @return cat_int32_t 
  */
-int32_t cat_htoi(uint32_t *dest, const uint8_t *src);
+cat_int32_t cat_htoi(cat_uint32_t *dest, const cat_uint8_t *src);
 
 /**
  * @brief 十进制转十六进制字符串
  * 
  * @param dest 
  * @param src 
- * @return int32_t 
+ * @return cat_int32_t 
  */
-int32_t cat_itoh(uint8_t *dest, uint32_t src);
+cat_int32_t cat_itoh(cat_uint8_t *dest, cat_uint32_t src);
 
 /**
  * @brief 格式化内存块
@@ -77,7 +77,7 @@ int32_t cat_itoh(uint8_t *dest, uint32_t src);
  * @param size          内存块大小
  * @return void* 
  */
-void *cat_memset(void *start_addr, uint8_t fill_with, uint32_t size);
+void *cat_memset(void *start_addr, cat_uint8_t fill_with, cat_uint32_t size);
 
 
 

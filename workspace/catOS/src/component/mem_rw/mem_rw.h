@@ -15,7 +15,7 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
-uint8_t get_reg(uint32_t *addr, uint32_t *val);
-uint8_t set_reg(uint32_t *addr, uint32_t  val);
+cat_uint8_t get_reg(cat_uint32_t *addr, cat_uint32_t *val);
+cat_uint8_t set_reg(cat_uint32_t *addr, cat_uint32_t  val);
 
 #endif

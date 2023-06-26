@@ -20,20 +20,15 @@
 /************** MACROS*********************/
 #define U32_MAX_VAL 0xffffffff
 
-typedef signed char     int8_t;
-typedef short int       int16_t;
-#if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
-    typedef int             int32_t;
-#endif
-typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
+typedef signed char     cat_int8_t;
+typedef short int       cat_int16_t;
+typedef int             cat_int32_t;
 
-#if defined(__CC_ARM) || (defined ( __ARMCC_VERSION ) && ( __ARMCC_VERSION >= 6010050 ))
-    typedef unsigned int            uint32_t;
-#endif
+typedef unsigned char           cat_uint8_t;
+typedef unsigned short int      cat_uint16_t;
+typedef unsigned int            cat_uint32_t;
 
-
-typedef uint8_t cat_stack_type_t;
+typedef cat_uint8_t cat_stack_type_t;
 
 /* 错误代码定义 */
 #define CAT_EOK                 (0)     /**< 成功 */
@@ -50,7 +45,7 @@ typedef uint8_t cat_stack_type_t;
  * @brief 向下取整对齐
  */
 #define CAT_ALIGN_DOWN(addr, align) \
-    ((addr) & ~((align) - 1))
+    (((cat_uint32_t)addr) & ~(((cat_uint32_t)align) - 1))
 
 /************** struct type*********************/
 /* cat_list.c */

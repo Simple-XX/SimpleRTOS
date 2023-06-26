@@ -35,7 +35,7 @@ int __wrap_atexit(void __attribute__((unused)) (*function)(void)) {
 
 /* PRIVATE FUNCS DECL START */
 static void SystemClock_Config(void);
-static void cat_set_systick_period(uint32_t ms);
+static void cat_set_systick_period(cat_uint32_t ms);
 /* PRIVATE FUNCS DECL END */
 
 /**
@@ -83,7 +83,7 @@ void catos_start_sched(void)
     MEM8(NVIC_SYSPRI2)      = NVIC_PENDSV_PRI;
 
     /* 切换到第一个任务 */
-    cat_hw_context_switch_to_first((uint32_t)&(first_task->sp));
+    cat_hw_context_switch_to_first((cat_uint32_t)&(first_task->sp));
 }
 
 
@@ -141,7 +141,7 @@ static void SystemClock_Config(void)
  * 
  * @param ms 周期(ms)
  */
-static void cat_set_systick_period(uint32_t ms)
+static void cat_set_systick_period(cat_uint32_t ms)
 {
     SysTick->LOAD = ms * SystemCoreClock / 1000;                    /* 重载计数器值 */
     /* 设置时钟中断优先级 */

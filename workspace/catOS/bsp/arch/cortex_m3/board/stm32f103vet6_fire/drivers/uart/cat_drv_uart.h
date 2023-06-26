@@ -13,14 +13,14 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
-uint8_t cat_drv_uart_register(void);
+cat_uint8_t cat_drv_uart_register(void);
 
 #if 0
-uint32_t cat_bsp_uart_init(void);
+cat_uint32_t cat_bsp_uart_init(void);
 
-uint32_t cat_bsp_uart_transmit(uint8_t *data, uint32_t size);
-uint32_t cat_bsp_uart_receive(uint8_t *data, uint32_t size);
+cat_uint32_t cat_bsp_uart_transmit(cat_uint8_t *data, cat_uint32_t size);
+cat_uint32_t cat_bsp_uart_receive(cat_uint8_t *data, cat_uint32_t size);
 
-uint8_t cat_bsp_uart_transmit_byte(uint8_t *ch);
-uint8_t cat_bsp_uart_receive_byte(uint8_t *ch);
+cat_uint8_t cat_bsp_uart_transmit_byte(cat_uint8_t *ch);
+cat_uint8_t cat_bsp_uart_receive_byte(cat_uint8_t *ch);
 #endif

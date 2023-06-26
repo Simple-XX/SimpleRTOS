@@ -41,7 +41,7 @@ struct _cat_task_t *cat_sp_cur_task; /**< 当前固定优先级任务的指针 *
 cat_bitmap cat_task_prio_bitmap;     /**< 就绪位图 */
 
 /* PRIVATE */
-static uint8_t sched_lock_cnt;                                  /**< 调度锁 0:未加锁；else：加锁(可多次加锁)*/
+static cat_uint8_t sched_lock_cnt;                                  /**< 调度锁 0:未加锁；else：加锁(可多次加锁)*/
 static struct _cat_list_t task_rdy_tbl[CATOS_MAX_TASK_PRIO];    /**< 就绪表 */
 static struct _cat_list_t cat_task_delayed_list;                /**< 延时链表 */
 
@@ -88,13 +88,13 @@ void cat_sp_task_scheduler_init(void)
  * @param stack_size            堆栈大小
  */
 void cat_sp_task_create(
-    const uint8_t *task_name,
+    const cat_uint8_t *task_name,
     struct _cat_task_t *task, 
     void (*entry)(void *), 
     void *arg, 
-    uint8_t prio, 
+    cat_uint8_t prio, 
     void *stack_start_addr,
-    uint32_t stack_size
+    cat_uint32_t stack_size
 )
 {
     /* 初始化任务结构 */
@@ -122,7 +122,7 @@ struct _cat_task_t *cat_sp_task_highest_ready(void)
 {
     struct _cat_task_t *ret;
     /* 获取最低非零位(有任务就绪的最高优先级) */
-    uint32_t highest_prio = cat_bitmap_get_first_set(&cat_task_prio_bitmap);
+    cat_uint32_t highest_prio = cat_bitmap_get_first_set(&cat_task_prio_bitmap);
 
     /* 获取链表的第一个节点 */
     struct _cat_node_t *node = cat_list_first(&(task_rdy_tbl[highest_prio]));
@@ -191,7 +191,7 @@ void cat_sp_task_sched(void)
 {
     //struct _cat_task_t *temp_task;
     struct _cat_task_t *from_task, *to_task;
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
 
     /* 如果调度被上锁就直接返回，不调度 */
     if(sched_lock_cnt > 0)
@@ -211,8 +211,8 @@ void cat_sp_task_sched(void)
 
         /* 切换上下文 */
         cat_hw_context_switch(
-            (uint32_t)&(from_task->sp),
-            (uint32_t)&(to_task->sp)
+            (cat_uint32_t)&(from_task->sp),
+            (cat_uint32_t)&(to_task->sp)
         );
     }
 
@@ -225,7 +225,7 @@ void cat_sp_task_sched(void)
  */
 void cat_sp_task_sched_enable(void)
 {
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
     if(sched_lock_cnt > 0)
     {
         if(--sched_lock_cnt == 0)
@@ -243,7 +243,7 @@ void cat_sp_task_sched_enable(void)
  */
 void cat_sp_task_sched_enable_without_sched(void)
 {
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
     if(sched_lock_cnt > 0)
     {
         --sched_lock_cnt;
@@ -257,7 +257,7 @@ void cat_sp_task_sched_enable_without_sched(void)
  */
 void cat_sp_task_sched_disable(void)
 {
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
     if(sched_lock_cnt < 255)
     {
         sched_lock_cnt++;
@@ -298,9 +298,9 @@ void cat_sp_task_unrdy(struct _cat_task_t *task)
  * 
  * @param ticks 需要等待的tick数
  */
-void cat_sp_task_delay(uint32_t ticks)
+void cat_sp_task_delay(cat_uint32_t ticks)
 {
-    uint32_t status = cat_hw_irq_disable(); 
+    cat_uint32_t status = cat_hw_irq_disable(); 
 
     TMP_ASSERT_TASK(cat_sp_cur_task);
 
@@ -346,7 +346,7 @@ void cat_sp_task_suspend(struct _cat_task_t *task)
 {
     TMP_ASSERT_TASK(task);
 
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
 
     /* 只有不在延时状态时可以被挂起 */
     if(!(task->state & CATOS_TASK_STATE_DELAYED))
@@ -376,7 +376,7 @@ void cat_sp_task_suspend_wakeup(struct _cat_task_t *task)
 {
     TMP_ASSERT_TASK(task);
 
-    uint32_t status = cat_hw_irq_disable();
+    cat_uint32_t status = cat_hw_irq_disable();
 
     /* 只有已经被挂起至少一次的任务才能被唤醒 */
     if(task->state & CATOS_TASK_STATE_SUSPEND)

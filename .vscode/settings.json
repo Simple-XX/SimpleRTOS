@@ -12,6 +12,10 @@
         "bsp_board_led.h": "c",
         "catos.h": "c",
         "cat_task.h": "c",
-        "cat_basic_task.h": "c"
+        "cat_basic_task.h": "c",
+        "hal_data.h": "c",
+        "cat_drv_uart.h": "c",
+        "cmb_en_us.h": "c",
+        "cat_stdio.h": "c"
     }
 }

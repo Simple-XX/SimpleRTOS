@@ -21,18 +21,18 @@
 
 struct _cat_stm32f103vet6_uart_config_t
 {
-    const uint8_t  *name;
-    uint32_t        aval_mode;
+    const cat_uint8_t  *name;
+    cat_uint32_t        aval_mode;
 
-    uint32_t        instance_addr;
+    cat_uint32_t        instance_addr;
 
-    uint32_t        baudrate;
-    uint32_t        wordlen;
-    uint32_t        stopbits;
-    uint32_t        parity;
-    uint32_t        mode;
-    uint32_t        hw_flowctrl;
-    uint32_t        over_sampling;
+    cat_uint32_t        baudrate;
+    cat_uint32_t        wordlen;
+    cat_uint32_t        stopbits;
+    cat_uint32_t        parity;
+    cat_uint32_t        mode;
+    cat_uint32_t        hw_flowctrl;
+    cat_uint32_t        over_sampling;
 };
 
 struct _cat_stm32f103vet6_uart_private_data_t
@@ -67,9 +67,9 @@ UART_HandleTypeDef UartHandle;
 #if (CATOS_ENABLE_DEVICE_MODEL == 1)
 
 /* 公共函数 */
-uint8_t uart_init(cat_device_t*dev)
+cat_uint8_t uart_init(cat_device_t*dev)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     /* 获取sthal库的uart初始化句柄 */
     UART_HandleTypeDef *handle_ptr = 
@@ -95,38 +95,38 @@ uint8_t uart_init(cat_device_t*dev)
 
     return ret;
 }
-// uint8_t uart_open(cat_device_t*dev, uint16_t oflag)
+// cat_uint8_t uart_open(cat_device_t*dev, cat_uint16_t oflag)
 // {
 
 // }
-// uint8_t uart_close(cat_device_t*dev)
+// cat_uint8_t uart_close(cat_device_t*dev)
 // {
 
 // }
-uint32_t uart_read(cat_device_t*dev, int32_t pos, void *buffer, uint32_t size)
+cat_uint32_t uart_read(cat_device_t*dev, cat_int32_t pos, void *buffer, cat_uint32_t size)
 {
     (void)pos;
-    uint32_t ret = HAL_UART_Receive(
+    cat_uint32_t ret = HAL_UART_Receive(
                     ((struct _cat_stm32f103vet6_uart_private_data_t *)(dev->pri_data))->handle,
-                    (uint8_t *)buffer, 
+                    (cat_uint8_t *)buffer, 
                     size, 
                     0x1000
                 );
     return ret;
 }
-uint32_t uart_write(cat_device_t*dev, int32_t pos, const void *buffer, uint32_t size)
+cat_uint32_t uart_write(cat_device_t*dev, cat_int32_t pos, const void *buffer, cat_uint32_t size)
 {
     (void)pos;
     UART_HandleTypeDef *handle_ptr = ((struct _cat_stm32f103vet6_uart_private_data_t *)(dev->pri_data))->handle;
-    uint32_t ret = HAL_UART_Transmit(
+    cat_uint32_t ret = HAL_UART_Transmit(
                     handle_ptr, 
-                    (uint8_t *)buffer, 
+                    (cat_uint8_t *)buffer, 
                     size, 
                     0x1000
                 );
     return ret;
 }
-uint8_t uart_ctrl(cat_device_t*dev, int cmd, void *args)
+cat_uint8_t uart_ctrl(cat_device_t*dev, int cmd, void *args)
 {
     return CAT_EOK;
 }
@@ -134,9 +134,9 @@ uint8_t uart_ctrl(cat_device_t*dev, int cmd, void *args)
 /* uart1 */
 #define UART1_CONFIG \
 { \
-    .name               = (const uint8_t *)"uart1", \
+    .name               = (const cat_uint8_t *)"uart1", \
     .aval_mode          = CAT_DEVICE_MODE_RDWR, \
-    .instance_addr      = (uint32_t)USART1, \
+    .instance_addr      = (cat_uint32_t)USART1, \
     \
     .baudrate           = 115200, \
     .wordlen            = UART_WORDLENGTH_8B, \
@@ -166,9 +166,9 @@ cat_device_t uart1_dev = {
 };
 
 /* 挂载所有uart设备 */
-uint8_t cat_drv_uart_register(void)
+cat_uint8_t cat_drv_uart_register(void)
 {
-    uint8_t err = CAT_EOK;
+    cat_uint8_t err = CAT_EOK;
 
     err = cat_device_register(
             &uart1_dev,
@@ -196,9 +196,9 @@ uint8_t cat_drv_uart_register(void)
 }
 #else /* #if (CATOS_ENABLE_DEVICE_MODEL == 1) */
 
-uint32_t cat_bsp_uart_init(void)
+cat_uint32_t cat_bsp_uart_init(void)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     UartHandle.Instance          = USART_1_NAME;
   
@@ -218,33 +218,33 @@ uint32_t cat_bsp_uart_init(void)
     return ret;
 }
 
-uint32_t cat_bsp_uart_transmit(uint8_t *data, uint32_t size)
+cat_uint32_t cat_bsp_uart_transmit(cat_uint8_t *data, cat_uint32_t size)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     ret = HAL_UART_Transmit(&UartHandle, data, size, 0xffff);
 
     return ret;
 }
 
-uint32_t cat_bsp_uart_receive(uint8_t *data, uint32_t size)
+cat_uint32_t cat_bsp_uart_receive(cat_uint8_t *data, cat_uint32_t size)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     ret = HAL_UART_Receive(&UartHandle, data, size, 0x1000);
 
     return ret;
 }
 
-uint8_t cat_bsp_uart_transmit_byte(uint8_t *ch)
+cat_uint8_t cat_bsp_uart_transmit_byte(cat_uint8_t *ch)
 {
-    HAL_UART_Transmit(&UartHandle, (uint8_t *)ch, 1, 1000);
+    HAL_UART_Transmit(&UartHandle, (cat_uint8_t *)ch, 1, 1000);
     return *ch;
 }
 
-uint8_t cat_bsp_uart_receive_byte(uint8_t *ch)
+cat_uint8_t cat_bsp_uart_receive_byte(cat_uint8_t *ch)
 {
-    HAL_UART_Receive(&UartHandle, (uint8_t *)ch, 1, 1000);
+    HAL_UART_Receive(&UartHandle, (cat_uint8_t *)ch, 1, 1000);
     return *ch;
 }
 #endif /* #if (CATOS_ENABLE_DEVICE_MODEL == 1) */

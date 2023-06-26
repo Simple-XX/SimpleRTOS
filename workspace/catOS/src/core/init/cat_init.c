@@ -25,8 +25,9 @@
 #include "cat_init.h"
 
 /**** 三方应用头文件 ****/
-// #include "cm_backtrace.h"
-
+#if (CATOS_ENABLE_CMBACKTRACE == 1)
+    #include "cm_backtrace.h"
+#endif
 /**
  * @brief 系统初始化
  */
@@ -43,7 +44,7 @@ void catos_init(void)
     cat_drv_uart_register();
 
     /* 设置标准输入输出使用的串口 */
-    cat_stdio_set_device((uint8_t *)"uart1");
+    cat_stdio_set_device((cat_uint8_t *)CATOS_STDIO_DEVICE_NAME);
 
     /* 初始化引脚设备 */
     cat_pin_device_init();
@@ -62,7 +63,9 @@ void catos_init(void)
     cat_shell_task_create();
 
     /********三方应用相关初始化 */
-    // cm_backtrace_init("catos", "0.0", "0.1");
+#if (CATOS_ENABLE_CMBACKTRACE == 1)
+    cm_backtrace_init("catos", "0.0", "0.1");
+#endif
 
     /* 禁止调度，若用户调用catos_hw_start_sched()，则在其中打开调度锁 */
     cat_sp_task_sched_disable();

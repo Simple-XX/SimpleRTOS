@@ -18,8 +18,8 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
-#define MEM32(addr)     *(volatile uint32_t *)(addr)
-#define MEM8(addr)      *(volatile uint8_t  *)(addr)
+#define MEM32(addr)     *(volatile cat_uint32_t *)(addr)
+#define MEM8(addr)      *(volatile cat_uint8_t  *)(addr)
 
 /******* board port START ********/
 /**
@@ -46,28 +46,28 @@ void catos_start_sched(void);
  * @param  from_task_sp_addr 上一个任务tcb中堆栈指针变量的 *地址*
  * @param  to_task_sp_addr   下一个任务tcb中堆栈指针变量的 *地址*
  */
-void cat_hw_context_switch(uint32_t from_task_sp_addr, uint32_t to_task_sp_addr);
+void cat_hw_context_switch(cat_uint32_t from_task_sp_addr, cat_uint32_t to_task_sp_addr);
 
 /**
  * @brief 切换到第一个任务的上下文
  * 
  * @param  first_task_sp_addr  要切换的任务tcb中堆栈指针变量的 *地址*
  */
-void cat_hw_context_switch_to_first(uint32_t first_task_sp_addr);
+void cat_hw_context_switch_to_first(cat_uint32_t first_task_sp_addr);
 
 /**
  * @brief 关中断进临界区
  * 
- * @return uint32_t 
+ * @return cat_uint32_t 
  */
-uint32_t cat_hw_irq_disable(void);
+cat_uint32_t cat_hw_irq_disable(void);
 
 /**
  * @brief 开中断出临界区
  * 
  * @param status 
  */
-void cat_hw_irq_enable(uint32_t status);
+void cat_hw_irq_enable(cat_uint32_t status);
 
 /**
  * @brief 栈初始化
@@ -76,9 +76,9 @@ void cat_hw_irq_enable(uint32_t status);
  * @param parameter     参数
  * @param stack_addr    栈起始地址
  * @param exit          任务退出函数地址
- * @return uint8_t*     初始化后的栈顶地址
+ * @return cat_uint8_t*     初始化后的栈顶地址
  */
-uint8_t *cat_hw_stack_init(void *task_entry, void *parameter, uint8_t *stack_addr, void *exit);
+cat_uint8_t *cat_hw_stack_init(void *task_entry, void *parameter, cat_uint8_t *stack_addr, void *exit);
 /******* cpu_port END ********/
 
 #endif

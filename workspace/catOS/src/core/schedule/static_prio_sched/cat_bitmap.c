@@ -16,7 +16,7 @@
 
 /**************位图 start****************/
 
-uint32_t cat_bitmap_get_wide(void)
+cat_uint32_t cat_bitmap_get_wide(void)
 {
     return 32;
 }
@@ -26,19 +26,19 @@ void cat_bitmap_init(cat_bitmap *bitmap)
     bitmap->bitmap = 0;
 }
 
-void cat_bitmap_set(cat_bitmap *bitmap, uint32_t pos)
+void cat_bitmap_set(cat_bitmap *bitmap, cat_uint32_t pos)
 {
     bitmap->bitmap |= (1 << pos);
 }
 
-void cat_bitmap_clr(cat_bitmap *bitmap, uint32_t pos)
+void cat_bitmap_clr(cat_bitmap *bitmap, cat_uint32_t pos)
 {
     bitmap->bitmap &= ~(1 << pos);
 }
 
-uint32_t cat_bitmap_get_first_set(cat_bitmap *bitmap)
+cat_uint32_t cat_bitmap_get_first_set(cat_bitmap *bitmap)
 {
-    static const uint8_t quick_find_table[] = 
+    static const cat_uint8_t quick_find_table[] = 
     {
         0xffu,0u,1u,0u,2u,0u,1u,0u,3u,0u,1u,0u,2u,0u,1u,0u,/*0x00to0x0F*/
         4u,0u,1u,0u,2u,0u,1u,0u,3u,0u,1u,0u,2u,0u,1u,0u,/*0x10to0x1F*/

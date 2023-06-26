@@ -15,7 +15,7 @@
     .equ NVIC_PENDSV_PRI, 0x000000FF
 
 /**
- * uint32_t cat_hw_irq_disable(void)
+ * cat_uint32_t cat_hw_irq_disable(void)
  * 关中断方式进入临界区
  * primask-->r0
  */
@@ -27,7 +27,7 @@ cat_hw_irq_disable:
     bx lr                       /* return ret */
 
 /**
- * void cat_hw_irq_enable(uint32_t status)
+ * void cat_hw_irq_enable(cat_uint32_t status)
  * 开中断方式出临界区
  * r0-->status
  */

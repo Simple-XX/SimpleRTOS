@@ -29,7 +29,7 @@
  */
 /*< 获取指针的拥有者的结构体首地址**/
 #define CAT_GET_CONTAINER(ptr, container, member) \
-    ((container *)((uint32_t)ptr - (uint32_t)&((container *)0)->member))
+    ((container *)((cat_uint32_t)ptr - (cat_uint32_t)&((container *)0)->member))
 
 /*< 获取链表节点的拥有者的结构体首地址**/
 #define CAT_LIST_ENTRY(node, parent, member) \
@@ -71,7 +71,7 @@ struct _cat_node_t
 struct _cat_list_t
 {
     struct _cat_node_t head_node;
-    uint32_t node_cnt;
+    cat_uint32_t node_cnt;
 };
 
 
@@ -93,9 +93,9 @@ void                cat_list_node_init(struct _cat_node_t *node);
  * @brief 获取链表结点数量
  * 
  * @param list          链表指针
- * @return uint32_t     结点数量
+ * @return cat_uint32_t     结点数量
  */
-uint32_t            cat_list_count(struct _cat_list_t *list);
+cat_uint32_t            cat_list_count(struct _cat_list_t *list);
 
 /**
  * @brief 获取链表第一个结点的指针

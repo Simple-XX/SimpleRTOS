@@ -22,32 +22,32 @@
 struct _cat_list_t cat_device_list;
 /* PUBLIC VAR END */
 #ifdef TEST
-uint32_t id_table[8];
+cat_uint32_t id_table[8];
 #else
 /* STATIC VAT START */
-static uint32_t id_table[8];
+static cat_uint32_t id_table[8];
 /* STATIC VAT END */
 /* PRIVATE FUNC DECL START */
 /**
  * @brief 分配设备号
  * 
- * @return uint8_t 分配得到的设备号
+ * @return cat_uint8_t 分配得到的设备号
  */
-static uint8_t _cat_device_alloc_id(void);
+static cat_uint8_t _cat_device_alloc_id(void);
 
 /**
  * @brief 释放设备号
  * 
- * @return uint8_t 0->成功
+ * @return cat_uint8_t 0->成功
  */
-static uint8_t _cat_device_free_id(uint8_t id);
+static cat_uint8_t _cat_device_free_id(cat_uint8_t id);
 #endif
 /* PRIVATE FUNC DECL END */
 /* PRIVATE FUNC DEF START */
-uint8_t _cat_device_alloc_id(void)
+cat_uint8_t _cat_device_alloc_id(void)
 {
-    uint8_t offset = 0;           /* 32位偏移，用来遍历32位的id_table */
-    uint8_t bit = 0;              /* 位偏移 */
+    cat_uint8_t offset = 0;           /* 32位偏移，用来遍历32位的id_table */
+    cat_uint8_t bit = 0;              /* 位偏移 */
     
     while(0xffffffff == id_table[offset])
     {
@@ -87,12 +87,12 @@ uint8_t _cat_device_alloc_id(void)
     return ((offset * 32) + bit);
 }
 
-uint8_t _cat_device_free_id(uint8_t id)
+cat_uint8_t _cat_device_free_id(cat_uint8_t id)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
-    uint8_t offset = id / 32;           /* 32位偏移，用来遍历32位的id_table */
-    uint8_t bit = id % 32;              /* 位偏移 */
+    cat_uint8_t offset = id / 32;           /* 32位偏移，用来遍历32位的id_table */
+    cat_uint8_t bit = id % 32;              /* 位偏移 */
 
     /* 此处==之前的表达式一定要用括号
      * 因为位运算符 & 优先级低于 逻辑运算符 ==
@@ -131,7 +131,7 @@ void cat_device_module_init(void)
  * @param name                    : 设备名称
  * @return struct _cat_device_t * : 设备指针(句柄)
  */
-cat_device_t *cat_device_get(const uint8_t *name)
+cat_device_t *cat_device_get(const cat_uint8_t *name)
 {
     cat_device_t *ret = NULL;
     cat_node_t *tmp = NULL;
@@ -161,7 +161,7 @@ cat_device_t *cat_device_get(const uint8_t *name)
  * @param id                      : 设备号
  * @return struct _cat_device_t * : 设备指针(句柄)
  */
-cat_device_t *cat_device_get_by_id(uint8_t id);
+cat_device_t *cat_device_get_by_id(cat_uint8_t id);
 
 /**
  * @brief 注册设备(只会初始化链表节点和参数中的成员，其余由用户自行初始化和赋值)
@@ -169,11 +169,11 @@ cat_device_t *cat_device_get_by_id(uint8_t id);
  * @param dev                      : 设备指针
  * @param name                     : 设备名
  * @param aval_mode                : 允许的运行模式
- * @return uint8_t                 : 0->成功
+ * @return cat_uint8_t                 : 0->成功
  */
-uint8_t cat_device_register(cat_device_t *dev, const uint8_t *name, uint16_t aval_mode)
+cat_uint8_t cat_device_register(cat_device_t *dev, const cat_uint8_t *name, cat_uint16_t aval_mode)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
     
     if(NULL == dev)
     {
@@ -188,7 +188,7 @@ uint8_t cat_device_register(cat_device_t *dev, const uint8_t *name, uint16_t ava
         else
         {
             /* 初始化结构体成员 */
-            dev->device_name = (uint8_t *)name;
+            dev->device_name = (cat_uint8_t *)name;
             cat_list_node_init(&dev->link_node);
             // dev->type = CAT_DEVICE_TYPE_UNDEF;
             dev->aval_mode = aval_mode;
@@ -208,7 +208,7 @@ uint8_t cat_device_register(cat_device_t *dev, const uint8_t *name, uint16_t ava
             // dev->pri_data    = NULL;    /* 私有数据由相应的设备自行设置 */
 
             /* 将设备挂到设备链表中 */
-            uint32_t status = cat_hw_irq_disable();
+            cat_uint32_t status = cat_hw_irq_disable();
             cat_list_add_last(&cat_device_list, &dev->link_node);
             cat_hw_irq_enable(status);
 
@@ -222,11 +222,11 @@ uint8_t cat_device_register(cat_device_t *dev, const uint8_t *name, uint16_t ava
  * @brief 移除设备(从注册移除)
  * 
  * @param dev                      : 设备指针
- * @return uint8_t                 : 0->成功
+ * @return cat_uint8_t                 : 0->成功
  */
-uint8_t cat_device_unregister(cat_device_t *dev)
+cat_uint8_t cat_device_unregister(cat_device_t *dev)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(NULL == dev)
     {
@@ -236,7 +236,7 @@ uint8_t cat_device_unregister(cat_device_t *dev)
     {
         ret = _cat_device_free_id(dev->device_id);
 
-        uint32_t status = cat_hw_irq_disable();
+        cat_uint32_t status = cat_hw_irq_disable();
         cat_list_remove_node(&cat_device_list, &(dev->link_node));
         cat_hw_irq_enable(status);
     }
@@ -249,11 +249,11 @@ uint8_t cat_device_unregister(cat_device_t *dev)
  * 
  * @param dev 
  * @param rx_cbk 
- * @return uint8_t 
+ * @return cat_uint8_t 
  */
-uint8_t cat_device_set_rx_cbk(cat_device_t *dev, uint8_t (*rx_cbk)(struct _cat_device_t *dev, uint32_t size))
+cat_uint8_t cat_device_set_rx_cbk(cat_device_t *dev, cat_uint8_t (*rx_cbk)(struct _cat_device_t *dev, cat_uint32_t size))
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(NULL == dev)
     {
@@ -272,11 +272,11 @@ uint8_t cat_device_set_rx_cbk(cat_device_t *dev, uint8_t (*rx_cbk)(struct _cat_d
  * 
  * @param dev 
  * @param tx_cbk 
- * @return uint8_t 
+ * @return cat_uint8_t 
  */
-uint8_t cat_device_set_tx_cbk(cat_device_t *dev, uint8_t (*tx_cbk)(struct _cat_device_t *dev, void *buffer))
+cat_uint8_t cat_device_set_tx_cbk(cat_device_t *dev, cat_uint8_t (*tx_cbk)(struct _cat_device_t *dev, void *buffer))
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(NULL == dev)
     {
@@ -291,9 +291,9 @@ uint8_t cat_device_set_tx_cbk(cat_device_t *dev, uint8_t (*tx_cbk)(struct _cat_d
 }
 
 /* 设备控制接口，通过调用相应设备自身的操作函数 */
-uint8_t cat_device_init(cat_device_t *dev)
+cat_uint8_t cat_device_init(cat_device_t *dev)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(
         (NULL == dev) ||
@@ -321,9 +321,9 @@ uint8_t cat_device_init(cat_device_t *dev)
 
     return ret;
 }
-uint8_t cat_device_open(cat_device_t *dev, uint16_t open_mode)
+cat_uint8_t cat_device_open(cat_device_t *dev, cat_uint16_t open_mode)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(NULL == dev)
     {
@@ -359,9 +359,9 @@ uint8_t cat_device_open(cat_device_t *dev, uint16_t open_mode)
 
     return ret;
 }
-uint8_t cat_device_close(cat_device_t *dev)
+cat_uint8_t cat_device_close(cat_device_t *dev)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(
         (NULL == dev) ||
@@ -393,9 +393,9 @@ uint8_t cat_device_close(cat_device_t *dev)
 
     return ret;
 }
-uint32_t cat_device_read(cat_device_t *dev, int32_t pos, void *buffer, uint32_t size)
+cat_uint32_t cat_device_read(cat_device_t *dev, cat_int32_t pos, void *buffer, cat_uint32_t size)
 {
-    uint32_t ret = 0;
+    cat_uint32_t ret = 0;
 
     if(
         (NULL == dev) ||
@@ -414,9 +414,9 @@ uint32_t cat_device_read(cat_device_t *dev, int32_t pos, void *buffer, uint32_t 
 
     return ret;
 }
-uint32_t cat_device_write(cat_device_t *dev, int32_t pos, const void *buffer, uint32_t size)
+cat_uint32_t cat_device_write(cat_device_t *dev, cat_int32_t pos, const void *buffer, cat_uint32_t size)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     if(
         (NULL == dev) ||
@@ -435,9 +435,9 @@ uint32_t cat_device_write(cat_device_t *dev, int32_t pos, const void *buffer, ui
 
     return ret;
 }
-uint8_t cat_device_ctrl(cat_device_t *dev, uint8_t cmd, void *arg)
+cat_uint8_t cat_device_ctrl(cat_device_t *dev, cat_uint8_t cmd, void *arg)
 {
-    uint8_t ret = CAT_EOK;
+    cat_uint8_t ret = CAT_EOK;
 
     if(NULL == dev)
     {

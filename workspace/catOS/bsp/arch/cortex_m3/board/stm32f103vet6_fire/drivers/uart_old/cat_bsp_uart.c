@@ -40,9 +40,9 @@
 
 UART_HandleTypeDef UartHandle;
 
-uint32_t cat_bsp_uart_init(void)
+cat_uint32_t cat_bsp_uart_init(void)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     UartHandle.Instance          = USART_1_NAME;
   
@@ -62,33 +62,33 @@ uint32_t cat_bsp_uart_init(void)
     return ret;
 }
 
-uint32_t cat_bsp_uart_transmit(uint8_t *data, uint32_t size)
+cat_uint32_t cat_bsp_uart_transmit(cat_uint8_t *data, cat_uint32_t size)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     ret = HAL_UART_Transmit(&UartHandle, data, size, 0xffff);
 
     return ret;
 }
 
-uint32_t cat_bsp_uart_receive(uint8_t *data, uint32_t size)
+cat_uint32_t cat_bsp_uart_receive(cat_uint8_t *data, cat_uint32_t size)
 {
-    uint32_t ret = CAT_EOK;
+    cat_uint32_t ret = CAT_EOK;
 
     ret = HAL_UART_Receive(&UartHandle, data, size, 0x1000);
 
     return ret;
 }
 
-uint8_t cat_bsp_uart_transmit_byte(uint8_t *ch)
+cat_uint8_t cat_bsp_uart_transmit_byte(cat_uint8_t *ch)
 {
-    HAL_UART_Transmit(&UartHandle, (uint8_t *)ch, 1, 1000);
+    HAL_UART_Transmit(&UartHandle, (cat_uint8_t *)ch, 1, 1000);
     return *ch;
 }
 
-uint8_t cat_bsp_uart_receive_byte(uint8_t *ch)
+cat_uint8_t cat_bsp_uart_receive_byte(cat_uint8_t *ch)
 {
-    HAL_UART_Receive(&UartHandle, (uint8_t *)ch, 1, 1000);
+    HAL_UART_Receive(&UartHandle, (cat_uint8_t *)ch, 1, 1000);
     return *ch;
 }
 

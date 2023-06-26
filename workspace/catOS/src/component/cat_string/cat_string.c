@@ -24,9 +24,9 @@
 /*************************************/
 
 /****************** funcs *******************/
-int32_t cat_strcmp(const uint8_t *str1, const uint8_t *str2)
+cat_int32_t cat_strcmp(const cat_uint8_t *str1, const cat_uint8_t *str2)
 {
-    int32_t ret = CAT_EOK;
+    cat_int32_t ret = CAT_EOK;
 
     if((str1 == NULL) || (str2 == NULL))
     {
@@ -53,13 +53,13 @@ int32_t cat_strcmp(const uint8_t *str1, const uint8_t *str2)
     return ret;
 }
 
-int32_t cat_strcpy(uint8_t *dest, const uint8_t *src, uint32_t dest_len)
+cat_int32_t cat_strcpy(cat_uint8_t *dest, const cat_uint8_t *src, cat_uint32_t dest_len)
 {
-    //uint8_t *p = src;
-    int32_t ret = CAT_EOK;
+    //cat_uint8_t *p = src;
+    cat_int32_t ret = CAT_EOK;
     CAT_ASSERT(NULL != dest);
     CAT_ASSERT(NULL != src);
-    uint32_t i = 0;
+    cat_uint32_t i = 0;
     while(
         (src[i] != '\0') &&
         (i < dest_len)
@@ -71,14 +71,14 @@ int32_t cat_strcpy(uint8_t *dest, const uint8_t *src, uint32_t dest_len)
     return ret;
 }
 
-int32_t cat_atoi(int32_t *dest, const uint8_t *src)
+cat_int32_t cat_atoi(cat_int32_t *dest, const cat_uint8_t *src)
 {
     CAT_ASSERT(dest);
     CAT_ASSERT(src);
 
-    int32_t ret = CAT_EOK;
-    int32_t temp = 0;
-    uint8_t sign = src[0];
+    cat_int32_t ret = CAT_EOK;
+    cat_int32_t temp = 0;
+    cat_uint8_t sign = src[0];
 
     if(('-' == *src) || ('+' == *src))
     {
@@ -104,15 +104,17 @@ int32_t cat_atoi(int32_t *dest, const uint8_t *src)
     return ret;
 }
 
-int32_t cat_itoa(uint8_t *dest, int32_t src)
+cat_int32_t cat_itoa(cat_uint8_t *dest, cat_int32_t src)
 {
-	int32_t ret = CAT_EOK;
+	(void)dest;
+	(void)src;
+	cat_int32_t ret = CAT_EOK;
 
 #if 0
-    uint32_t tmp = 0;
-    /* uint32_t max val = 4294967295 */
-    uint8_t buf[CAT_SUPPORT_INT_LONG] = {0};
-    uint8_t i = 0;
+    cat_uint32_t tmp = 0;
+    /* cat_uint32_t max val = 4294967295 */
+    cat_uint8_t buf[CAT_SUPPORT_INT_LONG] = {0};
+    cat_uint8_t i = 0;
 
     if(num < 0)
     {
@@ -146,15 +148,15 @@ int32_t cat_itoa(uint8_t *dest, int32_t src)
  * 
  * @param dest 
  * @param src 
- * @return int32_t 
+ * @return cat_int32_t 
  */
-int32_t cat_htoi(uint32_t *dest, const uint8_t *src)
+cat_int32_t cat_htoi(cat_uint32_t *dest, const cat_uint8_t *src)
 {
     CAT_ASSERT(dest);
     CAT_ASSERT(src);
 
-    int32_t ret = CAT_EOK;
-    uint32_t temp = 0;
+    cat_int32_t ret = CAT_EOK;
+    cat_uint32_t temp = 0;
 
     //0x12
     if(
@@ -205,17 +207,17 @@ int32_t cat_htoi(uint32_t *dest, const uint8_t *src)
  * 
  * @param dest 
  * @param src 
- * @return int32_t 
+ * @return cat_int32_t 
  * 
  * note: 先从低位到高位计算出字符串，再反转除 "0x" 的字符串
  */
-int32_t cat_itoh(uint8_t *dest, uint32_t src)
+cat_int32_t cat_itoh(cat_uint8_t *dest, cat_uint32_t src)
 {
     CAT_ASSERT(dest);
 
-    int32_t ret = CAT_EOK;
-    uint8_t temp = 0;
-    uint8_t *start;
+    cat_int32_t ret = CAT_EOK;
+    cat_uint8_t temp = 0;
+    cat_uint8_t *start;
 
     start = dest + 2;   /* 16进制的起始位置 */
 
@@ -261,21 +263,21 @@ int32_t cat_itoh(uint8_t *dest, uint32_t src)
  * @param size          内存块大小
  * @return void* 
  */
-void *cat_memset(void *start_addr, uint8_t fill_with, uint32_t size)
+void *cat_memset(void *start_addr, cat_uint8_t fill_with, cat_uint32_t size)
 {
 /* 最大块长度(与架构位数有关) */
-#define LONG_BLK_SZ     (sizeof(uint32_t))
+#define LONG_BLK_SZ     (sizeof(cat_uint32_t))
 /* 未对齐(目标地址低于最大块长度的位有非零位) */
-#define UNALIGNED(_addr)    ((uint32_t)_addr & (LONG_BLK_SZ - 1))
+#define UNALIGNED(_addr)    ((cat_uint32_t)_addr & (LONG_BLK_SZ - 1))
 /* 内存块太小 */
 #define TOO_SMALL(_size)    ((_size) < LONG_BLK_SZ)
 
     /**< 对齐的地址 */
-    uint32_t *aligned_addr;     
+    cat_uint32_t *aligned_addr;     
     /**< 没对齐或者碎片地址 */
-    uint8_t *piece_addr = (uint8_t *)start_addr;   
+    cat_uint8_t *piece_addr = (cat_uint8_t *)start_addr;   
     /**< 4字节填充缓冲 */    
-    uint32_t word_fill_buff;    
+    cat_uint32_t word_fill_buff;    
 
     if(
         !(TOO_SMALL(size)) &&
@@ -287,7 +289,7 @@ void *cat_memset(void *start_addr, uint8_t fill_with, uint32_t size)
         if(LONG_BLK_SZ == 4)
         {
             /* word_fill_buff = |fill_with|fill_with|fill_with|fill_with| */
-            word_fill_buff = (fill_with << 8) | fill_with;
+            word_fill_buff = (cat_uint32_t)(fill_with << 8) | fill_with;
             word_fill_buff |= (word_fill_buff << 16);
         }
         else
@@ -313,12 +315,12 @@ void *cat_memset(void *start_addr, uint8_t fill_with, uint32_t size)
         }
 
         /* 获取剩余的内存起始地址 */
-        piece_addr = (uint8_t *)aligned_addr;
+        piece_addr = (cat_uint8_t *)aligned_addr;
     }
 
     while(size--)
     {
-        *piece_addr++ = (uint8_t)fill_with;
+        *piece_addr++ = (cat_uint8_t)fill_with;
     }
 
     return start_addr;

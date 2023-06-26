@@ -1,0 +1,93 @@
+/**
+ * @file svc.c
+ * @author 文佳源 (648137125@qq.com)
+ * @brief svc系统调用相关
+ * @version 0.1
+ * @date 2023-06-16
+ * 
+ * Copyright (c) 2023
+ * 
+ * @par 修订历史
+ * <table>
+ * <tr><th>版本 <th>作者 <th>日期 <th>修改内容
+ * <tr><td>v1.0 <td>文佳源 <td>2023-06-16 <td>内容
+ * </table>
+ */
+
+#include "bsp_api.h"
+
+#include "catos_config.h"
+#include "catos_types.h"
+
+#include "cat_task.h"
+
+#include "cpu_port_def.h"
+
+/**
+ * @brief SVC 系统调用号
+ */
+#define portSVC_START_FIRST_TASK    2
+
+extern void catos_restore_first_task(void);
+// void catos_restore_first_task(void)
+// {
+//     __asm volatile (
+//         "ldr r1, =cat_context_to_task_sp_ptr        \n"
+//         "ldr r1, [r1]                               \n"
+//         "ldr r1, [r1]                               \n"
+//         "LDMIA   R1!, {R2}                       \n"
+//         "MSR     PSPLIM, R2                      \n"
+
+//         "b contex_ns_load                           \n"
+// "contex_ns_load:                                    \n"
+
+//         "LDMIA   R1!, {R4-R11, LR}               \n"
+
+//         "TST       LR, #0x10                     \n"
+//         "IT        EQ                            \n"
+//         "VLDMIAEQ  R1!, {S16-S31}                \n"
+
+// "pendsv_exit:                                   \n"
+//     "msr psp, r1                                \n"
+
+//     "pop {r2}                                   \n"
+//     "msr primask, r2                            \n"
+
+//     "bx lr                                      \n"
+//     );
+// }
+
+void catos_svc_deal(cat_uint32_t *p_ul_caller_stack_addr)
+{
+    cat_uint32_t ulPC;
+    cat_uint8_t  ucSVCNumber;
+
+    ulPC        = p_ul_caller_stack_addr[6];
+    ucSVCNumber = ((cat_uint8_t *)ulPC)[-2];
+
+    switch(ucSVCNumber)
+    {
+        case portSVC_START_FIRST_TASK:
+        {
+            //catos_restore_first_task(0, &(cat_sp_cur_task->sp));
+            catos_restore_first_task();
+            break;
+        }
+        default:
+        {
+            while(1);
+        }
+    }
+}
+
+// void SVC_Handler(void)
+// {
+//     _asm volatile (
+//         "TST     LR, #4                          \n" /* Check bit 2 of EXC_RETURN. */
+//         "ITE     EQ                              \n"
+//         "MRSEQ   R0, MSP                         \n" /* LR bit 2 is 0, so MSP contains the exception stack frame. */
+//         "MRSNE   R0, PSP                         \n" /* LR bit 2 is set, so PSP contains the exception stack frame. */
+//         "LDR     R1, =catos_svc_deal          \n"
+//         "BX      R1                              \n" /* Branch to vPortSVCHandler_C, with exception stack pointer in R0. */
+//     );
+// }

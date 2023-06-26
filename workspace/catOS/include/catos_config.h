@@ -39,13 +39,17 @@
 
 /** component **/
 /* cat_device */
-#define CATOS_ENABLE_DEVICE_MODEL           1     /**< 使用设备驱动框架 */
+#define CATOS_ENABLE_DEVICE_MODEL           1           /**< 使用设备驱动框架 */
 /* cat_shell */
-#define CATOS_ENABLE_CAT_SHELL              1     /**< 使用shell */
+#define CATOS_ENABLE_CAT_SHELL              1           /**< 使用shell */
 /* cat_stdio */
-#define CATOS_ENABLE_SYS_PRINTF             1     /**< 系统输出 */
+#define CATOS_ENABLE_SYS_PRINTF             1           /**< 系统输出 */
 #if (CATOS_ENABLE_SYS_PRINTF == 1)
-    #define CATOS_ENABLE_DEBUG_PRINTF       1     /**< 调试打印功能 */
+    #define CATOS_ENABLE_DEBUG_PRINTF       1           /**< 调试打印功能 */
+    #define CATOS_STDIO_DEVICE_NAME         "uart1"     /**< 标准输入输出使用设备 */
 #endif /* #if (CATOS_ENABLE_SYS_PRINTF == 1) */
+
+/* third_party 三方代码 */
+#define CATOS_ENABLE_CMBACKTRACE            0           /**< 使用cm_backtrace追踪 */
 
 #endif/* #ifndef CATOS_CONFIG_H */

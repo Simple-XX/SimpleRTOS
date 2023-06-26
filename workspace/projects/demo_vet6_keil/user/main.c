@@ -11,8 +11,8 @@ struct _cat_task_t task2;
 cat_stack_type_t task1_env[TASK1_STACK_SIZE];
 cat_stack_type_t task2_env[TASK2_STACK_SIZE];
 
-uint32_t sched_task1_times = 0;
-uint32_t sched_task2_times = 0;
+cat_uint32_t sched_task1_times = 0;
+cat_uint32_t sched_task2_times = 0;
 
 #define BOARD_LED_PIN 0
 
@@ -65,7 +65,7 @@ int main(void)
 
     /* 测试创建任务运行 */
     cat_sp_task_create(
-      (const uint8_t *)"task1_task",
+      (const cat_uint8_t *)"task1_task",
       &task1,
       task1_entry,
       NULL,
@@ -75,7 +75,7 @@ int main(void)
     );
 
     cat_sp_task_create(
-      (const uint8_t *)"task2_task",
+      (const cat_uint8_t *)"task2_task",
       &task2,
       task2_entry,
       NULL,
