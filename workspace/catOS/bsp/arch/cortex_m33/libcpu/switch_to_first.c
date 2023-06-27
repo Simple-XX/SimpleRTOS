@@ -1,7 +1,7 @@
 /**
  * @file switch_to_first.c
  * @author 文佳源 (648137125@qq.com)
- * @brief 
+ * @brief 切换到第一个任务
  * @version 0.1
  * @date 2023-06-12
  * 
