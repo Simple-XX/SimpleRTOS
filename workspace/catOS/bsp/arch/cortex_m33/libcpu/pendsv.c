@@ -75,16 +75,6 @@ void PendSV_Handler(void)
         "stmdb   r1!, {r3}                       \n"
 #endif
 
-    // /* 保存 r4-r11（减前/递减满堆栈） */
-    // "stmfd r1!, {r4-r11}                        \n"
-
-    // /* 保存m33新增寄存器 */
-    // "mov r3, lr                                 \n"
-    // "mrs r4, psplim                             \n"
-    // "mrs r5, control                            \n"
-    // "stmfd r1!, {r3-r5}                         \n"
-
-
     /* 记录最后的指针到任务栈curstk->stack */
     /* 更新tcb的堆栈指针变量值 */
     /**

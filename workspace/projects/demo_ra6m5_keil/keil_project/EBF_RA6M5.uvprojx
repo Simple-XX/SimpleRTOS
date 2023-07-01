@@ -565,6 +565,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\catOS\src\core\support\cat_ringbuffer.c</FilePath>
             </File>
+            <File>
+              <FileName>cat_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\src\core\schedule\cat_task.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

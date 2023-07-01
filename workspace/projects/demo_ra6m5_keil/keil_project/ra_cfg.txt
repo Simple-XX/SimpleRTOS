@@ -323,8 +323,8 @@ FSP Configuration
       Extra: RS-485: DE Port Number: Disabled
       Extra: RS-485: DE Pin Number: Disabled
       Interrupts: Callback: debug_uart4_callback
-      Interrupts: Receive Interrupt Priority: Priority 15
-      Interrupts: Transmit Data Empty Interrupt Priority: Priority 15
-      Interrupts: Transmit End Interrupt Priority: Priority 15
-      Interrupts: Error Interrupt Priority: Priority 15
+      Interrupts: Receive Interrupt Priority: Priority 14
+      Interrupts: Transmit Data Empty Interrupt Priority: Priority 14
+      Interrupts: Transmit End Interrupt Priority: Priority 14
+      Interrupts: Error Interrupt Priority: Priority 14
       

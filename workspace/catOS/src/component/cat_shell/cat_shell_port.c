@@ -26,8 +26,6 @@ cat_shell_instance_t port_shell_inst_1 = {0};
 cat_shell_config_t shell_cfg = {0};
 cat_uint8_t shell_space[512];
 
-
-
 void cat_shell_task_create(void)
 {
     cat_int32_t ret = 0;
@@ -64,7 +62,6 @@ void cat_shell_task_create(void)
     );
     CAT_KPRINTF("[cat_shell_port] shell task created \r\n");
 }
-
 
 cat_int16_t cat_shell_port_getc(cat_uint8_t *data)
 {

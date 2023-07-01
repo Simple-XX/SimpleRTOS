@@ -40,6 +40,15 @@ struct _cat_ra6m5_fire_uart_private_data_t
 };
 
 /* 私有函数声明 */
+/**
+ * @brief 串口发送一个字符
+ * 
+ * @param  dev              设备指针
+ * @param  timeout          超时时间
+ * @param  data             要发送的字符数据
+ * @return cat_int8_t       成功失败
+ */
+static cat_int8_t ra6m5_uart_send_char(cat_device_t*dev, cat_uint32_t timeout, cat_uint8_t data);
 static cat_uint32_t ra6m5_uart_send(cat_device_t*dev, uint32_t timeout, uint8_t const * const buffer, uint32_t const size);
 static cat_uint32_t ra6m5_uart_recv(cat_device_t*dev, uint32_t timeout, uint8_t *buffer, uint32_t const size);
 static cat_uint8_t uart_init(cat_device_t*dev);
@@ -85,54 +94,66 @@ void debug_uart4_callback(uart_callback_args_t *pargs)
 #endif
             uart4_receive_char = true;
         }
-        case UART_EVENT_TX_COMPLETE:
+        default:
         {
-            uart4_send_complete_flag = true;
             break;
         }
-        default:
-            break;
     }
 }
 
-static cat_uint32_t ra6m5_uart_send(cat_device_t*dev, uint32_t timeout, uint8_t const * const buffer, uint32_t const size)
+static cat_int8_t ra6m5_uart_send_char(cat_device_t*dev, cat_uint32_t timeout, cat_uint8_t data)
 {
-    cat_uint32_t ret = 0;
+    cat_int8_t ret = CAT_ERROR;
     struct _cat_ra6m5_fire_uart_private_data_t *private_data = NULL;
 
     /* 获取设备实例数据 */
     private_data = (struct _cat_ra6m5_fire_uart_private_data_t *)(dev->pri_data);
 
-    /* 发送 */
-    ret = R_SCI_UART_Write(private_data->inst_ctrl_ptr, (cat_uint8_t *)buffer, size);
+    sci_uart_instance_ctrl_t *p_ctrl = private_data->inst_ctrl_ptr;
 
-#if 0
-    /* 等待发送完成 */
+    /* 将要发送的数据放进数据寄存器 */
+    p_ctrl->p_reg->TDR = data;
+
+    /* 等待发送完成或超时 */
     while(
-        (false == uart4_send_complete_flag) &&
-        (--timeout != 0)
-    );
-
-    if(0 == timeout)
+        ((p_ctrl->p_reg->SSR_b.TEND) == 0) &&
+        (0 != timeout)
+    )
     {
-        ret = FSP_ERR_TIMEOUT;
-    }
-    else
-    {
-        ret = FSP_SUCCESS;
+        timeout--;
     }
 
-    /* 恢复发送完成中断标志 */
-    uart4_send_complete_flag = false;
-#else
-    /* 等待发送完成 */
-    while(false == uart4_send_complete_flag);
-
-    /* 恢复发送完成中断标志 */
-    uart4_send_complete_flag = false;
-#endif
+    /* 未超时才成功 */
+    if(0 != timeout)
+    {
+        ret = CAT_EOK;
+    }
 
     return ret;
+}
+
+static cat_uint32_t ra6m5_uart_send(cat_device_t*dev, uint32_t timeout, uint8_t const * const buffer, uint32_t const size)
+{
+    (void)timeout;
+    cat_uint32_t cnt = 0;
+    cat_int8_t err = CAT_EOK;
+    
+    while(
+        (CAT_EOK == err) &&
+        (cnt < size)
+    )
+    {
+        err = ra6m5_uart_send_char(dev, 0xffff, buffer[cnt]);
+        cnt++;
+    }
+
+    /* 因为前面在一次 while 循环中无论发送是否成功 cnt 都会无条件加一，所以如果失败了就有一个多加上的计数 */
+    if(CAT_ERROR == err)
+    {
+        cnt--;
+    }
+
+    return cnt;
 }
 
 static cat_uint32_t ra6m5_uart_recv(cat_device_t*dev, uint32_t timeout, uint8_t *buffer, uint32_t const size)
@@ -223,9 +244,13 @@ static cat_uint8_t uart_init(cat_device_t*dev)
 
     assert(FSP_SUCCESS == err);
 
+#if 0
     R_SCI_UART_Write(&g_uart4_ctrl, (const uint8_t *)"uart init\r\n", 11);
     while(false == uart4_send_complete_flag);
     uart4_send_complete_flag = false;
+#else
+    ra6m5_uart_send(dev, 0, "[uart] uart init\r\n", 18);
+#endif
 
     return ret;
 }
@@ -242,8 +267,9 @@ static cat_uint32_t uart_read(cat_device_t*dev, cat_int32_t pos, void *buffer, c
 static cat_uint32_t uart_write(cat_device_t*dev, cat_int32_t pos, const void *buffer, cat_uint32_t size)
 {
     (void)pos;
+    cat_uint32_t ret;
     
-    cat_uint32_t ret = ra6m5_uart_send(dev, 0xffff, buffer, size);
+    ret = ra6m5_uart_send(dev, 0xffff, buffer, size);
 
     return ret;
 }
@@ -257,7 +283,7 @@ static cat_uint8_t uart_ctrl(cat_device_t*dev, int cmd, void *args)
 /* uart1 */
 #define UART4_CONFIG \
 { \
-    .name               = (const cat_uint8_t *)"uart1", \
+    .name               = (const cat_uint8_t *)"debug_uart", \
     .aval_mode          = CAT_DEVICE_MODE_RDWR, \
 }
 

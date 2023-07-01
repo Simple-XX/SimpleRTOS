@@ -54,10 +54,10 @@ sci_uart_instance_ctrl_t     g_uart4_ctrl;
                 .p_transfer_rx       = &RA_NOT_DEFINED,
 #endif
 #undef RA_NOT_DEFINED
-                .rxi_ipl             = (15),
-                .txi_ipl             = (15),
-                .tei_ipl             = (15),
-                .eri_ipl             = (15),
+                .rxi_ipl             = (14),
+                .txi_ipl             = (14),
+                .tei_ipl             = (14),
+                .eri_ipl             = (14),
 #if defined(VECTOR_NUMBER_SCI4_RXI)
                 .rxi_irq             = VECTOR_NUMBER_SCI4_RXI,
 #else

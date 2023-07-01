@@ -143,7 +143,72 @@
           <Name>UL2V8M(-S0 -C0 -P0 )  -FN3 -FC2000 -FD20000000 -FF0RA6M5_2M -FF1RA6M5_DATA_C2M -FF2RA6M5_CONF -FL0200000 -FL12000 -FL2300 -FS00 -FS18000000 -FS2100A000 -FP0($$Device:R7FA6M5BH3CFC$Flash\RA6M5_2M.FLM) -FP1($$Device:R7FA6M5BH3CFC$Flash\RA6M5_DATA_C2M.FLM) -FP2($$Device:R7FA6M5BH3CFC$Flash\RA6M5_CONF.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>115</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>11140</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\bsp\arch\cortex_m33\board\ra6m5_fire\drivers\pin\cat_drv_pin.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\EBF_RA6M5\../../../catOS/bsp/arch/cortex_m33/board/ra6m5_fire/drivers/pin/cat_drv_pin.c\115</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>71</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>3658</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\src\component\cat_stdio\cat_stdio.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\EBF_RA6M5\../../../catOS/src/component/cat_stdio/cat_stdio.c\71</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>94</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>11700</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\src\core\schedule\cat_task.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\EBF_RA6M5\../../../catOS/src/core/schedule/cat_task.c\94</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>86</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>11674</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\src\core\schedule\cat_task.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\EBF_RA6M5\../../../catOS/src/core/schedule/cat_task.c\86</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -154,6 +219,11 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>stack</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>*dest</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -519,6 +589,18 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>25</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\catOS\src\core\schedule\cat_task.c</PathWithFileName>
+      <FilenameWithoutPath>cat_task.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -529,7 +611,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>25</FileNumber>
+      <FileNumber>26</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -541,7 +623,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>26</FileNumber>
+      <FileNumber>27</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -555,7 +637,7 @@
 
   <Group>
     <GroupName>::Flex Software</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>

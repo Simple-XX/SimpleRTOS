@@ -21,7 +21,7 @@
 
 typedef struct _ra6m5_fire_pin_t
 {
-    cat_uint32_t                 pin_num;
+    cat_uint32_t             pin_num;
     ioport_instance_ctrl_t  *p_ctrl_ptr;
     const bsp_io_port_pin_t  gpio_pin;
 }ra6m5_fire_pin_t;

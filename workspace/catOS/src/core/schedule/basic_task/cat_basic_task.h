@@ -34,28 +34,27 @@
 struct _cat_task_t
 {
     void               *sp;                             /**< 栈顶(堆栈指针)*/
-    cat_uint8_t            *task_name;                      /**< 任务名称*/
-    cat_uint8_t             sched_strategy;                 /**< 调度策略 */
+    cat_uint8_t        *task_name;                      /**< 任务名称*/
+    cat_uint8_t         sched_strategy;                 /**< 调度策略 */
 
 
     void               *entry;                          /**< 入口函数 */
     void               *arg;                            /**< 入口函数的参数 */
     void               *stack_start_addr;               /**< 堆栈起始地址*/
-    cat_uint32_t            stack_size;                     /**< 堆栈大小*/
+    cat_uint32_t        stack_size;                     /**< 堆栈大小*/
 
     struct _cat_node_t  link_node;                      /**< 任务表中的链表节点，也用于delay链表*/
-    cat_uint32_t            delay;                          /**< 延时剩余tick数*/
+    cat_uint32_t        delay;                          /**< 延时剩余tick数*/
 
-    cat_uint32_t            state;                          /**< 当前状态*/
+    cat_uint32_t        state;                          /**< 当前状态*/
 
-    cat_uint8_t             prio;                           /**< priority of task*/
-    cat_uint32_t            slice;                          /**< 时间片(剩余时间)*/
-    cat_uint32_t            suspend_cnt;                    /**< 被挂起的次数*/
+    cat_uint8_t         prio;                           /**< priority of task*/
+    cat_uint32_t        slice;                          /**< 时间片(剩余时间)*/
+    cat_uint32_t        suspend_cnt;                    /**< 被挂起的次数*/
 
-    cat_uint32_t            sched_times;                    /**< 调度次数*/
+    cat_uint32_t        sched_times;                    /**< 调度次数*/
 
-    
-
+    struct _cat_node_t *manage_node;                    /**< 用于管理的链表节点 */
 };
 
 

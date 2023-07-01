@@ -50,8 +50,8 @@ void catos_init(void)
     cat_pin_device_init();
 
     /********内核相关初始化 */
-    /* 固定优先级调度初始化 */
-    cat_sp_task_scheduler_init();
+    /* 初始化调度器 */
+    cat_scheduler_init();
     
     /* 初始化系统计数器 */
     cat_systick_init();

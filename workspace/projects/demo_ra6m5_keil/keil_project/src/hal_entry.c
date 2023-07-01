@@ -41,16 +41,10 @@ void board_led_off(void)
 
 void task1_entry(void *arg)
 {
-    float a = 3.14;
-    float b = a * 2;
-
-    CAT_SYS_PRINTF("b = 3.14*2 = %d\r\n", b);
-
     for(;;)
     {
         sched_task1_times++;
         board_led_on();
-        b = a * 3;
         cat_sp_task_delay(100);
         board_led_off();
         cat_sp_task_delay(100);

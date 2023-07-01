@@ -14,4 +14,10 @@
 
 #include "static_prio_sched/cat_sp_task.h" /* 包含了basic_task.h */
 
+/**
+ * @brief 初始化调度器
+ * 
+ */
+void cat_scheduler_init(void);
+
 #endif

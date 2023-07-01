@@ -43,9 +43,6 @@
     CAT_MAX_HIS_MEM \
 )
 
-#define CATOS_SHELL_TASK_PRIO  (CATOS_MAX_TASK_PRIO - 2)  /**< 任务优先级*/
-#define CATOS_SHELL_STACK_SIZE (4096)                     /**< 任务栈空间大小*/
-
 /*************** typedefs ****************/
 typedef cat_int16_t (*shell_io_callback_t)(cat_uint8_t *, cat_uint16_t );
 typedef struct _cat_shell_cmd_t cat_shell_cmd_t;

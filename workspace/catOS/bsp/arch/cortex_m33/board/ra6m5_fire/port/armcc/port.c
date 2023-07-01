@@ -53,7 +53,10 @@ void SysTick_Handler(void)
     cat_intr_systemtick_handler();
 }
 
-/* 开始调度 */
+/**
+ * @brief 开始调度
+ * 
+ */
 void catos_start_sched(void)
 {
     cat_uint32_t tmp_reg = 0;

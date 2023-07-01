@@ -37,7 +37,7 @@ static const cat_uint8_t *_cat_error_msg[] =
 };
 
 /************* static **************/
-static cat_int32_t _cat_print_string(const cat_uint8_t *str);
+static cat_int32_t _cat_print_string(const cat_uint8_t *str, cat_int32_t width);
 static cat_int32_t _cat_print_error(cat_error_type_t type);
 static cat_int32_t _cat_print_int(cat_int32_t num, cat_int32_t width);
 
@@ -48,9 +48,10 @@ static cat_int32_t _cat_scan_string(cat_uint8_t *str_dest, cat_uint32_t buf_len)
 static cat_int32_t _cat_scan_int(cat_int32_t *dest);
 
 
-static cat_int32_t _cat_print_string(const cat_uint8_t *str)
+static cat_int32_t _cat_print_string(const cat_uint8_t *str, cat_int32_t width)
 {
     cat_int32_t ret = CAT_EOK;
+    cat_uint8_t i = 0;
 
     if(NULL == str)
     {
@@ -62,7 +63,16 @@ static cat_int32_t _cat_print_string(const cat_uint8_t *str)
         {
             cat_putchar(*str);
             str++;
+            i++;
         }
+    }
+
+    /* 用空字符填充 */
+    width = width - i;
+    while(width > 0)
+    {
+        cat_putchar(' ');
+        width--;
     }
 
     return ret;
@@ -80,11 +90,11 @@ static cat_int32_t _cat_print_error(cat_error_type_t type)
         (CAT_ERROR_END                      <= type)    
     )
     {
-        _cat_print_string(_cat_error_msg[CAT_ERROR_TYPE_NO_MATCH_ERROR_TYPE]);
+        _cat_print_string(_cat_error_msg[CAT_ERROR_TYPE_NO_MATCH_ERROR_TYPE], 0);
     }
     else
     {
-        _cat_print_string(_cat_error_msg[type]);
+        _cat_print_string(_cat_error_msg[type], 0);
     }
 
     return ret;
@@ -111,10 +121,11 @@ static cat_int32_t _cat_print_int(cat_int32_t num, cat_int32_t width)
     }while((0 != num) && (i < CAT_INT_LONG));
 
     /* 如果有对齐要求则先输出空格 */
-    width = width - i - 1;
+    width = width - i;
     while(width > 0)
     {
         cat_putchar(' ');
+        width--;
     }
 
     while(i > 0)
@@ -404,7 +415,9 @@ cat_int32_t cat_printf(const cat_uint8_t *format, ...)
         }
 
         /* 获得宽度数据(如果有) */
-        if(
+        /* 清除上一次的宽度数据 */
+        width = 0;
+        while(
             ((*p) >= '0') &&
             ((*p) <= '9')
         )
@@ -416,6 +429,9 @@ cat_int32_t cat_printf(const cat_uint8_t *format, ...)
         {
             wid_buf[width] = '\0';
             cat_atoi(&width, wid_buf);
+
+            /* 之前这里忘记清零了 */
+            wid_buf[0] = '\0';
         }
 
         switch (*p)
@@ -428,7 +444,7 @@ cat_int32_t cat_printf(const cat_uint8_t *format, ...)
 
         case 's':
             p++;
-            _cat_print_string(va_arg(ap, cat_uint8_t *));
+            _cat_print_string(va_arg(ap, cat_uint8_t *), width);
             break;
 
         case 'x':
@@ -436,11 +452,11 @@ cat_int32_t cat_printf(const cat_uint8_t *format, ...)
             cat_itoh(hex_str, va_arg(ap, cat_uint32_t));
             if('\0' != hex_str[2])
             {
-                _cat_print_string(hex_str);
+                _cat_print_string(hex_str, width);
             }
             else
             {
-                _cat_print_string(hex_str);
+                _cat_print_string(hex_str, width);
                 cat_putchar('0');
             }
             

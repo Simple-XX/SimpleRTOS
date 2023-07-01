@@ -13,6 +13,8 @@
 #include "cat_basic_task.h"
 #include "port.h"
 
+extern struct _cat_list_t cat_task_manage_list; /* <- cat_task.c */
+
 static void _default_task_exit(void);
 
 static void _default_task_exit(void)
@@ -86,6 +88,10 @@ void cat_task_init(
     task->suspend_cnt = 0;
 
     task->sched_times = 0;
+
+    /* 将任务放进管理链表 */
+    cat_list_node_init(&(task->manage_node));
+    cat_list_add_last(&cat_task_manage_list, &(task->manage_node));
 
 }
 

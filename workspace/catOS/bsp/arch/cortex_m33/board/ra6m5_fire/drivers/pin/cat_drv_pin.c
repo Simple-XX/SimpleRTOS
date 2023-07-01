@@ -88,3 +88,55 @@ cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val)
 
     return ret;
 }
+
+#if (CATOS_ENABLE_CAT_SHELL == 1)
+#include "cat_shell.h"
+#include "cat_stdio.h"
+#include "cat_string.h"
+#include "cat_error.h"
+void *do_led_ctrl(void *arg)
+{
+    CAT_ASSERT(arg);
+    cat_shell_instance_t *inst = (cat_shell_instance_t *)arg;
+
+    cat_uint32_t led_idx = 0;
+    cat_uint32_t val     = 0;
+
+    cat_int8_t  err = CAT_ERROR;
+
+    if(inst->buffer.arg_num != 2)
+    {
+        CAT_SYS_PRINTF("[led] usage:led [LED] [VAL]\r\n");
+        CAT_SYS_PRINTF("      LED = 1,2 (led 0 on use)\r\n");
+        CAT_SYS_PRINTF("      VAL = 0,1\r\n");
+    }
+    else
+    {
+        err = cat_atoi(&led_idx, inst->buffer.args[0]);
+        err = cat_atoi(&val,     inst->buffer.args[1]);
+
+        if(CAT_EOK == err)
+        {
+            err = cat_pin_write(led_idx, val);
+
+            if(CAT_EOK == err)
+            {
+                CAT_SYS_PRINTF("[led] success to write led%d to val%d\r\n", led_idx, val);
+            }
+            else
+            {
+                CAT_SYS_PRINTF("[led] fail to write led%d to val%d\r\n", led_idx, val);
+            }
+        }
+        else
+        {
+            CAT_SYS_PRINTF("[led] invalid par led%s and val%s\r\n", inst->buffer.args[0], inst->buffer.args[1]);
+        }
+    }
+
+    
+
+    return NULL;
+}
+CAT_DECLARE_CMD(led, ctrl led, do_led_ctrl);
+#endif

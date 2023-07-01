@@ -134,7 +134,7 @@ cat_uint8_t uart_ctrl(cat_device_t*dev, int cmd, void *args)
 /* uart1 */
 #define UART1_CONFIG \
 { \
-    .name               = (const cat_uint8_t *)"uart1", \
+    .name               = (const cat_uint8_t *)"debug_uart", \
     .aval_mode          = CAT_DEVICE_MODE_RDWR, \
     .instance_addr      = (cat_uint32_t)USART1, \
     \
