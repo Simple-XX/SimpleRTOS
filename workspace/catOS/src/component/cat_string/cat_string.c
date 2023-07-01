@@ -66,9 +66,22 @@ cat_int32_t cat_strcpy(cat_uint8_t *dest, const cat_uint8_t *src, cat_uint32_t d
     )
     {
         dest[i] = src[i];
+        i++;
     }
 
     return ret;
+}
+
+cat_uint32_t cat_strlen(const cat_uint8_t *src)
+{
+    cat_uint32_t i = 0;
+
+    while('\0' != src[i])
+    {
+        i++;
+    }
+
+    return i;
 }
 
 cat_int32_t cat_atoi(cat_int32_t *dest, const cat_uint8_t *src)

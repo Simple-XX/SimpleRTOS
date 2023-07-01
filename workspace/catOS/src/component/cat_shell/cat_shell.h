@@ -29,7 +29,7 @@
 #define CAT_MAX_CMD_ARGS          (5)   /**< 最大参数数量*/
 #define CAT_MAX_ARG_LEN           (20)  /**< 单条参数最大长度*/
 
-                                        /**< 每次可输入的最大字符数*/
+                                        /**< 每次可输入的最大字符数(126)*/
 #define CAT_MAX_SHELL_INPUT       (CAT_MAX_CMD_LEN + CAT_MAX_CMD_ARGS*(CAT_MAX_ARG_LEN + 1) + 1)
 
 #define CAT_MAX_HISTORY           (2)  /**< 最大历史记录数*/
@@ -114,7 +114,9 @@ struct _cat_shell_config_t
     cat_uint8_t *buffer;
     cat_uint16_t buf_size;
     //cat_uint8_t **args;
-    //cat_uint8_t **historys;
+#if (CATOS_SHELL_USE_HISTORY == 1)
+    cat_uint8_t **historys;
+#endif
     // shell_io_callback_t read;
     // shell_io_callback_t write;
 };
@@ -292,6 +294,7 @@ cat_shell_cmd_t *cat_seek_cmd(cat_shell_instance_t *inst);
 void cat_parse_args(cat_shell_instance_t *inst);
 void cat_execute_cmd(cat_shell_instance_t *inst);
 
+void cat_history_save(cat_shell_instance_t *shell_inst);
 void cat_history_up(cat_shell_instance_t *shell_inst);
 void cat_history_down(cat_shell_instance_t *shell_inst);
 

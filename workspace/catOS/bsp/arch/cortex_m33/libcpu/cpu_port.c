@@ -123,13 +123,14 @@ struct _exception_info
  */
 cat_uint8_t *cat_hw_stack_init(void *task_entry, void *arg, cat_uint8_t *stack_addr, void *exit_func)
 {
-  struct _stack_frame *stack_frame;
-  cat_uint32_t         *stack;
-  cat_uint32_t         i;
+    struct _stack_frame *stack_frame;
+    cat_uint32_t         *stack;
+    cat_uint32_t         i;
+    cat_uint32_t         *p;
 
-  /* 先加上4字节再8字节向下取整对齐(相当于四舍五入) */
-  stack = stack_addr + sizeof(cat_uint32_t);
-  stack = (cat_uint8_t *)CAT_ALIGN_DOWN((cat_uint32_t)stack, 8);
+    /* 先加上4字节再8字节向下取整对齐(相当于四舍五入) */
+    stack = stack_addr + sizeof(cat_uint32_t);
+    stack = (cat_uint8_t *)CAT_ALIGN_DOWN((cat_uint32_t)stack, 8);
 
 #if 0
   /* 栈向上生长 */
@@ -216,6 +217,8 @@ static void hard_fault_track(void);
         CAT_SYS_PRINTF("    r00: %8x\r\n", (_exc_frame_ptr)->r0);  \
     }while(0)
 
+extern void *do_ps(void *arg);
+
 /**
  * fault exception handling
  */
@@ -263,6 +266,7 @@ void catos_hard_fault_deal(struct _exception_info *exception_info, struct _excep
     CAT_SYS_PRINTF("    r10: %8x\r\n", frame->r10); 
     CAT_SYS_PRINTF("    r11: %8x\r\n", frame->r11); 
 
+    do_ps(NULL);
 
     /* 诊断原因 */
     hard_fault_track();

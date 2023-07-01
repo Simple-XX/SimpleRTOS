@@ -36,7 +36,7 @@ void cat_task_init(
     task->task_name = (cat_uint8_t *)task_name;
     task->sched_strategy = sched_strategy;
 
-    cat_memset(stack_start_addr, 0, stack_size);
+    cat_memset(stack_start_addr, 0xff, stack_size);
 
     task->sp = (void *)cat_hw_stack_init(
         (void*)entry,

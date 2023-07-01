@@ -17,6 +17,7 @@
         "cat_drv_uart.h": "c",
         "cmb_en_us.h": "c",
         "cat_stdio.h": "c",
-        "cat_sp_task.h": "c"
+        "cat_sp_task.h": "c",
+        "cat_shell.h": "c"
     }
 }

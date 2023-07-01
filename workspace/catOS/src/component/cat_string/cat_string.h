@@ -33,6 +33,13 @@ cat_int32_t cat_strcmp(const cat_uint8_t *str1, const cat_uint8_t *str2);
  */
 cat_int32_t cat_strcpy(cat_uint8_t *dest, const cat_uint8_t *src, cat_uint32_t dest_len);
 
+/**
+ * @brief 字符串长度
+ * 
+ * @param  src              My Param doc
+ * @return cat_uint32_t     长度
+ */
+cat_uint32_t cat_strlen(const cat_uint8_t *src);
 
 /**
  * @brief 字符串转有符号32

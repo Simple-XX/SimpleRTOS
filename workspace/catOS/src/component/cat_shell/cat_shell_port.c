@@ -39,11 +39,6 @@ void cat_shell_task_create(void)
         while(1);
     }
 
-    // for(i=0; i<CAT_MAX_HISTORY; i++)
-    // {
-    //     shell_cfg.historys[i] = shell_space + CAT_BUF_SIZE * i;
-    // }
-
     ret = cat_shell_init(&port_shell_inst_1, &shell_cfg);
     if(ret)
     {
@@ -55,7 +50,7 @@ void cat_shell_task_create(void)
         (const cat_uint8_t *)"shell_task", 
         &shell_task, 
         cat_shell_task_entry, 
-        NULL, 
+        &port_shell_inst_1, 
         CATOS_SHELL_TASK_PRIO, 
         shell_task_env, 
         CATOS_SHELL_STACK_SIZE

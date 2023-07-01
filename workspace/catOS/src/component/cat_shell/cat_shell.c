@@ -21,22 +21,12 @@
 
 #include "cat_error.h"
 
-
 IMPORT_SECTION(cat_shell_cmd)
-
-/* 在写shelltask时发现catos任务的传参没写...因为要调试shell，
- * 所以打算shell稳定之后再修复传参功能，这里直接引用cat_shell_port.c 的shell实例 */
-extern cat_shell_instance_t port_shell_inst_1; /**< from cat_shell_port.c*/
-
-
 
 #if (CAT_USE_SECTION == 0)
     cat_shell_cmd_t *cat_cmds[CAT_MAX_CMD_NUM] = {0};
     cat_int32_t cmd_num = 0;
 #endif //(CAT_USE_SECTION ==0)
-
-//cat_uint32_t sched_task_shell_times = 0;
-
 
 cat_int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
 {
@@ -57,7 +47,7 @@ cat_int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
         inst->buffer.length                     = 0;
         inst->buffer.arg_num                    = 0;
         
-
+        /* 初始化历史命令缓冲区 */
         for(i=0; i<CAT_MAX_HISTORY; i++)
         {
             inst->history.historys[i]           = inst->buffer.buf + CAT_BUF_SIZE * (i + 1);
@@ -76,22 +66,15 @@ cat_int32_t cat_shell_init(cat_shell_instance_t *inst, cat_shell_config_t *cfg)
 void cat_shell_task_entry(void *arg)
 {
     cat_uint8_t ch;
-    cat_shell_instance_t *shell_inst = &port_shell_inst_1;
+    cat_shell_instance_t *shell_inst = NULL;
 
-#if 0 /* task 还不能传参数 */
     if(NULL != arg)
     {
         shell_inst = (cat_shell_instance_t *)arg;
     }
     else{
-        CAT_FALTAL_ERROR("must give a shell instance to start shell task");
+        CAT_FALTAL_ERROR("[cat_shell] must give a shell instance to start shell task");
     }
-#else
-		(void)arg;
-    CAT_ASSERT(shell_inst);
-#endif
-
-    //CAT_SYS_PRINTF(CAT_SHELL_CLR_SCREEN);
 
     CAT_SYS_PRINTF("\r\nCATOS version %s build with %s\r\n", CATOS_VERSION, CATOS_BUILD_COMPILER);
     CAT_SYS_PRINTF(GREET_MSG_SMALL);
@@ -236,14 +219,9 @@ void cat_parse_args(cat_shell_instance_t *inst)
             else
             {
                 CAT_SYS_PRINTF("[catos] over max arg num:%d !\r\n", CAT_MAX_CMD_ARGS);
-            }
-            
-        }
-        
-    }
-
-
-
+            } /* if(inst->buffer.arg_num < CAT_MAX_CMD_ARGS) */
+        } /* if */
+    } /* for(; i<inst->buffer.length; i++) */
 }
 
 void cat_execute_cmd(cat_shell_instance_t *inst)
@@ -290,14 +268,48 @@ void cat_execute_cmd(cat_shell_instance_t *inst)
 
 
 /* history 相关*/
+void cat_history_save(cat_shell_instance_t *shell_inst)
+{
+    cat_uint16_t cur = shell_inst->history.current;
+    cur++;
+    if(CAT_MAX_HISTORY == cur)
+    {
+        cur = 0;
+    }
+    shell_inst->history.current = cur;
+
+    cat_strcpy(shell_inst->history.historys[cur], shell_inst->buffer.buf, CAT_MAX_HIS_LEN);
+}
+
 void cat_history_up(cat_shell_instance_t *shell_inst)
 {
+    cat_uint16_t cur = shell_inst->history.current;
+    if(0 == cur)
+    {
+        cur = CAT_MAX_HISTORY - 1;
+    }
+    else
+    {
+        cur--;
+    }
+    shell_inst->history.current = cur;
 
+    cat_strcpy(shell_inst->buffer.buf, shell_inst->history.historys[cur], CAT_MAX_HIS_LEN);
+    shell_inst->buffer.length = cat_strlen(shell_inst->buffer.buf);
 }
 
 void cat_history_down(cat_shell_instance_t *shell_inst)
 {
+    cat_uint16_t cur = shell_inst->history.current;
+    cur++;
+    if(CAT_MAX_HISTORY == cur)
+    {
+        cur = 0;
+    }
+    shell_inst->history.current = cur;
 
+    cat_strcpy(shell_inst->buffer.buf, shell_inst->history.historys[cur], CAT_MAX_HIS_LEN);
+    shell_inst->buffer.length = cat_strlen(shell_inst->buffer.buf);
 }
 
 

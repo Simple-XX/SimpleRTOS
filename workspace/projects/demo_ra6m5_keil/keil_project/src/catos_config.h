@@ -45,7 +45,8 @@
 #define CATOS_ENABLE_CAT_SHELL              1           /**< 使用shell */
 #if (CATOS_ENABLE_CAT_SHELL == 1)
     #define CATOS_SHELL_TASK_PRIO  (CATOS_MAX_TASK_PRIO - 2)  /**< 任务优先级*/
-    #define CATOS_SHELL_STACK_SIZE (8192)                     /**< 任务栈空间大小*/
+    #define CATOS_SHELL_STACK_SIZE          (1024)            /**< 任务栈空间大小*/
+    #define CATOS_SHELL_USE_HISTORY         0           /**< 使用命令历史功能 */
 #endif
 
 /* cat_stdio */

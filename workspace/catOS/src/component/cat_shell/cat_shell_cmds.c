@@ -19,30 +19,32 @@ IMPORT_SECTION(cat_shell_cmd)
 
 /*************** key declares *****************/
 
-#if 0
+#if (CATOS_SHELL_USE_HISTORY == 1)
 void up_action(cat_shell_instance_t *shell_inst)
 {
-    CAT_SYS_PRINTF("[cat_shell_cmds] up is pressed !\r\n");
-    //history_up(shell_inst);
+    //CAT_SYS_PRINTF("[cat_shell_cmds] up is pressed !\r\n");
+    cat_history_up(shell_inst);
+    CAT_SYS_PRINTF("%s", shell_inst->buffer.buf);
 }
 CAT_DECLARE_KEY(up, CAT_KEY_DIRECTION_UP, up_action);
 
 void down_action(cat_shell_instance_t *shell_inst)
 {
-    CAT_SYS_PRINTF("[cat_shell_cmds] down is pressed !\r\n");
-    //history_down(shell_inst);
+    //CAT_SYS_PRINTF("[cat_shell_cmds] down is pressed !\r\n");
+    cat_history_down(shell_inst);
+    CAT_SYS_PRINTF("%s", shell_inst->buffer.buf);
 }
 CAT_DECLARE_KEY(down, CAT_KEY_DIRECTION_DOWN, down_action);
 
 void left_action(cat_shell_instance_t *shell_inst)
 {
-    CAT_SYS_PRINTF("[cat_shell_cmds] left is pressed !\r\n");
+    //CAT_SYS_PRINTF("[cat_shell_cmds] left is pressed !\r\n");
 }
 CAT_DECLARE_KEY(left, CAT_KEY_DIRECTION_LEFT, left_action);
 
 void right_action(cat_shell_instance_t *shell_inst)
 {
-    CAT_SYS_PRINTF("[cat_shell_cmds] right is pressed !\r\n");
+    //CAT_SYS_PRINTF("[cat_shell_cmds] right is pressed !\r\n");
 }
 CAT_DECLARE_KEY(right, CAT_KEY_DIRECTION_RIGHT, right_action);
 #endif
@@ -68,6 +70,10 @@ void enter_action(cat_shell_instance_t *shell_inst)
     if(shell_inst->buffer.length != 0)
     {
         cat_execute_cmd(shell_inst);
+
+#if (CATOS_SHELL_USE_HISTORY == 1)
+        cat_history_save(shell_inst);
+#endif
 
         shell_inst->buffer.buf[0] = '\0';
         shell_inst->buffer.length = 0;
@@ -118,7 +124,7 @@ void *do_cmd2(void *arg)
     return NULL;
 }
 CAT_DECLARE_CMD(cmd2, for test, do_cmd2);
-#endif
+
 
 void *do_test_args(void *arg)
 {
@@ -143,7 +149,6 @@ void *do_test_args(void *arg)
 }
 CAT_DECLARE_CMD(test_args, test args, do_test_args);
 
-#if 0
 void *do_test_atoi(void *arg)
 {
     CAT_ASSERT(arg);

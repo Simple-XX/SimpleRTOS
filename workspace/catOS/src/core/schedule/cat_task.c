@@ -40,7 +40,7 @@ struct _cat_task_info_t
 
     //void               *entry;                          /**< 入口函数 */
     //void               *arg;                            /**< 入口函数的参数 */
-    //void               *stack_start_addr;               /**< 堆栈起始地址*/
+    void               *stack_start_addr;               /**< 堆栈起始地址*/
     cat_uint32_t        stack_size;                     /**< 堆栈大小*/
 
     //struct _cat_node_t  link_node;                      /**< 任务表中的链表节点，也用于delay链表*/
@@ -118,10 +118,10 @@ void *do_ps(void *arg)
     struct _cat_task_t *task = NULL;
     struct _cat_task_info_t info = {0};
     cat_node_t         *tmp  = NULL;
+    cat_uint32_t       *p = NULL;
 
-    CAT_KPRINTF("%d tasks created\r\n", cat_list_count(&cat_task_manage_list));
     CAT_KPRINTF("-----------------------------------------------------------------------------------------\r\n");
-    CAT_KPRINTF("| task_name    | stragegy | prio | state    | stk_sz | stk_top    | sched_cnt | susp_cnt |\r\n");
+    CAT_KPRINTF("| task_name    | stragegy | prio | state    | stk_sz | stk_top    | stk_use | stk_max |\r\n");
     CAT_KPRINTF("-----------------------------------------------------------------------------------------\r\n");
 
     CAT_LIST_FOREACH(&cat_task_manage_list, tmp)
@@ -130,27 +130,34 @@ void *do_ps(void *arg)
         task = CAT_GET_CONTAINER(tmp, struct _cat_task_t, manage_node);
 
         /* 在临界区复制需要的值 */
-        cat_uint32_t status = cat_hw_irq_disable();
-        info.task_name      = task->task_name;
-        info.sched_strategy = task->sched_strategy;
-        info.prio           = task->prio;
-        info.state          = task->state;
-        info.stack_size     = task->stack_size;
-        info.sp             = task->sp;
-        info.sched_times    = task->sched_times;
-        info.suspend_cnt    = task->suspend_cnt;
+        cat_uint32_t status     = cat_hw_irq_disable();
+        info.task_name          = task->task_name;
+        info.sched_strategy     = task->sched_strategy;
+        info.prio               = task->prio;
+        info.state              = task->state;
+        info.stack_start_addr   = task->stack_start_addr;
+        info.stack_size         = task->stack_size;
+        info.sp                 = task->sp;
         cat_hw_irq_enable(status);
 
+        for(p=info.stack_start_addr + sizeof(cat_uint32_t); p<=(info.stack_start_addr + info.stack_size - sizeof(cat_uint32_t)); p++)
+        {
+            if(0xffffffff != *p)
+            {
+                break;
+            }
+        }
+
         CAT_KPRINTF(
-            "| %12s | %8s | %4d | %8s | %6d | %8x | %9d | %8d |\r\n",
+            "| %12s | %8s | %4d | %8s | %6d | %8x | %6d | %7d |\r\n",
             info.task_name,
             strategy_name_map[info.sched_strategy],
             info.prio,
             get_state_name(info.state),
             info.stack_size,
             info.sp,
-            info.sched_times,
-            info.suspend_cnt
+            (100 - ((info.sp - info.stack_start_addr) * 100 / info.stack_size)),
+            (100 - (((void *)p       - info.stack_start_addr) * 100 / info.stack_size))
         );
         //CAT_KPRINTF("------------------------------------------------------------------------------\r\n");
     }
