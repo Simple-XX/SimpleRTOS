@@ -83,22 +83,22 @@ static inline cat_uint8_t *get_state_name(cat_uint8_t state)
     {
         case CATOS_TASK_STATE_RDY:
         {
-            ret = state_name_map[0];
+            ret = (cat_uint8_t *)state_name_map[0];
             break;
         }
         case CATOS_TASK_STATE_DESTROYED:
         {
-            ret = state_name_map[1];
+            ret = (cat_uint8_t *)state_name_map[1];
             break;
         }
         case CATOS_TASK_STATE_DELAYED:
         {
-            ret = state_name_map[2];
+            ret = (cat_uint8_t *)state_name_map[2];
             break;
         }
         case CATOS_TASK_STATE_SUSPEND:
         {
-            ret = state_name_map[3];
+            ret = (cat_uint8_t *)state_name_map[3];
             break;
         }
         default:
@@ -140,7 +140,7 @@ void *do_ps(void *arg)
         info.sp                 = task->sp;
         cat_hw_irq_enable(status);
 
-        for(p=info.stack_start_addr + sizeof(cat_uint32_t); p<=(info.stack_start_addr + info.stack_size - sizeof(cat_uint32_t)); p++)
+        for(p=info.stack_start_addr + sizeof(cat_uint32_t); (cat_uint32_t)p<=((cat_uint32_t)info.stack_start_addr + info.stack_size - sizeof(cat_uint32_t)); p++)
         {
             if(0xffffffff != *p)
             {
