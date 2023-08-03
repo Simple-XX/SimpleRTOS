@@ -54,7 +54,7 @@ struct _cat_task_t
 
     cat_uint32_t        sched_times;                    /**< 调度次数*/
 
-    struct _cat_node_t *manage_node;                    /**< 用于管理的链表节点 */
+    struct _cat_node_t  manage_node;                    /**< 用于管理的链表节点 */
 };
 
 
