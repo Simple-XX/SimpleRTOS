@@ -15,6 +15,11 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
+#include "cat_drv_pin.h"
+
+
+#define PIN(_port_name, _pin) DRV_PIN_NUM(_port_name, _pin)
+
 #define CAT_PIN_LOW             0x00
 #define CAT_PIN_HIGH            0x01
 
@@ -35,7 +40,7 @@ void cat_pin_device_init(void);
  * @return cat_uint8_t  CAT_EOK: 成功
  *                  CAT_ERROR: 失败
  */
-cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode);
+cat_err_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode);
 
 /**
  * @brief 设置引脚模式
@@ -44,7 +49,7 @@ cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode);
  * @param mode     模式
  * @return cat_uint8_t 成功失败
  */
-cat_uint8_t cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode);
+void cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode);
 
 /**
  * @brief 读取引脚状态
@@ -52,7 +57,7 @@ cat_uint8_t cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode);
  * @param pin_num catos引脚号
  * @return int8_t 引脚当前值
  */
-cat_int8_t  cat_pin_read(cat_uint32_t pin_num);
+cat_uint8_t  cat_pin_read(cat_uint32_t pin_num);
 
 /**
  * @brief 修改输出引脚值
@@ -61,7 +66,7 @@ cat_int8_t  cat_pin_read(cat_uint32_t pin_num);
  * @param val       要输出的状态
  * @return cat_uint8_t  成功失败
  */
-cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val);
+void cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val);
 
 
 #endif

@@ -20,6 +20,7 @@
 /************** MACROS*********************/
 #define U32_MAX_VAL 0xffffffff
 
+/* 基本数据类型 */
 typedef signed char     cat_int8_t;
 typedef short int       cat_int16_t;
 typedef int             cat_int32_t;
@@ -28,12 +29,28 @@ typedef unsigned char           cat_uint8_t;
 typedef unsigned short int      cat_uint16_t;
 typedef unsigned int            cat_uint32_t;
 
-typedef cat_uint8_t cat_stack_type_t;
+
+/* 最高位宽数据类型 */
+typedef long                    cat_base_t;
+typedef unsigned long           cat_ubase_t;
+
+/* 布尔值定义 */
+typedef cat_uint8_t             cat_bool_t; /* 布尔值 */
+#define CAT_TRUE                (1)
+#define CAT_FALSE               (0)
+
 
 /* 错误代码定义 */
+typedef cat_base_t              cat_err_t;  /* 错误类型 */
 #define CAT_EOK                 (0)     /**< 成功 */
 #define CAT_ERROR               (1)     /**< 失败 */
 #define CAT_EINVAL              (2)     /**< 非法值 */
+
+typedef cat_uint8_t cat_stack_type_t;   /* 堆栈类型 */
+
+/* 空指针 */
+#define CAT_NULL                ((void *)0)
+
 
 /* 对齐 */
 /**

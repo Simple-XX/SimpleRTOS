@@ -14,7 +14,7 @@ cat_stack_type_t task2_env[TASK2_STACK_SIZE];
 cat_uint32_t sched_task1_times = 0;
 cat_uint32_t sched_task2_times = 0;
 
-#define BOARD_LED_PIN 0
+#define BOARD_LED_PIN PIN('B', 5)
 
 void board_led_init(void)
 {
