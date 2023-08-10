@@ -16,7 +16,7 @@
 #include "stm32f1xx.h"
 
 #define DRV_PIN_NUM(_port_name, _pin) ((((_port_name) - 'A') << 8) | (_pin))
-#define DRV_GET_PIN(_pin_num) ((cat_uint8_t)(1 << ((_pin_num) & 0xff)))
+#define DRV_GET_PIN(_pin_num) ((cat_uint32_t)(1 << ((_pin_num) & 0xff)))
 #define DRV_GET_PORT_OFFSET(_pin_num) ((cat_uint8_t)(_pin_num >> 8))
 
 typedef struct _stm32f103vet6_fire_gpio_port_t

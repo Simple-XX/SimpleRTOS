@@ -7,8 +7,11 @@
 ;  ER_IROM1 0x08000000 0x0007D000  {  ; load address = execution address
 
 ;用bootloader就得同时设置 system_stm32f1xx.c 中的 VECT_TAB_OFFSET 宏定义
-LR_IROM1 0x08003000 0x0007D000  {    ; load region size_region
-  ER_IROM1 0x08003000 0x0007D000  {  ; load address = execution address
+;LR_IROM1 0x08003000 0x0007D000  {    ; load region size_region
+;  ER_IROM1 0x08003000 0x0007D000  {  ; load address = execution address
+
+LR_IROM1 0x08000000 0x0007D000  {    ; load region size_region
+  ER_IROM1 0x08000000 0x0007D000  {  ; load address = execution address
    *.o (RESET, +First)
    *(InRoot$$Sections)
    .ANY (+RO)

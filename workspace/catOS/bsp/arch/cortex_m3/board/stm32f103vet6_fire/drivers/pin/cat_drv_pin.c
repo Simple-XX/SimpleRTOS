@@ -99,6 +99,8 @@ cat_err_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
     } /* for */
 #else
             cat_uint8_t str[2] = "a";
+            cat_uint32_t pin_offset = 0;
+
             GPIO_InitTypeDef  GPIO_InitStruct;
 
             /* 如果时钟没开先使能时钟 */
@@ -141,8 +143,17 @@ cat_err_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
                 ret = CAT_EOK;
 
                 str[0] = 'A' + DRV_GET_PORT_OFFSET(pin_num);
+
+                for(pin_offset=0; pin_offset<=0xff; pin_offset++)
+                {
+                    if((1 << pin_offset) == DRV_GET_PIN(pin_num))
+                    {
+                        break;
+                    }
+                }
+
                 CAT_KPRINTF("[pin] port_addr = %x\r\n", (cat_ubase_t)(port_map[DRV_GET_PORT_OFFSET(pin_num)].addr));
-                CAT_KPRINTF("[pin] (pin_num:%x)GPIO%s->%d init\r\n", pin_num, str, DRV_GET_PIN(pin_num));
+                CAT_KPRINTF("[pin] (pin_num:%x)GPIO%s->%d init\r\n", pin_num, str, pin_offset);
             }
 #endif
 
@@ -152,15 +163,76 @@ cat_err_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
 
 void cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
 {
-    CAT_KPRINTF("[pin] set mode now not support, abort!\r\n");
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    /* Configure GPIO_InitStructure */
+    GPIO_InitStruct.Pin = DRV_GET_PIN(pin_num);
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+
+    if (mode == CAT_PIN_MODE_OUTPUT)
+    {
+        /* output setting */
+        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+    }
+    // else if (mode == CAT_PIN_MODE_INPUT)
+    else
+    {
+        /* input setting: not pull. */
+        GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+    }
+
+
+    HAL_GPIO_Init(port_map[DRV_GET_PORT_OFFSET(pin_num)].addr, &GPIO_InitStruct);
+
+    cat_uint8_t str[2] = "a";
+    str[0] = 'A' + DRV_GET_PORT_OFFSET(pin_num);
+
+    cat_uint32_t pin_offset = 0;
+    for(pin_offset=0; pin_offset<=0xff; pin_offset++)
+    {
+        if((1 << pin_offset) == DRV_GET_PIN(pin_num))
+        {
+            break;
+        }
+    }
+
+    if (mode == CAT_PIN_MODE_OUTPUT)
+    {
+        CAT_KPRINTF("[pin_set_mode] set GPIO%s->%d to OUTPUT\r\n", str, pin_offset);
+    }
+    else
+    {
+        CAT_KPRINTF("[pin_set_mode] set GPIO%s->%d to INPUT \r\n", str, pin_offset);
+    }
+    
 }
 
 
 cat_uint8_t  cat_pin_read(cat_uint32_t pin_num)
 {
-    cat_uint8_t ret = CAT_ERROR;
-    CAT_KPRINTF("[pin] read func now not support, abort!\r\n");
-    return ret;
+    cat_uint8_t val;
+
+#if 0
+    cat_uint32_t idr = (port_map[DRV_GET_PORT_OFFSET(pin_num)].addr)->IDR;
+    cat_uint32_t pin_mask = DRV_GET_PIN(pin_num);
+
+    CAT_KPRINTF("pin_mask=%x, idr(%x)=%x\r\n", pin_mask, &(port_map[DRV_GET_PORT_OFFSET(pin_num)].addr)->IDR, idr);
+#endif    
+
+    if (((port_map[DRV_GET_PORT_OFFSET(pin_num)].addr)->IDR & DRV_GET_PIN(pin_num)) != 0)
+    {
+        val = CAT_PIN_HIGH;
+    }
+    else
+    {
+        val = CAT_PIN_LOW;
+    }
+
+    return val;
 }
 
 
@@ -234,3 +306,143 @@ void gpioe_clk_enable(void)
     CAT_KPRINTF("[pin init] GPIOE_CLK is enable\r\n");
 #endif
 }
+
+#if (CATOS_ENABLE_CAT_SHELL == 1)
+#include "cat_shell.h"
+#include "cat_stdio.h"
+#include "cat_string.h"
+#include "cat_error.h"
+void *do_rpin(void *arg)
+{
+    CAT_ASSERT(arg);
+    cat_shell_instance_t *inst = (cat_shell_instance_t *)arg;
+
+    cat_uint8_t port;
+    cat_int32_t pin_from_arg;
+    cat_uint32_t pin_num;
+
+    cat_uint8_t pin_val;
+
+    cat_int32_t ret = CAT_EOK;
+
+    
+    if(inst->buffer.arg_num != 2)
+    {
+        CAT_SYS_PRINTF("[rpin] usage:rpin [PORT(A)] [PIN(0)]\r\n");
+    }
+    else
+    {
+        port = inst->buffer.args[0][0];
+
+        if(
+            (port > 'Z') ||
+            (port < 'A')
+        )
+        {
+            CAT_SYS_PRINTF("[rpin] invalid port:%s\r\n", inst->buffer.args[0]);
+        }
+        else
+        {
+            ret = cat_atoi(&pin_from_arg, inst->buffer.args[1]);
+
+            if(
+                (pin_from_arg < 0) ||
+                (pin_from_arg > 0xff)
+            )
+            {
+                CAT_SYS_PRINTF("[rpin] invalid pin:%s\r\n", inst->buffer.args[1]);
+            }
+            else
+            {
+                /* 获取pin_num */
+                pin_num = DRV_PIN_NUM(port, (cat_uint8_t)pin_from_arg);
+
+                /* 设置为输入模式 */
+                cat_pin_set_mode(pin_num, CAT_PIN_MODE_INPUT);
+
+                /* 读取引脚值 */
+                pin_val = cat_pin_read(pin_num);
+
+                if(pin_val != 0)
+                {
+                    CAT_KPRINTF("P%s%s -> HIGH\r\n", inst->buffer.args[0], inst->buffer.args[1]);
+                }
+                else
+                {
+                    CAT_KPRINTF("P%s%s -> LOW \r\n", inst->buffer.args[0], inst->buffer.args[1]);
+                }
+                
+            }
+        }
+    }
+
+    return CAT_NULL;
+}
+CAT_DECLARE_CMD(rpin, read pin, do_rpin);
+
+void *do_wpin(void *arg)
+{
+    CAT_ASSERT(arg);
+    cat_shell_instance_t *inst = (cat_shell_instance_t *)arg;
+
+    cat_uint8_t port;
+    cat_int32_t pin_from_arg;
+    cat_uint32_t pin_num;
+
+    cat_int32_t ret = CAT_EOK;
+
+    
+    if(inst->buffer.arg_num != 3)
+    {
+        CAT_SYS_PRINTF("[wpin] usage:wpin [PORT(A)] [PIN(0)] [VAL(0/1)]\r\n");
+    }
+    else
+    {
+        port = inst->buffer.args[0][0];
+
+        if(
+            (port > 'Z') ||
+            (port < 'A')
+        )
+        {
+            CAT_SYS_PRINTF("[rpin] invalid port:%s\r\n", inst->buffer.args[0]);
+        }
+        else
+        {
+            ret = cat_atoi(&pin_from_arg, inst->buffer.args[1]);
+
+            if(
+                (pin_from_arg < 0) ||
+                (pin_from_arg > 0xff)
+            )
+            {
+                CAT_SYS_PRINTF("[rpin] invalid pin:%s\r\n", inst->buffer.args[1]);
+            }
+            else
+            {
+                /* 获取pin_num */
+                pin_num = DRV_PIN_NUM(port, (cat_uint8_t)pin_from_arg);
+
+                /* 设置引脚模式为输出 */
+                cat_pin_set_mode(pin_num, CAT_PIN_MODE_OUTPUT);
+
+                /* 判断参数中要写入的值是否是0 */
+                if(inst->buffer.args[2][0] != '0')
+                {
+                    cat_pin_write(pin_num, CAT_PIN_HIGH);
+                    CAT_KPRINTF("HIGH -> P%s%s\r\n", inst->buffer.args[0], inst->buffer.args[1]);
+                }
+                else
+                {
+                    cat_pin_write(pin_num, CAT_PIN_LOW);
+                    CAT_KPRINTF("LOW  -> P%s%s \r\n", inst->buffer.args[0], inst->buffer.args[1]);
+                }
+                
+            }
+        }
+    }
+
+    return CAT_NULL;
+}
+CAT_DECLARE_CMD(wpin, write pin, do_wpin);
+#endif

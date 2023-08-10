@@ -10,11 +10,11 @@ void OLED_ColorTurn(uint8_t i)
 {
 	if(i==0)
 		{
-			OLED_WR_Byte(0xA6,OLED_CMD);//正常显示
+			cat_iic_oled_send_byte(0xA6,OLED_CMD);//正常显示
 		}
 	if(i==1)
 		{
-			OLED_WR_Byte(0xA7,OLED_CMD);//反色显示
+			cat_iic_oled_send_byte(0xA7,OLED_CMD);//反色显示
 		}
 }
 
@@ -23,13 +23,13 @@ void OLED_DisplayTurn(uint8_t i)
 {
 	if(i==0)
 		{
-			OLED_WR_Byte(0xC8,OLED_CMD);//正常显示
-			OLED_WR_Byte(0xA1,OLED_CMD);
+			cat_iic_oled_send_byte(0xC8,OLED_CMD);//正常显示
+			cat_iic_oled_send_byte(0xA1,OLED_CMD);
 		}
 	if(i==1)
 		{
-			OLED_WR_Byte(0xC0,OLED_CMD);//反转显示
-			OLED_WR_Byte(0xA0,OLED_CMD);
+			cat_iic_oled_send_byte(0xC0,OLED_CMD);//反转显示
+			cat_iic_oled_send_byte(0xA0,OLED_CMD);
 		}
 }
 
@@ -96,7 +96,7 @@ void Send_Byte(uint8_t dat)
 
 //发送一个字节
 //mode:数据/命令标志 0,表示命令;1,表示数据;
-void OLED_WR_Byte(uint8_t dat,uint8_t mode)
+void cat_iic_oled_send_byte(uint8_t dat,uint8_t mode)
 {
 	I2C_Start();
 	Send_Byte(0x78);
@@ -110,19 +110,19 @@ void OLED_WR_Byte(uint8_t dat,uint8_t mode)
 }
 
 //开启OLED显示 
-void OLED_DisPlay_On(void)
+void cat_iic_oled_display_on(void)
 {
-	OLED_WR_Byte(0x8D,OLED_CMD);//电荷泵使能
-	OLED_WR_Byte(0x14,OLED_CMD);//开启电荷泵
-	OLED_WR_Byte(0xAF,OLED_CMD);//点亮屏幕
+	cat_iic_oled_send_byte(0x8D,OLED_CMD);//电荷泵使能
+	cat_iic_oled_send_byte(0x14,OLED_CMD);//开启电荷泵
+	cat_iic_oled_send_byte(0xAF,OLED_CMD);//点亮屏幕
 }
 
 //关闭OLED显示 
-void OLED_DisPlay_Off(void)
+void cat_iic_oled_display_off(void)
 {
-	OLED_WR_Byte(0x8D,OLED_CMD);//电荷泵使能
-	OLED_WR_Byte(0x10,OLED_CMD);//关闭电荷泵
-	OLED_WR_Byte(0xAE,OLED_CMD);//关闭屏幕
+	cat_iic_oled_send_byte(0x8D,OLED_CMD);//电荷泵使能
+	cat_iic_oled_send_byte(0x10,OLED_CMD);//关闭电荷泵
+	cat_iic_oled_send_byte(0xAE,OLED_CMD);//关闭屏幕
 }
 
 //更新显存到OLED	
@@ -131,9 +131,9 @@ void OLED_Refresh(void)
 	uint8_t i,n;
 	for(i=0;i<8;i++)
 	{
-		OLED_WR_Byte(0xb0+i,OLED_CMD); //设置行起始地址
-		OLED_WR_Byte(0x00,OLED_CMD);   //设置低列起始地址
-		OLED_WR_Byte(0x10,OLED_CMD);   //设置高列起始地址
+		cat_iic_oled_send_byte(0xb0+i,OLED_CMD); //设置行起始地址
+		cat_iic_oled_send_byte(0x00,OLED_CMD);   //设置低列起始地址
+		cat_iic_oled_send_byte(0x10,OLED_CMD);   //设置高列起始地址
 		I2C_Start();
 		Send_Byte(0x78);
 		I2C_WaitAck();
@@ -148,7 +148,7 @@ void OLED_Refresh(void)
   }
 }
 //清屏函数
-void OLED_Clear(void)
+void cat_iic_oled_clear(void)
 {
 	uint8_t i,n;
 	for(i=0;i<8;i++)
@@ -253,7 +253,7 @@ void OLED_DrawCircle(uint8_t x,uint8_t y,uint8_t r)
 //y:0~63
 //size1:选择字体 6x8/6x12/8x16/12x24
 //mode:0,反色显示;1,正常显示
-void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t size1,uint8_t mode)
+void cat_iic_oled_show_char(uint8_t x,uint8_t y,uint8_t chr,uint8_t size1,uint8_t mode)
 {
 	uint8_t i,m,temp,size2,chr1;
 	uint8_t x0=x,y0=y;
@@ -291,11 +291,11 @@ void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t size1,uint8_t mode)
 //size1:字体大小 
 //*chr:字符串起始地址 
 //mode:0,反色显示;1,正常显示
-void OLED_ShowString(uint8_t x,uint8_t y,uint8_t *chr,uint8_t size1,uint8_t mode)
+void cat_iic_oled_show_string(uint8_t x,uint8_t y,uint8_t *chr,uint8_t size1,uint8_t mode)
 {
 	while((*chr>=' ')&&(*chr<='~'))//判断是不是非法字符!
 	{
-		OLED_ShowChar(x,y,*chr,size1,mode);
+		cat_iic_oled_show_char(x,y,*chr,size1,mode);
 		if(size1==8)x+=6;
 		else x+=size1/2;
 		chr++;
@@ -319,7 +319,7 @@ uint32_t OLED_Pow(uint8_t m,uint8_t n)
 //len :数字的位数
 //size:字体大小
 //mode:0,反色显示;1,正常显示
-void OLED_ShowNum(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t size1,uint8_t mode)
+void cat_iic_oled_show_number(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t size1,uint8_t mode)
 {
 	uint8_t t,temp,m=0;
 	if(size1==8)m=2;
@@ -328,11 +328,11 @@ void OLED_ShowNum(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t size1,uin
 		temp=(num/OLED_Pow(10,len-t-1))%10;
 			if(temp==0)
 			{
-				OLED_ShowChar(x+(size1/2+m)*t,y,'0',size1,mode);
+				cat_iic_oled_show_char(x+(size1/2+m)*t,y,'0',size1,mode);
       }
 			else 
 			{
-			  OLED_ShowChar(x+(size1/2+m)*t,y,temp+'0',size1,mode);
+			  cat_iic_oled_show_char(x+(size1/2+m)*t,y,temp+'0',size1,mode);
 			}
   }
 }
@@ -446,7 +446,7 @@ void OLED_ShowPicture(uint8_t x,uint8_t y,uint8_t sizex,uint8_t sizey,uint8_t BM
 	 }
 }
 //OLED的初始化
-void OLED_Init(void)
+void cat_iic_oled_init(void)
 {
 	/*定义一个GPIO_InitTypeDef类型的结构体*/
     GPIO_InitTypeDef  GPIO_InitStruct;
@@ -498,34 +498,34 @@ void OLED_Init(void)
 	OLED_DELAY_MS(200);
 	OLED_RES_Set();
 	
-	OLED_WR_Byte(0xAE,OLED_CMD);//--turn off oled panel
-	OLED_WR_Byte(0x00,OLED_CMD);//---set low column address
-	OLED_WR_Byte(0x10,OLED_CMD);//---set high column address
-	OLED_WR_Byte(0x40,OLED_CMD);//--set start line address  Set Mapping RAM Display Start Line (0x00~0x3F)
-	OLED_WR_Byte(0x81,OLED_CMD);//--set contrast control register
-	OLED_WR_Byte(0xCF,OLED_CMD);// Set SEG Output Current Brightness
-	OLED_WR_Byte(0xA1,OLED_CMD);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-	OLED_WR_Byte(0xC8,OLED_CMD);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
-	OLED_WR_Byte(0xA6,OLED_CMD);//--set normal display
-	OLED_WR_Byte(0xA8,OLED_CMD);//--set multiplex ratio(1 to 64)
-	OLED_WR_Byte(0x3f,OLED_CMD);//--1/64 duty
-	OLED_WR_Byte(0xD3,OLED_CMD);//-set display offset	Shift Mapping RAM Counter (0x00~0x3F)
-	OLED_WR_Byte(0x00,OLED_CMD);//-not offset
-	OLED_WR_Byte(0xd5,OLED_CMD);//--set display clock divide ratio/oscillator frequency
-	OLED_WR_Byte(0x80,OLED_CMD);//--set divide ratio, Set Clock as 100 Frames/Sec
-	OLED_WR_Byte(0xD9,OLED_CMD);//--set pre-charge period
-	OLED_WR_Byte(0xF1,OLED_CMD);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
-	OLED_WR_Byte(0xDA,OLED_CMD);//--set com pins hardware configuration
-	OLED_WR_Byte(0x12,OLED_CMD);
-	OLED_WR_Byte(0xDB,OLED_CMD);//--set vcomh
-	OLED_WR_Byte(0x40,OLED_CMD);//Set VCOM Deselect Level
-	OLED_WR_Byte(0x20,OLED_CMD);//-Set Page Addressing Mode (0x00/0x01/0x02)
-	OLED_WR_Byte(0x02,OLED_CMD);//
-	OLED_WR_Byte(0x8D,OLED_CMD);//--set Charge Pump enable/disable
-	OLED_WR_Byte(0x14,OLED_CMD);//--set(0x10) disable
-	OLED_WR_Byte(0xA4,OLED_CMD);// Disable Entire Display On (0xa4/0xa5)
-	OLED_WR_Byte(0xA6,OLED_CMD);// Disable Inverse Display On (0xa6/a7) 
-	OLED_Clear();
-	OLED_WR_Byte(0xAF,OLED_CMD);
+	cat_iic_oled_send_byte(0xAE,OLED_CMD);//--turn off oled panel
+	cat_iic_oled_send_byte(0x00,OLED_CMD);//---set low column address
+	cat_iic_oled_send_byte(0x10,OLED_CMD);//---set high column address
+	cat_iic_oled_send_byte(0x40,OLED_CMD);//--set start line address  Set Mapping RAM Display Start Line (0x00~0x3F)
+	cat_iic_oled_send_byte(0x81,OLED_CMD);//--set contrast control register
+	cat_iic_oled_send_byte(0xCF,OLED_CMD);// Set SEG Output Current Brightness
+	cat_iic_oled_send_byte(0xA1,OLED_CMD);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
+	cat_iic_oled_send_byte(0xC8,OLED_CMD);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
+	cat_iic_oled_send_byte(0xA6,OLED_CMD);//--set normal display
+	cat_iic_oled_send_byte(0xA8,OLED_CMD);//--set multiplex ratio(1 to 64)
+	cat_iic_oled_send_byte(0x3f,OLED_CMD);//--1/64 duty
+	cat_iic_oled_send_byte(0xD3,OLED_CMD);//-set display offset	Shift Mapping RAM Counter (0x00~0x3F)
+	cat_iic_oled_send_byte(0x00,OLED_CMD);//-not offset
+	cat_iic_oled_send_byte(0xd5,OLED_CMD);//--set display clock divide ratio/oscillator frequency
+	cat_iic_oled_send_byte(0x80,OLED_CMD);//--set divide ratio, Set Clock as 100 Frames/Sec
+	cat_iic_oled_send_byte(0xD9,OLED_CMD);//--set pre-charge period
+	cat_iic_oled_send_byte(0xF1,OLED_CMD);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
+	cat_iic_oled_send_byte(0xDA,OLED_CMD);//--set com pins hardware configuration
+	cat_iic_oled_send_byte(0x12,OLED_CMD);
+	cat_iic_oled_send_byte(0xDB,OLED_CMD);//--set vcomh
+	cat_iic_oled_send_byte(0x40,OLED_CMD);//Set VCOM Deselect Level
+	cat_iic_oled_send_byte(0x20,OLED_CMD);//-Set Page Addressing Mode (0x00/0x01/0x02)
+	cat_iic_oled_send_byte(0x02,OLED_CMD);//
+	cat_iic_oled_send_byte(0x8D,OLED_CMD);//--set Charge Pump enable/disable
+	cat_iic_oled_send_byte(0x14,OLED_CMD);//--set(0x10) disable
+	cat_iic_oled_send_byte(0xA4,OLED_CMD);// Disable Entire Display On (0xa4/0xa5)
+	cat_iic_oled_send_byte(0xA6,OLED_CMD);// Disable Inverse Display On (0xa6/a7) 
+	cat_iic_oled_clear();
+	cat_iic_oled_send_byte(0xAF,OLED_CMD);
 }
 

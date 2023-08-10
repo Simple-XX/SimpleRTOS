@@ -18,6 +18,9 @@
         "cmb_en_us.h": "c",
         "cat_stdio.h": "c",
         "cat_sp_task.h": "c",
-        "cat_shell.h": "c"
+        "cat_shell.h": "c",
+        "cat_iic_oled.h": "c",
+        "drv_iic_oled.h": "c",
+        "cat_delay.h": "c"
     }
 }

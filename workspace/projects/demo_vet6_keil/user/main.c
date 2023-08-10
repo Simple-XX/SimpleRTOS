@@ -1,6 +1,8 @@
 
 #include "catos.h"
 
+#include "bmp.h"
+
 #define TASK1_STACK_SIZE    (1024)
 #define TASK2_STACK_SIZE    (1024)
 
@@ -15,6 +17,8 @@ cat_uint32_t sched_task1_times = 0;
 cat_uint32_t sched_task2_times = 0;
 
 #define BOARD_LED_PIN PIN('B', 5)
+
+#define TEST_IO_PIN   PIN('A', 4)
 
 void board_led_init(void)
 {
@@ -44,12 +48,34 @@ void task1_entry(void *arg)
     }
 }
 
+#define LED
 void task2_entry(void *arg)
 {
+#ifdef LED
+    cat_uint8_t t;
+
+    cat_iic_oled_init();
+    cat_iic_oled_clear(); 
+
+    t=' ';
+#endif
     for(;;)
     {
         cat_sp_task_delay(100);
+#ifdef LED
         //CAT_DEBUG_PRINTF("[task2] %d\r\n", catos_systicks);
+        cat_iic_oled_clear();
+        cat_iic_oled_show_string(0, 0, (cat_uint8_t *)"QAQ", 16);
+        cat_iic_oled_show_string(24, 0, (cat_uint8_t *)"QAQ", 8);
+        cat_iic_oled_show_string(42, 0, (cat_uint8_t *)"GOGOGO!", 16);
+        cat_iic_oled_show_string(0, 2, (cat_uint8_t *)"2023/8/10", 16);
+		cat_iic_oled_show_char(48,6,t,16);//显示ASCII字符	   
+		t++;
+		if(t>'~')t=' ';
+		cat_iic_oled_show_number(103,6,t,3,16);//显示ASCII字符的码值 	
+
+        //cat_delay_ms(8000);
+#endif
     }
 }
 
@@ -62,6 +88,8 @@ int main(void)
     /* 利用pin驱动初始化板载led */
     board_led_init();
     // EXTI_Key_Config();
+
+    cat_pin_init(TEST_IO_PIN, CAT_PIN_MODE_OUTPUT);
 
     /* 测试创建任务运行 */
     cat_sp_task_create(
