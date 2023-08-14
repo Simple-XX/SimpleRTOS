@@ -28,11 +28,11 @@ static void write_iic_oled_data(cat_uint8_t data)
 {
     cat_iic_start(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, 0x78);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, 0x40);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, data);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_stop(OLED_BUS);
 }
 
@@ -40,11 +40,11 @@ static void write_iic_oled_cmd(cat_uint8_t cmd)
 {
     cat_iic_start(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, 0x78);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, 0x00);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_send_byte(OLED_BUS, cmd);
-    cat_iic_wait_ack(OLED_BUS);
+    //cat_iic_wait_ack(OLED_BUS);
     cat_iic_stop(OLED_BUS);
 }
 
@@ -61,6 +61,7 @@ void cat_iic_oled_send_byte(unsigned dat,unsigned cmd)
 	if(cmd)
 	{
         write_iic_oled_data(dat);
+        // cat_iic_write_reg(OLED_BUS, 0x78, 0x40, dat);
     }
 	else {
         write_iic_oled_cmd(dat);
@@ -84,15 +85,16 @@ void cat_iic_oled_display_off(void)
 
 void cat_iic_oled_init(void)
 {
-    if(CAT_FALSE == OLED_BUS->is_init)
-    {
-        cat_iic_init(OLED_BUS);
-    }
+
+    cat_iic_init(OLED_BUS);
 
     /* 等待 800 毫秒 */
     cat_delay_ms(800);
 
+    cat_iic_wave(OLED_BUS);
+
     cat_iic_oled_send_byte(0xAE,OLED_CMD);//--display off
+    
 	cat_iic_oled_send_byte(0x00,OLED_CMD);//---set low column address
 	cat_iic_oled_send_byte(0x10,OLED_CMD);//---set high column address
 	cat_iic_oled_send_byte(0x40,OLED_CMD);//--set start line address  

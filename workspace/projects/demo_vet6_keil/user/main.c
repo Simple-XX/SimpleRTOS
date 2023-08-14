@@ -18,8 +18,6 @@ cat_uint32_t sched_task2_times = 0;
 
 #define BOARD_LED_PIN PIN('B', 5)
 
-#define TEST_IO_PIN   PIN('A', 4)
-
 void board_led_init(void)
 {
     cat_pin_init(BOARD_LED_PIN, CAT_PIN_MODE_OUTPUT);
@@ -79,7 +77,7 @@ void task2_entry(void *arg)
     }
 }
 
-
+extern cat_iic_bus_t soft_iic_2;
 int main(void)
 {
     /* 初始化操作系统 */
@@ -87,9 +85,8 @@ int main(void)
 
     /* 利用pin驱动初始化板载led */
     board_led_init();
-    // EXTI_Key_Config();
 
-    cat_pin_init(TEST_IO_PIN, CAT_PIN_MODE_OUTPUT);
+    cat_iic_init(&soft_iic_2);
 
     /* 测试创建任务运行 */
     cat_sp_task_create(

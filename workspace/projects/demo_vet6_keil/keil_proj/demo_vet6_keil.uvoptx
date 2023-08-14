@@ -152,18 +152,66 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>55</LineNumber>
+          <LineNumber>189</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134233054</Address>
+          <Address>134224220</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\user\main.c</Filename>
+          <Filename>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\demo_vet6_keil\../user/main.c\55</Expression>
+          <Expression>\\demo_vet6_keil\../../../catOS/bsp/arch/cortex_m3/board/stm32f103vet6_fire/drivers/iic/drv_soft_iic.c\189</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>194</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134224286</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\demo_vet6_keil\../../../catOS/bsp/arch/cortex_m3/board/stm32f103vet6_fire/drivers/iic/drv_soft_iic.c\194</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>196</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134224344</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\demo_vet6_keil\../../../catOS/bsp/arch/cortex_m3/board/stm32f103vet6_fire/drivers/iic/drv_soft_iic.c\196</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>197</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134224354</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\demo_vet6_keil\../../../catOS/bsp/arch/cortex_m3/board/stm32f103vet6_fire/drivers/iic/drv_soft_iic.c\197</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>

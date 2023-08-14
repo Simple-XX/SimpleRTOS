@@ -39,29 +39,32 @@ void cat_delay_us(cat_uint32_t us)
     cat_uint32_t told, tnow, tcnt = 0;
     cat_uint32_t reload = SysTick->LOAD;
 
-    tim_tick = us * reload / (1000000 / CATOS_SYSTICK_FRQ);
-    told = SysTick->VAL;
-
-    while(1)
+    if(0 != us)
     {
-        tnow = SysTick->VAL;
-        
-        if(tnow != told)
+        tim_tick = us * reload / (1000000 / CATOS_SYSTICK_FRQ);
+        told = SysTick->VAL;
+
+        while(1)
         {
-            if(tnow < told)
+            tnow = SysTick->VAL;
+            
+            if(tnow != told)
             {
-                tcnt += told - tnow;
-            }
-            else
-            {
-                tcnt += reload - tnow + told;
-            }
+                if(tnow < told)
+                {
+                    tcnt += told - tnow;
+                }
+                else
+                {
+                    tcnt += reload - tnow + told;
+                }
 
-            told = tnow;
+                told = tnow;
 
-            if(tcnt >= tim_tick)
-            {
-                break;
+                if(tcnt >= tim_tick)
+                {
+                    break;
+                }
             }
         }
     }

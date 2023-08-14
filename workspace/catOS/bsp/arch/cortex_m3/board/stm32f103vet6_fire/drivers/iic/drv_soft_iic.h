@@ -19,5 +19,6 @@
 #include "cat_iic.h"
 
 extern cat_iic_bus_t soft_iic_1;
+extern cat_iic_bus_t soft_iic_2;
 
 #endif

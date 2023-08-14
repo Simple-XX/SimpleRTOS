@@ -12,6 +12,9 @@
 #include "cat_drv_pin.h"
 #include "cat_stdio.h"
 
+#define DBG_PRINT_WHEN_PIN_MODE_CHANGED
+#undef  DBG_PRINT_WHEN_PIN_MODE_CHANGED
+
 // #define PIN_CONFIG \
 // { \
 //     {0,      "GPIOB", GPIOB,  GPIO_PIN_5}, \
@@ -200,6 +203,7 @@ void cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
         }
     }
 
+#ifdef DBG_PRINT_WHEN_PIN_MODE_CHANGED
     if (mode == CAT_PIN_MODE_OUTPUT)
     {
         CAT_KPRINTF("[pin_set_mode] set GPIO%s->%d to OUTPUT\r\n", str, pin_offset);
@@ -208,7 +212,8 @@ void cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
     {
         CAT_KPRINTF("[pin_set_mode] set GPIO%s->%d to INPUT \r\n", str, pin_offset);
     }
-    
+#endif
+
 }
 
 
