@@ -434,6 +434,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\oled\drv_iic_oled.c</FilePath>
             </File>
+            <File>
+              <FileName>drv_mpu6050.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

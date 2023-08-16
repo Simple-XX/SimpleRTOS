@@ -23,6 +23,8 @@
         "drv_iic_oled.h": "c",
         "cat_delay.h": "c",
         "drv_soft_iic.h": "c",
-        "cat_iic.h": "c"
+        "cat_iic.h": "c",
+        "drv_mpu6050.h": "c",
+        "cat_mpu6050.h": "c"
     }
 }

@@ -74,7 +74,7 @@
     #define CAT_SYS_GETCHAR() \
         cat_getchar()
 
-    #define sprintf(_buf, _fmt, ...) \
+    #define SPRINTF(_buf, _fmt, ...) \
         cat_sprintf((cat_uint8_t *)_buf, (const cat_uint8_t *)_fmt, ##__VA_ARGS__)
 
     /* 调试输出宏 */    

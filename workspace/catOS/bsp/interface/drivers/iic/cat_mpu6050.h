@@ -19,8 +19,6 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
-#include "cat_iic.h"
-
 /* 6050内部地址 */
 #define	SMPLRT_DIV		0x19	//陀螺仪采样率，典型值：0x07(125Hz)
 #define	CONFIG			0x1A	//低通滤波频率，典型值：0x06(5Hz)
@@ -45,7 +43,7 @@
 #define	SlaveAddress	0xD0	//IIC写入时的地址字节数据，+1为读取
 
 void cat_mpu6050_init(void);
-cat_uint32_t cat_mpu6050_get_data(cat_uint8_t reg_addr);
+cat_int32_t cat_mpu6050_get_data(cat_uint8_t reg_addr);
 
 
 #endif

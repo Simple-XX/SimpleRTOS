@@ -88,8 +88,8 @@ void cat_iic_oled_init(void)
 
     cat_iic_init(OLED_BUS);
 
-    /* 等待 800 毫秒 */
-    cat_delay_ms(800);
+    /* 等待 100 毫秒 */
+    cat_delay_ms(100);
 
     cat_iic_wave(OLED_BUS);
 

@@ -30,10 +30,10 @@
 
 #define SOFT_IIC_2_CONFIG \
 { \
-    .scl = PIN('A', 4), \
-    .sda = PIN('A', 6), \
+    .scl = PIN('B', 6), \
+    .sda = PIN('B', 7), \
     .is_init = CAT_FALSE, \
-    .delay_us = 1, \
+    .delay_us = 0, \
     .timeout_us = 100, \
     .name = (const cat_uint8_t *)"soft_iic2", \
 }

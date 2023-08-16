@@ -16,6 +16,7 @@
 #include "../bsp/interface/drivers/cat_delay.h"
 #include "../bsp/interface/drivers/iic/cat_iic.h"
 #include "../bsp/interface/drivers/iic/cat_iic_oled.h"
+#include "../bsp/interface/drivers/iic/cat_mpu6050.h"
 #include "../bsp/interface/drivers/cat_pin.h"
 
 #include "../src/core/init/cat_init.h"
