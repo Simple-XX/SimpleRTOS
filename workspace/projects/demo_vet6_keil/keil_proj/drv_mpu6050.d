@@ -1,0 +1,41 @@
+./drv_mpu6050.o: \
+  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.c \
+  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.h \
+  ..\..\..\catOS\bsp\interface\drivers\iic\cat_mpu6050.h \
+  ..\user\catos_config.h ..\..\..\catOS\include\catos_types.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.h \
+  ..\..\..\catOS\bsp\interface\drivers\iic\cat_iic.h \
+  ..\..\..\catOS\bsp\interface\drivers\cat_pin.h \
+  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\pin\cat_drv_pin.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xe.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Include\core_cm3.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Include\cmsis_version.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Include\cmsis_compiler.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Include\cmsis_armclang.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  ..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\system_stm32f1xx.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\stm32f1xx_hal_conf.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_def.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_exti.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma_ex.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_cortex.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h \
+  ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h \
+  ..\..\..\catOS\bsp\interface\drivers\cat_delay.h \
+  ..\..\..\catOS\src\component\cat_stdio\cat_stdio.h \
+  D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ..\..\..\catOS\src\component\cat_stdio\..\..\core\interrupt\cat_intr.h

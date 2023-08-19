@@ -36,8 +36,8 @@ void cat_mpu6050_init(void)
 
     cat_iic_wave(MPU6050_BUS);
     
-    MPU_WRITE_REG(PWR_MGMT_1, 0x00);	
-    MPU_WRITE_REG(SMPLRT_DIV, 0x07);
+    MPU_WRITE_REG(PWR_MGMT_1, 0x00);    /* 解除休眠 */
+    MPU_WRITE_REG(SMPLRT_DIV, 0x07);    /* 125 Hz 采样率 */
     MPU_WRITE_REG(CONFIG, 0x06);
     MPU_WRITE_REG(GYRO_CONFIG, 0x18);
     MPU_WRITE_REG(ACCEL_CONFIG, 0x01);
