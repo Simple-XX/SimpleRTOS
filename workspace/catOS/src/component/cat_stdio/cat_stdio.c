@@ -788,7 +788,7 @@ cat_int32_t cat_printf(const cat_uint8_t *format, ...)
         case 'f':
         {
             p++;
-            _cat_print_float(va_arg(ap, cat_float_t), keep, width);
+            _cat_print_float(va_arg(ap, cat_double_t), keep, width);
             break;
         }
             
@@ -939,7 +939,7 @@ cat_int32_t cat_sprintf(cat_uint8_t *buf, cat_bool_t with_end, const cat_uint8_t
         case 'f':
         {
             p++;
-            _cat_sprint_float(buf, &buf_idx, va_arg(ap, cat_float_t), keep, width);
+            _cat_sprint_float(buf, &buf_idx, va_arg(ap, cat_double_t), keep, width);
             break;
         }
 

@@ -1,11 +1,10 @@
-./drv_mpu6050.o: \
-  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.c \
-  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.h \
-  ..\..\..\catOS\bsp\interface\drivers\iic\cat_mpu6050.h \
-  ..\user\catos_config.h ..\..\..\catOS\include\catos_types.h \
+./usr_hmc.o: ..\user\HMC5883L\usr_hmc.c ..\user\HMC5883L\usr_hmc.h \
+  ..\..\..\catOS\include\catos.h \
+  ..\..\..\catOS\include\..\bsp\interface\port.h ..\user\catos_config.h \
+  ..\..\..\catOS\include\catos_types.h \
   D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\drv_soft_iic.h \
-  ..\..\..\catOS\bsp\interface\drivers\iic\cat_iic.h \
+  ..\..\..\catOS\include\..\bsp\interface\drivers\cat_delay.h \
+  ..\..\..\catOS\include\..\bsp\interface\drivers\iic\cat_iic.h \
   ..\..\..\catOS\bsp\interface\drivers\cat_pin.h \
   ..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\pin\cat_drv_pin.h \
   ..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h \
@@ -35,7 +34,19 @@
   ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h \
   ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h \
   ..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h \
-  ..\..\..\catOS\bsp\interface\drivers\cat_delay.h \
+  ..\..\..\catOS\include\..\bsp\interface\drivers\iic\cat_iic_oled.h \
+  ..\..\..\catOS\bsp\interface\drivers\iic\cat_iic.h \
+  ..\..\..\catOS\include\..\bsp\interface\drivers\iic\cat_mpu6050.h \
+  ..\..\..\catOS\include\..\bsp\interface\drivers\cat_pin.h \
+  ..\..\..\catOS\include\..\src\core\init\cat_init.h \
+  ..\..\..\catOS\include\..\src\core\interrupt\cat_intr.h \
+  ..\..\..\catOS\include\..\src\core\schedule\cat_task.h \
+  ..\..\..\catOS\src\core\schedule\static_prio_sched\cat_sp_task.h \
+  ..\..\..\catOS\src\core\schedule\static_prio_sched\..\basic_task\cat_basic_task.h \
+  ..\..\..\catOS\src\core\schedule\basic_task\..\..\support\cat_list.h \
+  ..\..\..\catOS\include\..\src\component\cat_stdio\cat_error.h \
   ..\..\..\catOS\src\component\cat_stdio\cat_stdio.h \
   D:\softwares\keil\keil_MDK_ARM\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  ..\..\..\catOS\src\component\cat_stdio\..\..\core\interrupt\cat_intr.h
+  ..\..\..\catOS\src\component\cat_stdio\..\..\core\interrupt\cat_intr.h \
+  ..\..\..\catOS\include\..\src\component\cat_stdio\cat_stdio.h \
+  ..\..\..\catOS\include\..\src\component\cat_string\cat_string.h

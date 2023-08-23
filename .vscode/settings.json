@@ -25,6 +25,9 @@
         "drv_soft_iic.h": "c",
         "cat_iic.h": "c",
         "drv_mpu6050.h": "c",
-        "cat_mpu6050.h": "c"
+        "cat_mpu6050.h": "c",
+        "cat_hmc5883l.h": "c",
+        "cat_drv_pin.h": "c",
+        "mpu6050.h": "c"
     }
 }

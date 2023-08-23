@@ -13,13 +13,9 @@
  * <tr><td>v1.0 <td>文佳源 <td>2023-08-17 <td>内容
  * </table>
  */
-#ifndef USR_HMC_H
-#define USR_HMC_H
+#ifndef DRV_HMC_H
+#define DRV_HMC_H
 
-#include "catos.h"
-
-void hmc_init(void);
-
-void hmc_get_all_data(cat_float_t *x, cat_float_t *z, cat_float_t *y);
+#include "cat_HMC5883L.h"
 
 #endif

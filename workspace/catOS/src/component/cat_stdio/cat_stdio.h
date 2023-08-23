@@ -20,6 +20,23 @@
 
 #if (CATOS_ENABLE_SYS_PRINTF == 1)
 
+/* 定义文字颜色编码 START */
+// #define COLOR_NONE          "\e[0m"      /* 清除颜色，该码之后的打印恢复原色 */
+
+// #define COLOR_RED           "\e[0:31m"    /* 红色 */
+// #define COLOR_LIGHT_RED     "\e[0;31m"    /* 亮红色 */
+// #define COLOR_GREEN         "\e[0;32m"    /* 绿色 */
+// #define COLOR_LIGHT_GREEN   "\e[1;32m"    /* 亮绿色 */
+// #define COLOR_YELLOW        "\e[1;33m"    /* 黄色 */
+#define COLOR_NONE          "\33[0m"      /* 清除颜色，该码之后的打印恢复原色 */
+
+#define COLOR_RED           "\33[31m"    /* 红色 */
+#define COLOR_LIGHT_RED     "\33[1;31m"    /* 亮红色 */
+#define COLOR_GREEN         "\33[1;32m"    /* 绿色 */
+#define COLOR_LIGHT_GREEN   "\33[32m"    /* 亮绿色 */
+#define COLOR_YELLOW        "\33[1;33m"    /* 黄色 */
+/* 定义文字颜色编码 END   */
+
 #if defined(__CC_ARM)
     #if 0
         #define CAT_SYS_PRINTF(_fmt, ...) \

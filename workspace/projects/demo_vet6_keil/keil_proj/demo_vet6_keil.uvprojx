@@ -325,7 +325,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>3</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
+            <uSurpInc>1</uSurpInc>
             <uC99>0</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\catOS\bsp\Libraries\CMSIS\Include;..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include;..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver;..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\pin;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\uart;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\oled;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\delay;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050;..\..\..\catOS\bsp\interface;..\..\..\catOS\bsp\interface\drivers;..\..\..\catOS\bsp\interface\drivers\iic;..\..\..\catOS\include;..\..\..\catOS\src\component\cat_device;..\..\..\catOS\src\component\cat_shell;..\..\..\catOS\src\component\cat_stdio;..\..\..\catOS\src\component\cat_string;..\..\..\catOS\src\component\mem_rw;..\..\..\catOS\src\core\idle_task;..\..\..\catOS\src\core\init;..\..\..\catOS\src\core\interrupt;..\..\..\catOS\src\core\schedule;..\..\..\catOS\src\core\schedule\basic_task;..\..\..\catOS\src\core\schedule\static_prio_sched;..\..\..\catOS\src\core\support;..\user;..\user\HMC5883L</IncludePath>
+              <IncludePath>..\..\..\catOS\bsp\Libraries\CMSIS\Include;..\..\..\catOS\bsp\Libraries\CMSIS\Device\ST\STM32F1xx\Include;..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver;..\..\..\catOS\bsp\Libraries\STM32F1xx_HAL_Driver\Inc;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\pin;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\uart;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\oled;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\delay;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL;..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\HMC5883L;..\..\..\catOS\bsp\interface;..\..\..\catOS\bsp\interface\drivers;..\..\..\catOS\bsp\interface\drivers\iic;..\..\..\catOS\include;..\..\..\catOS\src\component\cat_device;..\..\..\catOS\src\component\cat_shell;..\..\..\catOS\src\component\cat_stdio;..\..\..\catOS\src\component\cat_string;..\..\..\catOS\src\component\mem_rw;..\..\..\catOS\src\core\idle_task;..\..\..\catOS\src\core\init;..\..\..\catOS\src\core\interrupt;..\..\..\catOS\src\core\schedule;..\..\..\catOS\src\core\schedule\basic_task;..\..\..\catOS\src\core\schedule\static_prio_sched;..\..\..\catOS\src\core\support;..\user</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -435,14 +435,39 @@
               <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\oled\drv_iic_oled.c</FilePath>
             </File>
             <File>
-              <FileName>mpu6050.c</FileName>
+              <FileName>drv_hmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\mpu6050.c</FilePath>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\HMC5883L\drv_hmc.c</FilePath>
             </File>
             <File>
-              <FileName>usr_hmc.c</FileName>
+              <FileName>drv_mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\user\HMC5883L\usr_hmc.c</FilePath>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\drv_mpu6050.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL\inv_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL\inv_mpu_dmp_motion_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu6050.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL\mpu6050.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpuiic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL\mpuiic.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\catOS\bsp\arch\cortex_m3\board\stm32f103vet6_fire\drivers\iic\mpu6050\eMPL\sys.c</FilePath>
             </File>
           </Files>
         </Group>

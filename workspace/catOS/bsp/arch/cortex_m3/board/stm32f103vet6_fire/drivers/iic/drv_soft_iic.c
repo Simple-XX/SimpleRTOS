@@ -17,30 +17,6 @@
 #include "cat_delay.h"
 #include "cat_stdio.h"
 
-
-#define SOFT_IIC_1_CONFIG \
-{ \
-    .scl = PIN('A', 5), \
-    .sda = PIN('A', 7), \
-    .is_init = CAT_FALSE, \
-    .delay_us = 0, \
-    .timeout_us = 100, \
-    .name = (const cat_uint8_t *)"soft_iic1", \
-}
-
-#define SOFT_IIC_2_CONFIG \
-{ \
-    .scl = PIN('B', 6), \
-    .sda = PIN('B', 7), \
-    .is_init = CAT_FALSE, \
-    .delay_us = 0, \
-    .timeout_us = 100, \
-    .name = (const cat_uint8_t *)"soft_iic2", \
-}
-
-cat_iic_bus_t soft_iic_1 = SOFT_IIC_1_CONFIG;
-cat_iic_bus_t soft_iic_2 = SOFT_IIC_2_CONFIG;
-
 void cat_iic_init(cat_iic_bus_t *bus)
 {
     if(CAT_FALSE == bus->is_init)
@@ -240,7 +216,7 @@ cat_uint8_t cat_iic_read_reg(cat_iic_bus_t *bus, cat_uint8_t device_addr, cat_ui
     cat_iic_start(bus);
     cat_iic_send_byte(bus, device_addr+1);
     data = cat_iic_read_byte(bus);
-    cat_iic_send_ack(bus);
+    cat_iic_send_nack(bus);
     cat_iic_stop(bus);
 
     return data;
@@ -250,6 +226,20 @@ cat_uint8_t cat_iic_read_reg(cat_iic_bus_t *bus, cat_uint8_t device_addr, cat_ui
 #include "cat_shell.h"
 #include "cat_string.h"
 #include "cat_error.h"
+
+#define _SHELL_IIC_CONFIG \
+{ \
+    .scl = PIN('A', 3), \
+    .sda = PIN('A', 2), \
+    .is_init = CAT_FALSE, \
+    .delay_us = 0, \
+    .timeout_us = 100, \
+    .name = (const cat_uint8_t *)"shell_iic", \
+}
+
+static cat_iic_bus_t _shell_iic = _SHELL_IIC_CONFIG;
+#define _SHELL_IIC_BUS  (&_shell_iic)
+
 void *do_iic_read(void *arg)
 {
     CAT_ASSERT(arg);
@@ -268,7 +258,7 @@ void *do_iic_read(void *arg)
         cat_htoi(&device_addr, inst->buffer.args[0]);
         cat_htoi(&reg_addr, inst->buffer.args[1]);
 
-        data = cat_iic_read_reg(&soft_iic_2, device_addr, reg_addr);
+        data = cat_iic_read_reg(_SHELL_IIC_BUS, device_addr, reg_addr);
 
         CAT_KPRINTF("iic[%x](%x) -> %x\r\n", device_addr, reg_addr, data);
     }
@@ -296,7 +286,7 @@ void *do_iic_write(void *arg)
         cat_htoi(&reg_addr, inst->buffer.args[1]);
         cat_htoi(&val, inst->buffer.args[2]);
 
-        cat_iic_write_reg(&soft_iic_2, device_addr, reg_addr, val);
+        cat_iic_write_reg(_SHELL_IIC_BUS, device_addr, reg_addr, val);
 
         CAT_KPRINTF("%x -> iic[%x](%x) \r\n", val, device_addr, reg_addr);
     }
@@ -309,7 +299,7 @@ void *do_iic_start(void *arg)
 {
     CAT_ASSERT(arg);
 
-    cat_iic_start(&soft_iic_2);
+    cat_iic_start(_SHELL_IIC_BUS);
 
     CAT_KPRINTF("[iic] start \r\n");
 
@@ -321,7 +311,7 @@ void *do_iic_stop(void *arg)
 {
     CAT_ASSERT(arg);
 
-    cat_iic_stop(&soft_iic_2);
+    cat_iic_stop(_SHELL_IIC_BUS);
 
     CAT_KPRINTF("[iic] stop \r\n");
 
@@ -346,9 +336,9 @@ void *do_iic_sb(void *arg)
     }
     else
     {
-        cat_iic_start(&soft_iic_2);
-        cat_iic_send_byte(&soft_iic_2, byte);
-        cat_iic_stop(&soft_iic_2);
+        cat_iic_start(_SHELL_IIC_BUS);
+        cat_iic_send_byte(_SHELL_IIC_BUS, byte);
+        cat_iic_stop(_SHELL_IIC_BUS);
 
         CAT_KPRINTF("[iic] send %x \r\n", byte);
     }
@@ -371,9 +361,9 @@ void *do_iic_rb(void *arg)
     }
     else
     {
-        cat_iic_start(&soft_iic_2);
-        byte = cat_iic_read_byte(&soft_iic_2);
-        cat_iic_stop(&soft_iic_2);
+        cat_iic_start(_SHELL_IIC_BUS);
+        byte = cat_iic_read_byte(_SHELL_IIC_BUS);
+        cat_iic_stop(_SHELL_IIC_BUS);
 
         CAT_KPRINTF("[iic] receive %x \r\n", byte);
     }
@@ -392,10 +382,10 @@ void *do_h_sb(void *arg)
 
     cat_htoi(&byte, inst->buffer.args[0]);
 
-    SDA_OUT(&soft_iic_2);
-    SDA_H(&soft_iic_2);
+    SDA_OUT(_SHELL_IIC_BUS);
+    SDA_H(_SHELL_IIC_BUS);
 
-    SDA_IN(&soft_iic_2);
+    SDA_IN(_SHELL_IIC_BUS);
     
     if(inst->buffer.arg_num != 1)
     {
@@ -403,9 +393,9 @@ void *do_h_sb(void *arg)
     }
     else
     {
-        cat_iic_start(&soft_iic_2);
-        cat_iic_send_byte(&soft_iic_2, byte);
-        cat_iic_stop(&soft_iic_2);
+        cat_iic_start(_SHELL_IIC_BUS);
+        cat_iic_send_byte(_SHELL_IIC_BUS, byte);
+        cat_iic_stop(_SHELL_IIC_BUS);
 
         CAT_KPRINTF("[h_sb] send %x \r\n", byte);
     }
@@ -424,10 +414,10 @@ void *do_l_sb(void *arg)
 
     cat_htoi(&byte, inst->buffer.args[0]);
 
-    SDA_OUT(&soft_iic_2);
-    SDA_L(&soft_iic_2);
+    SDA_OUT(_SHELL_IIC_BUS);
+    SDA_L(_SHELL_IIC_BUS);
 
-    SDA_IN(&soft_iic_2);
+    SDA_IN(_SHELL_IIC_BUS);
     
     if(inst->buffer.arg_num != 1)
     {
@@ -435,9 +425,9 @@ void *do_l_sb(void *arg)
     }
     else
     {
-        cat_iic_start(&soft_iic_2);
-        cat_iic_send_byte(&soft_iic_2, byte);
-        cat_iic_stop(&soft_iic_2);
+        cat_iic_start(_SHELL_IIC_BUS);
+        cat_iic_send_byte(_SHELL_IIC_BUS, byte);
+        cat_iic_stop(_SHELL_IIC_BUS);
 
         CAT_KPRINTF("[l_sb] send %x \r\n", byte);
     }

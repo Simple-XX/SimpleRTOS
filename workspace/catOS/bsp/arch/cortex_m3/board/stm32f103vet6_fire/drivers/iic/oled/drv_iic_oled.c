@@ -17,12 +17,14 @@
 #include "drv_iic_oled.h"
 #include "oledfont.h"
 
+#include "cat_error.h"
 #include "cat_delay.h"
 
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
 
-#define OLED_BUS (&soft_iic_1)
+static cat_iic_bus_t *_oled_iic_bus_ptr = CAT_NULL;
+#define OLED_BUS (_oled_iic_bus_ptr)
 
 static void write_iic_oled_data(cat_uint8_t data)
 {
@@ -83,8 +85,10 @@ void cat_iic_oled_display_off(void)
     cat_iic_oled_send_byte(0XAE,OLED_CMD);  //DISPLAY OFF
 }
 
-void cat_iic_oled_init(void)
+void cat_iic_oled_init(cat_iic_bus_t *bus)
 {
+    CAT_ASSERT(NULL != bus);
+    _oled_iic_bus_ptr = bus;
 
     cat_iic_init(OLED_BUS);
 

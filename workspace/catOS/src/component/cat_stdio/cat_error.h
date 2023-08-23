@@ -35,4 +35,11 @@
         while(1); \
     }while(0)
 
+#define CAT_PRINT_ERROR(_err_msg) \
+    do{ \
+        CAT_KPRINTF(COLOR_LIGHT_RED); \
+        CAT_SYS_PRINTF(_err_msg); \
+        CAT_SYS_PRINTF(COLOR_NONE); \
+    }while(0)
+
 #endif

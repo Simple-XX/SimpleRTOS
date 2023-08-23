@@ -29,8 +29,8 @@ typedef unsigned char           cat_uint8_t;
 typedef unsigned short int      cat_uint16_t;
 typedef unsigned int            cat_uint32_t;
 
-// typedef float                   cat_float_t;
-typedef double                  cat_float_t;
+typedef float                   cat_float_t;
+typedef double                  cat_double_t;
 
 
 /* 最高位宽数据类型 */

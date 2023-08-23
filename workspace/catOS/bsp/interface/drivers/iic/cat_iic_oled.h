@@ -22,7 +22,7 @@
 void cat_iic_oled_send_byte(unsigned dat,unsigned cmd);  
 void cat_iic_oled_display_on(void);
 void cat_iic_oled_display_off(void);	   							   		    
-void cat_iic_oled_init(void);
+void cat_iic_oled_init(cat_iic_bus_t *bus);
 void cat_iic_oled_clear(void);
 
 
