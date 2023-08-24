@@ -1,5 +1,6 @@
 
 #include "catos.h"
+#include <math.h>
 
 /* 定义任务资源 START */
 #define TASK1_STACK_SIZE    (1024)
@@ -90,16 +91,16 @@ void task1_entry(void *arg)
 
 #define OLED
 
-#define OLED_SHOW_MPU6050
+// #define OLED_SHOW_MPU6050
 #ifdef OLED_SHOW_MPU6050
 cat_uint8_t pitch_str[15] = {0}, roll_str[15] = {0}, yaw_str[15] = {0};
 cat_bool_t new_mpu_data_written = CAT_FALSE;
 #endif
 
-// #define OLED_SHOW_HMC5883L
+#define OLED_SHOW_HMC5883L
 #ifdef OLED_SHOW_HMC5883L
-cat_float_t hmc_x=0, hmc_z=0, hmc_y=0;
-cat_uint8_t hmc_x_str[15] = {0}, hmc_z_str[15] = {0}, hmc_y_str[15] = {0};
+cat_float_t hmc_x=0, hmc_z=0, hmc_y=0, hmc_angle = 0;
+cat_uint8_t hmc_angle_str[15] = {0};
 cat_bool_t new_hmc_data_written = CAT_FALSE;
 #endif
 
@@ -119,42 +120,34 @@ void task2_entry(void *arg)
 #ifdef OLED
  #ifdef OLED_SHOW_MPU6050
         cat_iic_oled_show_string(0,  0, (cat_uint8_t *)"pitch=", 8);
-        cat_iic_oled_show_string(0,  2, (cat_uint8_t *)"roll =", 8);
-        cat_iic_oled_show_string(0,  4, (cat_uint8_t *)"yaw  =", 8);
+        cat_iic_oled_show_string(0,  4, (cat_uint8_t *)"roll =", 8);
+        cat_iic_oled_show_string(0,  7, (cat_uint8_t *)"yaw  =", 8);
 
         if(CAT_TRUE == new_mpu_data_written)
         {
             cat_iic_oled_show_string(64, 0,  (cat_uint8_t *)"        ", 8);
-            cat_iic_oled_show_string(64, 2,  (cat_uint8_t *)"        ", 8);
             cat_iic_oled_show_string(64, 4,  (cat_uint8_t *)"        ", 8);
+            cat_iic_oled_show_string(64, 7,  (cat_uint8_t *)"        ", 8);
 
             cat_iic_oled_show_string(64, 0, pitch_str, 8);
-            cat_iic_oled_show_string(64, 2, roll_str , 8);
-            cat_iic_oled_show_string(64, 4, yaw_str  , 8);
+            cat_iic_oled_show_string(64, 4, roll_str , 8);
+            cat_iic_oled_show_string(64, 7, yaw_str  , 8);
 
             new_mpu_data_written = CAT_FALSE;
         }
  #endif /* OLED_SHOW_MPU6050 */
 
  #ifdef OLED_SHOW_HMC5883L
-        cat_iic_oled_show_string(0,  0, (cat_uint8_t *)"hmc_x=", 8);
-        cat_iic_oled_show_string(0,  3, (cat_uint8_t *)"hmc_z=", 8);
-        cat_iic_oled_show_string(0,  6, (cat_uint8_t *)"hmc_y=", 8);
+        cat_iic_oled_show_string(0,  0, (cat_uint8_t *)"angle=", 8);
 
         if(CAT_TRUE == new_hmc_data_written)
         {
             cat_iic_oled_show_string(64, 0,  (cat_uint8_t *)"        ", 8);
-            cat_iic_oled_show_string(64, 3,  (cat_uint8_t *)"        ", 8);
-            cat_iic_oled_show_string(64, 6,  (cat_uint8_t *)"        ", 8);
 
 #if 1
-            SPRINTF(hmc_x_str, "%.2f", hmc_x);
-            SPRINTF(hmc_z_str, "%.2f", hmc_z);
-            SPRINTF(hmc_y_str, "%.2f", hmc_y);
+            SPRINTF(hmc_angle_str, "%.2f", hmc_angle);
 
-            cat_iic_oled_show_string(64, 0, hmc_x_str, 8);
-            cat_iic_oled_show_string(64, 3, hmc_z_str, 8);
-            cat_iic_oled_show_string(64, 6, hmc_y_str, 8);
+            cat_iic_oled_show_string(64, 0, hmc_angle_str, 8);
 
 #else
             //cat_iic_oled_show_number(64, 0, hmc_x_str, 6, 8);
@@ -178,11 +171,14 @@ void task3_entry(void *arg)
     cat_float_t gx, gy, gz;
     cat_float_t pitch, roll, yaw;
 
+#ifdef OLED_SHOW_MPU6050
     cat_mpu6050_init(&mpu_iic_bus);
     cat_delay_ms(1000);
+#endif
 
     for(;;)
     {
+#ifdef OLED_SHOW_MPU6050
         cat_mpu6050_get_angle(&pitch, &roll, &yaw);
 
         if(CAT_FALSE == new_mpu_data_written)
@@ -193,6 +189,7 @@ void task3_entry(void *arg)
 
             new_mpu_data_written = CAT_TRUE;
         }
+#endif
 
         cat_sp_task_delay(10);
     }
@@ -201,22 +198,29 @@ void task3_entry(void *arg)
 /* hmc5883l 磁场数据获取 */
 void task4_entry(void *arg)
 {
+    
+
     /* 初始化 HMC5883L */
-    // hmc_init();
+    hmc_init(&hmc_iic_bus);
 
     // hmc_self_test(&hmc_iic_bus);
 
     while(1)
     {
-#if 0
+#if 1
         hmc_get_all_data(&hmc_x, &hmc_z, &hmc_y);
+
+        hmc_angle = (atan2(hmc_y, hmc_x) * (180.0 / 3.14159265) + 180 + 180);
+        if(hmc_angle > 360)
+        {
+            hmc_angle -= 360;
+        }
+
         new_hmc_data_written = CAT_TRUE;
 
-        CAT_SYS_PRINTF("hmc_x=%.2f, hmc_z=%.2f, hmc_y=%.2f\r\n", hmc_x, hmc_z, hmc_y);
-
-        cat_sp_task_delay(100);   
+        CAT_SYS_PRINTF("angle=%.2f\r\n", hmc_angle);
 #endif
-        cat_sp_task_delay(100);
+        cat_sp_task_delay(10);
     }
 }
 
@@ -254,7 +258,7 @@ int main(void)
       &task2,
       task2_entry,
       NULL,
-      0,
+      29, /* 比 shell 任务高一点 */
       task2_env,
       sizeof(task2_env)
     );
@@ -269,15 +273,15 @@ int main(void)
       sizeof(task3_env)
     );
 
-    // cat_sp_task_create(
-    //   (const cat_uint8_t *)"task4",
-    //   &task4,
-    //   task4_entry,
-    //   NULL,
-    //   0,
-    //   task4_env,
-    //   sizeof(task4_env)
-    // );
+    cat_sp_task_create(
+      (const cat_uint8_t *)"task4",
+      &task4,
+      task4_entry,
+      NULL,
+      0,
+      task4_env,
+      sizeof(task4_env)
+    );
 
     /* 开始调度 */
     catos_start_sched();

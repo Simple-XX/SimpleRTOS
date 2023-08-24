@@ -1,5 +1,7 @@
 #include "drv_hmc.h"
 
+#define HMC5883L_GET_RANGE 0
+
 #define HMC5883L_DEV_ADDR       0x3c
 #define HMC5883L_REG_CONFIG_A   0x00
 #define HMC5883L_REG_CONFIG_B   0x01
@@ -27,6 +29,68 @@ static cat_iic_bus_t *_HMC5883L_iic_bus_ptr = CAT_NULL;
 #define HMC_READ_IIC(reg)       \
     cat_iic_read_reg(HMC5883L_IIC_BUS, HMC5883L_DEV_ADDR, reg)
 
+static inline void _get_raw_data(cat_int32_t *x, cat_int32_t *z, cat_int32_t *y)
+{
+    cat_int32_t xr=0, yr=0, zr=0;
+    cat_uint8_t tmp = 0;
+
+    tmp = HMC_READ_IIC(HMC5883L_REG_DX_MSB);
+    xr = tmp;
+    tmp = HMC_READ_IIC(HMC5883L_REG_DX_LSB);
+    xr = (xr << 8) | tmp;
+    tmp = HMC_READ_IIC(HMC5883L_REG_DZ_MSB);
+    zr = tmp;
+    tmp = HMC_READ_IIC(HMC5883L_REG_DZ_LSB);
+    zr = (zr << 8) | tmp;
+    tmp = HMC_READ_IIC(HMC5883L_REG_DY_MSB);
+    yr = tmp;
+    tmp = HMC_READ_IIC(HMC5883L_REG_DY_LSB);
+    yr = (yr << 8) | tmp;
+
+    if(xr > 0x7fff) xr -= 0xffff;
+    if(yr > 0x7fff) yr -= 0xffff;
+    if(zr > 0x7fff) zr -= 0xffff;
+
+    *x = xr;
+    *z = zr;
+    *y = yr;
+}
+
+#if (HMC5883L_GET_RANGE == 1)
+static float midx, midy;
+static float kx,   ky;
+static void _get_magnet_field(void)
+{
+    cat_uint8_t i = 0;
+    float xmax, xmin, ymax, ymin, zmax, zmin;
+    float x, y, z;
+
+    hmc_get_all_data(&xmax, &zmax, &ymax);
+    xmin = xmax;
+    ymin = ymax;
+
+    for(; i<100; i++)
+    {
+        hmc_get_all_data(&x, &z, &y);
+
+        xmax = xmax < x ? x : xmax;
+        xmin = xmin > x ? x : xmin;
+
+        ymax = ymax < y ? y : ymax;
+        ymin = ymin > y ? y : ymin;
+
+        cat_delay_ms(10);
+    }
+
+    /* 平均值 */
+    midx = (xmax + xmin) / 2;
+    midy = (ymax + ymin) / 2;
+
+    /* 系数 */
+    kx = 2 / (xmax - xmin);
+    ky = 2 / (ymax - ymin);
+}
+#endif
 
 void hmc_init(cat_iic_bus_t *bus)
 {
@@ -58,11 +122,11 @@ void hmc_init(cat_iic_bus_t *bus)
     {
         CAT_KPRINTF("[hmc5883l] identify pass start setup the sensor\r\n");
 
-        /* 设置数据输出速率 1.5 Hz，测量模式预留 */
-        //HMC_WRITE_IIC(HMC5883L_REG_CONFIG_A, 0x70);
+        /* 设置数据输出速率 1.5 Hz，测量模式为正常测量模式 */
+        HMC_WRITE_IIC(HMC5883L_REG_CONFIG_A, 0x70);
 
         /* 设置增益为 1090 高斯 */
-        //HMC_WRITE_IIC(HMC5883L_REG_CONFIG_B, 0x20);
+        HMC_WRITE_IIC(HMC5883L_REG_CONFIG_B, 0x20);
 
         /* 设置为连续测量模式 */
         HMC_WRITE_IIC(HMC5883L_REG_MODE, 0x00);
@@ -72,6 +136,12 @@ void hmc_init(cat_iic_bus_t *bus)
     {
         CAT_PRINT_ERROR("[hmc5883l] identify fail, please check the sensor\r\n");
     }
+
+#if (HMC5883L_GET_RANGE == 1)
+    CAT_KPRINTF("[hmc5883l] start mesure field\r\n");
+    _get_magnet_field();
+    CAT_KPRINTF("[hmc5883l] mesure done, midx=%.2f, midy=%.2f, kx=%.2f, ky=%.2f\r\n", midx, midy, kx, ky);
+#endif
 }
 
 void hmc_self_test(cat_iic_bus_t *bus)
@@ -153,37 +223,8 @@ void hmc_self_test(cat_iic_bus_t *bus)
 void hmc_get_all_data(cat_float_t *x, cat_float_t *z, cat_float_t *y)
 {
     cat_int32_t xr=0, yr=0, zr=0;
-    cat_uint8_t tmp = 0;
 
 #if 0
-    cat_iic_start(HMC5883L_IIC_BUS);
-    cat_iic_send_byte(HMC5883L_IIC_BUS, HMC5883L_DEV_ADDR);
-    cat_iic_send_byte(HMC5883L_IIC_BUS, HMC5883L_REG_DX_MSB);
-    cat_iic_start(HMC5883L_IIC_BUS);
-    cat_iic_send_byte(HMC5883L_IIC_BUS, HMC5883L_DEV_ADDR + 1);
-
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    xr = tmp;
-    cat_iic_send_ack(HMC5883L_IIC_BUS);
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    xr  = (xr << 8) | tmp;
-    cat_iic_send_ack(HMC5883L_IIC_BUS);
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    zr = tmp;
-    cat_iic_send_ack(HMC5883L_IIC_BUS);
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    zr = (zr << 8) | tmp;
-    cat_iic_send_ack(HMC5883L_IIC_BUS);
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    yr = tmp;
-    cat_iic_send_ack(HMC5883L_IIC_BUS);
-    tmp = cat_iic_read_byte(HMC5883L_IIC_BUS);
-    yr = (yr << 8) | tmp;
-    cat_iic_send_nack(HMC5883L_IIC_BUS);
-
-    cat_iic_stop(HMC5883L_IIC_BUS);
-#else
-
     tmp = HMC_READ_IIC(HMC5883L_REG_DX_MSB);
     xr = tmp;
     tmp = HMC_READ_IIC(HMC5883L_REG_DX_LSB);
@@ -197,22 +238,13 @@ void hmc_get_all_data(cat_float_t *x, cat_float_t *z, cat_float_t *y)
     tmp = HMC_READ_IIC(HMC5883L_REG_DY_LSB);
     yr = (yr << 8) | tmp;
 
-#endif
-
-#if 0
     if(xr > 0x7fff) xr -= 0xffff;
-    if(zr > 0x7fff) zr -= 0xffff;
     if(yr > 0x7fff) yr -= 0xffff;
+#endif
+    _get_raw_data(&xr, &zr, &yr);
 
-    *x = xr;
-    *z = zr;
-    *y = yr;
-#else
     /* 要除以增益 */
     *x = (cat_float_t)xr / 1090;
+    *z = (cat_float_t)zr / 1090;
     *y = (cat_float_t)yr / 1090;
-
-    /* z不准, 直接搞成 0 */
-    *z = 0;
-#endif
 }
