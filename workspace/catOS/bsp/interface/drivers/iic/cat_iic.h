@@ -64,16 +64,40 @@ cat_err_t cat_iic_send_ack(cat_iic_bus_t *bus);
 cat_err_t cat_iic_send_nack(cat_iic_bus_t *bus);
 
 /**
- * @brief 向iic总线发送一个字节数据
+ * @brief 向 iic 总线发送一个字节数据
  * 
  * @param  bus              总线结构指针
  * @param  byte             要发送的数据
  * @return cat_bool_t       TRUE:收到ACK; FALSE:收到NACK
  */
 cat_bool_t cat_iic_send_byte(cat_iic_bus_t *bus, cat_uint8_t byte);
+
+/**
+ * @brief 从 iic 总线读取一个字节数据
+ * 
+ * @param bus           总线结构指针
+ * @return cat_uint8_t  读取到的数据
+ */
 cat_uint8_t cat_iic_read_byte(cat_iic_bus_t *bus);
 
+/**
+ * @brief 写 iic 设备寄存器
+ * 
+ * @param bus           总线结构指针
+ * @param device_addr   设备写地址(8位，最低位为0)
+ * @param reg_addr      寄存器地址
+ * @param data          要写入的数据
+ */
 void cat_iic_write_reg(cat_iic_bus_t *bus, cat_uint8_t device_addr, cat_uint8_t reg_addr, cat_uint8_t data);
+
+/**
+ * @brief 读 iic 设备寄存器
+ * 
+ * @param bus           总线结构指针
+ * @param device_addr   设备写地址(8位，最低位为0)
+ * @param reg_addr      寄存器地址
+ * @return cat_uint8_t  读取到的数据
+ */
 cat_uint8_t cat_iic_read_reg(cat_iic_bus_t *bus, cat_uint8_t device_addr, cat_uint8_t reg_addr);
 
 #endif
