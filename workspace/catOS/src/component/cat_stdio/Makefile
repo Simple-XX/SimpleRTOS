@@ -1,6 +1,4 @@
 
-CINCLUDE_FILE += catOS/src/support
-CINCLUDE_FILE += catOS/user/bsp/uart
 
 obj-y += cat_stdio.o
 

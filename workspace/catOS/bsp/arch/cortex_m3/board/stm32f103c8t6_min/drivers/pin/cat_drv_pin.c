@@ -32,7 +32,7 @@ void cat_pin_device_init(void)
 #endif
 }
 
-cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
+cat_err_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
 {
     cat_uint8_t ret = CAT_ERROR;
     stm32f103vet6_fire_pin_t *p = &(pin_map[0]);
@@ -82,15 +82,13 @@ cat_uint8_t cat_pin_init(cat_uint32_t pin_num, cat_uint8_t mode)
     return ret;
 }
 
-cat_uint8_t cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
+void cat_pin_set_mode(cat_uint32_t pin_num, cat_uint8_t mode)
 {
-    cat_uint8_t ret = CAT_ERROR;
     CAT_KPRINTF("[pin] set mode now not support, abort!\r\n");
-    return ret;
 }
 
 
-cat_int8_t  cat_pin_read(cat_uint32_t pin_num)
+cat_uint8_t  cat_pin_read(cat_uint32_t pin_num)
 {
     cat_int8_t ret = CAT_ERROR;
     CAT_KPRINTF("[pin] read func now not support, abort!\r\n");
@@ -98,9 +96,8 @@ cat_int8_t  cat_pin_read(cat_uint32_t pin_num)
 }
 
 
-cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val)
+void cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val)
 {
-    cat_uint8_t ret = CAT_EINVAL;
     stm32f103vet6_fire_pin_t *p = &(pin_map[0]);
     
     /* 遍历pin_map数组 */
@@ -110,14 +107,11 @@ cat_uint8_t cat_pin_write(cat_uint32_t pin_num, cat_uint8_t val)
         {
             HAL_GPIO_WritePin(p->port, p->gpio_pin, (GPIO_PinState)val);
 
-            ret = CAT_EOK;
 
             /* 写入结束结束循环 */
             break;
         } /* if */
     } /* for */
-
-    return ret;
 }
 
 #if (CATOS_ENABLE_CAT_SHELL == 1)
@@ -151,7 +145,7 @@ void *do_write_pin(void *arg)
         CAT_KPRINTF("[pin] pin=%d, val=%d\r\n", pin_num, val);
 
         /* 调用pin_write函数写入 */
-        ret = cat_pin_write(pin_num, val);
+        cat_pin_write(pin_num, val);
         if(ret != CAT_EOK)
         {
             CAT_SYS_PRINTF("[pin] fail to write !!\r\n");

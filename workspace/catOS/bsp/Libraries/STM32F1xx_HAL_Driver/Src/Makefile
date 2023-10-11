@@ -1,10 +1,4 @@
 
-CINCLUDE_FILE += user
-
-CINCLUDE_FILE += catOS/bsp/$(CATOS_BOARD_BSP)/Libraries/CMSIS/Include
-CINCLUDE_FILE += catOS/bsp/$(CATOS_BOARD_BSP)/Libraries/CMSIS/Device/ST/STM32F1xx/Include
-CINCLUDE_FILE += catOS/bsp/$(CATOS_BOARD_BSP)/Libraries/STM32F1xx_HAL_Driver/Inc
-
 
 #HAL_LIB_DRIVER
 obj-y += stm32f1xx_hal_adc.o

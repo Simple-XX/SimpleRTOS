@@ -15,7 +15,7 @@
 #include "catos_config.h"
 #include "catos_types.h"
 
-#include "cat_drv_pin.h"
+#include "pin/cat_drv_pin.h"
 
 
 #define PIN(_port_name, _pin) DRV_PIN_NUM(_port_name, _pin)

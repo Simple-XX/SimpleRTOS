@@ -5,6 +5,10 @@ CAT_COMPILE_INFO += OUT_ELF = $(TEXT_COLOR_GREEN)$(OUT_ELF)$(TEXT_COLOR_END)\n
 CAT_COMPILE_INFO += compile_enable_detail = $(TEXT_COLOR_GREEN)$(compile_enable_detail)$(TEXT_COLOR_END)\n
 
 
+include projects/$(PROJECT)/include_paths.mk
+
+CINCLUDE_FILE += projects/$(PROJECT)/user
+
 
 subdir-y += catOS
 subdir-y += projects

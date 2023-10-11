@@ -64,7 +64,7 @@ void SysTick_Handler(void)
 /* 开始调度 */
 void catos_start_sched(void)
 {
-
+#if 0
     cat_sp_task_before_start_first();
 
     /* 开启定时器中断 */
@@ -74,77 +74,28 @@ void catos_start_sched(void)
 
     MEM8(NVIC_SYSPRI2)      = NVIC_PENDSV_PRI;
     MEM32(NVIC_INT_CTRL)    = NVIC_PENDSVSET;
-}
+#else
+  struct _cat_task_t *first_task = NULL;
 
-/* 栈初始化 */
-/**< 异常触发时自动保存的寄存器 */
-struct _exception_stack_frame
-{
-  cat_uint32_t r0;
-  cat_uint32_t r1;
-  cat_uint32_t r2;
-  cat_uint32_t r3;
-  cat_uint32_t r12;
-  cat_uint32_t lr;  /**< r14 */
-  cat_uint32_t pc;  /**< r15 */
-  cat_uint32_t psr;
-};
+    //cat_sp_task_before_start_first();
+    /* 获取最高优先级任务 */
+    first_task = cat_sp_task_highest_ready();
 
-struct _stack_frame
-{
-  /**< 需要自行保存的寄存器 */
-  cat_uint32_t r4;
-  cat_uint32_t r5;
-  cat_uint32_t r6;
-  cat_uint32_t r7;
-  cat_uint32_t r8;
-  cat_uint32_t r9;
-  cat_uint32_t r10;
-  cat_uint32_t r11;
+    /* 因为是第一个任务，不用像调度时判断是否和上一个任务一样，直接赋值给当前任务就行 */
+    cat_sp_cur_task = first_task;
 
-  struct _exception_stack_frame exeption_stack_frame;
-};
+    /* 允许调度(打开调度锁，并且不在该处进行调度) */
+    cat_sp_task_sched_enable_without_sched();
 
-/**
- * @brief 栈初始化
- * 
- * @param task_entry    任务入口函数地址
- * @param parameter     参数
- * @param stack_addr    栈起始地址
- * @param exit          任务退出函数地址
- * @return cat_uint8_t*     初始化后的栈顶地址
- */
-cat_uint8_t *cat_hw_stack_init(void *task_entry, void *arg, cat_uint8_t *stack_addr, void *exit_func)
-{
-  struct _stack_frame *stack_frame;
-  cat_uint8_t             *stack;
-  cat_uint32_t            i;
+    /* 开启时钟中断 */
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 
-  /* 先加上4字节再8字节向下取整对齐(相当于四舍五入) */
-  stack = stack_addr += sizeof(cat_uint32_t);
-  stack = (cat_uint8_t *)CAT_ALIGN_DOWN((cat_uint32_t)stack, 8);
+    /* 设置pendsv中断优先级 */
+    MEM8(NVIC_SYSPRI2)      = NVIC_PENDSV_PRI;
 
-  /* 栈向上生长 */
-  stack -= sizeof(struct _stack_frame);
-  stack_frame = (struct _stack_frame *)stack;
-
-  /* 初始化栈帧中所有寄存器 */
-  for(i = 0; i < (sizeof(struct _stack_frame) / sizeof(cat_uint32_t)); i++)
-  {
-      ((cat_uint32_t *)stack_frame)[i] = 0xdeadbeef;
-  }
-
-  stack_frame->exeption_stack_frame.r0  = (cat_uint32_t)arg;
-  stack_frame->exeption_stack_frame.r1  = 0;
-  stack_frame->exeption_stack_frame.r2  = 0;
-  stack_frame->exeption_stack_frame.r3  = 0;
-  stack_frame->exeption_stack_frame.r12 = 0;
-  stack_frame->exeption_stack_frame.lr  = (cat_uint32_t)exit_func;
-  stack_frame->exeption_stack_frame.pc  = (cat_uint32_t)task_entry;
-  stack_frame->exeption_stack_frame.psr = (cat_uint32_t)(1 << 24);
-
-  /* 返回当前栈指针 */
-  return stack;
+    /* 切换到第一个任务 */
+    cat_hw_context_switch_to_first((cat_uint32_t)&(first_task->sp));
+#endif
 }
 
 

@@ -41,7 +41,7 @@ ifdef obj-y
 #编译文件
 $(OBJ_OUT_DIR)/%.o: $(CUR_DIR)/%.c
 ifeq ($(compile_enable_detail), n)
-	@echo "compile $(notdir $<)"
+	@echo "compile $<"
 	@$(CC) $(CINCLUDE_FILE_FLAG) $(CFLAGS) -o $@ -c $<
 else
 	$(CC) $(CINCLUDE_FILE_FLAG) $(CFLAGS) -o $@ -c $<
@@ -75,6 +75,6 @@ endif
 
 #编译子目录
 $(subdir-y):
-	@$(MAKE) -C $@
+	$(MAKE) -C $@
 
-
+export CINCLUDE_FILE

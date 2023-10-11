@@ -1,5 +1,4 @@
 
-CINCLUDE_FILE += catOS/include
 
 subdir-y += user
 
