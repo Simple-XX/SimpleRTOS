@@ -75,25 +75,25 @@
 
 例如`stm32f103vet6`的项目：
 
-![image-20230626210944466](README.assets/image-20230626210944466.png)
+![image-20230626210944466](.README.assets/image-20230626210944466.png)
 
 ###### step2: 连接好开发板调试器和串口，并确认供电正常
 
 串口设置：
 
-![image-20230626211928349](README.assets/image-20230626211928349.png)
+![image-20230626211928349](.README.assets/image-20230626211928349.png)
 
 ###### step3: 构建
 
-![image-20230626211247187](README.assets/image-20230626211247187.png)
+![image-20230626211247187](.README.assets/image-20230626211247187.png)
 
 ###### step4: 下载
 
-![image-20230626211822243](README.assets/image-20230626211822243.png)
+![image-20230626211822243](.README.assets/image-20230626211822243.png)
 
 然后可以观察到串口输出，输入`help`可以查看当前`os`中的命令
 
-![image-20230626212038935](README.assets/image-20230626212038935.png)
+![image-20230626212038935](.README.assets/image-20230626212038935.png)
 
 #### 2.2.2 linux环境：
 
@@ -206,7 +206,7 @@ SIMPLERTOS
 ├─Build
 ├─gcc-arm-none-eabi-10-2020-q4-major
 ├─notes
-├─README.assets
+├─.README.assets
 └─workspace
     ├─catOS
     │  ├─bsp
