@@ -7,6 +7,6 @@
 #calao-usb-a9260.cfg      jlink.cfg      parport_dlc5.cfg        sysfsgpio-raspberrypi.cfg
 #chameleon.cfg            jtag_vpi.cfg   raspberrypi-native.cfg  ti-icdi.cfg
 #openocd -f /usr/share/openocd/scripts/interface/cmsis-dap.cfg -f /usr/share/openocd/scripts/target/stm32f1x.cfg
-openocd -f /usr/share/openocd/scripts/interface/stlink-v2.cfg -f /usr/share/openocd/scripts/target/stm32f1x.cfg
+$WORKSPACE_HOME/xpack-openocd-0.12.0-2/bin/openocd -f interface/cmsis-dap.cfg -f target/stm32f1x.cfg
 
 
