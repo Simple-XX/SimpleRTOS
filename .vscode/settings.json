@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "*.md": "markdown",
+        "*.h": "c",
+        "*.c": "c",
+        "algorithm": "c",
+        "iterator": "c",
+        "xhash": "c",
+        "xtree": "c",
+        "xutility": "c",
+        "future": "c",
+        "mutex": "c",
+        "list": "c",
+        "memory": "c",
+        "array": "c",
+        "span": "c",
+        "vector": "c",
+        "xstring": "c",
+        "atomic": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": false,
+    "C_Cpp.default.compilerPath": "d:/softwares/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc"
+}
