@@ -16,21 +16,21 @@
 <br />
 
 <p align="center">
-  <a href="https://github.com/peach-1s-me/CatOS/">
+  <a href="https://github.com/Simple-XX/SimpleRTOS/">
     <img src="README.assets/simplertos_logo.png" alt="Logo" width="240">
   </a>
 
   <p align="center">
     一个简单的嵌入式操作系统,超小!
     <br />
-    <a href="https://github.com/peach-1s-me/CatOS/tree/main/doc/doc.md"><strong>探索本项目的文档 »</strong></a>
+    <a href="https://github.com/Simple-XX/SimpleRTOS/tree/main/doc/"><strong>探索本项目的文档 »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/peach-1s-me/CatOS/tree/main/projects">查看Demo</a>
+    <a href="https://github.com/Simple-XX/SimpleRTOS/tree/main/projects">查看Demo</a>
     ·
-    <a href="https://github.com/peach-1s-me/CatOS/issues">报告Bug</a>
+    <a href="https://github.com/Simple-XX/SimpleRTOS/issues">报告Bug</a>
     ·
-    <a href="https://github.com/peach-1s-me/CatOS/issues">提出新特性</a>
+    <a href="https://github.com/Simple-XX/SimpleRTOS/issues">提出新特性</a>
   </p>
 
 </p>
@@ -158,7 +158,7 @@ git config --global core.autocrlf true
 ![](README.assets/3-1-run_bat_error.png)
 
 ```sh
-git clone https://github.com/peach-1s-me/CatOS.git
+git clone https://github.com/Simple-XX/SimpleRTOS.git
 ```
 
 1.2 在catOS/projects目录下复制project_template并重命名作为项目目录(以blink为例)
@@ -751,7 +751,7 @@ qq:648137125
 
 ### 版权说明
 
-该项目签署了 Apache 授权许可，详情请参阅 [LICENSE](https://github.com/peach-1s-me/CatOS/blob/main/LICENSE)
+该项目签署了 Apache 授权许可，详情请参阅 [LICENSE](https://github.com/Simple-XX/SimpleRTOS/blob/main/LICENSE)
 
 ### 鸣谢
 
@@ -764,14 +764,14 @@ qq:648137125
 
 <!-- links -->
 
-[your-project-path]:peach-1s-me/CatOS
-[contributors-shield]: https://img.shields.io/github/contributors/peach-1s-me/CatOS.svg?style=flat-square
-[contributors-url]: https://github.com/peach-1s-me/CatOS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/peach-1s-me/CatOS.svg?style=flat-square
-[forks-url]: https://github.com/peach-1s-me/CatOS/network/members
-[stars-shield]: https://img.shields.io/github/stars/peach-1s-me/CatOS.svg?style=flat-square
-[stars-url]: https://github.com/peach-1s-me/CatOS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/peach-1s-me/CatOS.svg?style=flat-square
-[issues-url]: https://img.shields.io/github/issues/peach-1s-me/CatOS.svg
-[license-shield]: https://img.shields.io/github/license/peach-1s-me/CatOS.svg?style=flat-square
-[license-url]: https://github.com/peach-1s-me/CatOS/blob/main/LICENSE
+[your-project-path]:Simple-XX/SimpleRTOS
+[contributors-shield]: https://img.shields.io/github/contributors/Simple-XX/SimpleRTOS.svg?style=flat-square
+[contributors-url]: https://github.com/Simple-XX/SimpleRTOS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Simple-XX/SimpleRTOS.svg?style=flat-square
+[forks-url]: https://github.com/Simple-XX/SimpleRTOS/network/members
+[stars-shield]: https://img.shields.io/github/stars/Simple-XX/SimpleRTOS.svg?style=flat-square
+[stars-url]: https://github.com/Simple-XX/SimpleRTOS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Simple-XX/SimpleRTOS.svg?style=flat-square
+[issues-url]: https://img.shields.io/github/issues/Simple-XX/SimpleRTOS.svg
+[license-shield]: https://img.shields.io/github/license/Simple-XX/SimpleRTOS.svg?style=flat-square
+[license-url]: https://github.com/Simple-XX/SimpleRTOS/blob/main/LICENSE
